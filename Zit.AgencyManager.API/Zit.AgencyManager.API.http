@@ -1,0 +1,6 @@
+@Zit.AgencyManager.API_HostAddress = http://localhost:5065
+
+GET {{Zit.AgencyManager.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
