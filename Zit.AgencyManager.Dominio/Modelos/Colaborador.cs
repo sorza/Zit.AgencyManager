@@ -6,13 +6,11 @@
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
-        public DateTime DataNascimento { get; set; }
+        public DateOnly DataNascimento { get; set; }
         public int AgenciaId { get; set; }
         public virtual Agencia Agencia { get; set; }
         public int CargoId { get; set; }
         public virtual Cargo Cargo { get; set; }
-        public string? UsuarioId { get; set; }
-        public virtual Usuario? Usuario { get; set; }
         public DateOnly DataAdmissao { get; set; }
         public DateOnly? DataDemissao { get; set; }
         public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();

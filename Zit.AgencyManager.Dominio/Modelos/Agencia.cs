@@ -1,9 +1,12 @@
-﻿namespace Zit.AgencyManager.Dominio.Modelos
+﻿using System.Security;
+
+namespace Zit.AgencyManager.Dominio.Modelos
 {
     public class Agencia
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
+        public string CNPJ { get; set; }
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();

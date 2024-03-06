@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zit.AgencyManager.Dominio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e1521a4c93c0336a73d59b0dc83f352630fc76a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfd77d912a4e5074662f68ceefa7fe1d14f9ccd4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zit.AgencyManager.Dominio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zit.AgencyManager.Dominio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

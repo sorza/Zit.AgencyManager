@@ -1,0 +1,13 @@
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\bin\Debug\net8.0\Zit.AgencyManager.Dominio.deps.json
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\bin\Debug\net8.0\Zit.AgencyManager.Dominio.dll
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\bin\Debug\net8.0\Zit.AgencyManager.Dominio.pdb
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.csproj.AssemblyReference.cache
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.AssemblyInfoInputs.cache
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.AssemblyInfo.cs
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.sourcelink.json
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.dll
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\refint\Zit.AgencyManager.Dominio.dll
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\Zit.AgencyManager.Dominio.pdb
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Dominio\obj\Debug\net8.0\ref\Zit.AgencyManager.Dominio.dll

@@ -6,8 +6,6 @@
         public string RazaoSocial { get; set; }
         public string? NomeFantasia { get; set; }
         public string CNPJ { get; set; }
-        public decimal Comissao { get; set; }
-        public DateOnly? DataContrato { get; set; }
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato>? Contatos { get; set; } = new List<Contato>();
@@ -17,10 +15,10 @@
         {
             if (contato is not null) Contatos?.Add(contato);
         }
-
-        public void AdicionarTrajeto(Trajeto trajeto)
+        public void AdicionarContato(Trajeto trajeto)
         {
             if (trajeto is not null) Trajetos?.Add(trajeto);
         }
+
     }
 }
