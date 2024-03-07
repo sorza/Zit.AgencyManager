@@ -1,44 +1,56 @@
-var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+using Microsoft.EntityFrameworkCore;
+using Zit.AgencyManager.API.Endpoints;
+using Zit.AgencyManager.Dados.Banco;
+using Zit.AgencyManager.Dominio.Modelos;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+namespace Zit.AgencyManager.API
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-app.UseHttpsRedirection();
+            builder.Services.AddDbContext<AgencyManagerContext>((options) => {
+                options
+                        .UseSqlServer(builder.Configuration["ConnectionStrings:AgencyManagerDB"])
+                        .UseLazyLoadingProxies();
+            });
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+            builder.Services.AddAuthorization();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-app.Run();
+            builder.Services.AddTransient<DAL<Agencia>>();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+            builder.Services.AddCors(
+                options => options.AddPolicy(
+                    "wasm",
+                    policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "https://localhost:7089",
+                        builder.Configuration["FrontendUrl"] ?? "https://localhost:7015"])
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed(pol => true)
+                        .AllowAnyHeader()
+                        .AllowCredentials()));
+
+            var app = builder.Build();
+
+            app.AddEndPointsContatos();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+
+            app.Run();
+        }
+    }
 }

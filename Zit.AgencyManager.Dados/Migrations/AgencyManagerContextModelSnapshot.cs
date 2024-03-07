@@ -33,6 +33,9 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Ativa")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CNPJ")
                         .IsRequired()
                         .HasColumnType("varchar(14)");
@@ -136,6 +139,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<DateOnly>("DataNascimento")
                         .HasColumnType("date");
 
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(90)");
@@ -149,6 +155,8 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasIndex("AgenciaId");
 
                     b.HasIndex("CargoId");
+
+                    b.HasIndex("EnderecoId");
 
                     b.ToTable("Colaboradores");
                 });
@@ -292,9 +300,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(90)");
 
-                    b.Property<int?>("ColaboradorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Complemento")
                         .HasColumnType("varchar(90)");
 
@@ -311,8 +316,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("varchar(90)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ColaboradorId");
 
                     b.ToTable("Enderecos");
                 });
@@ -528,9 +531,16 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasForeignKey("CargoId")
                         .IsRequired();
 
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .IsRequired();
+
                     b.Navigation("Agencia");
 
                     b.Navigation("Cargo");
+
+                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Contato", b =>
@@ -573,13 +583,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired();
 
                     b.Navigation("Endereco");
-                });
-
-            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Endereco", b =>
-                {
-                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Colaborador", null)
-                        .WithMany("Enderecos")
-                        .HasForeignKey("ColaboradorId");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Movimentacao", b =>
@@ -665,8 +668,6 @@ namespace Zit.AgencyManager.Dados.Migrations
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>
                 {
                     b.Navigation("Contatos");
-
-                    b.Navigation("Enderecos");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Empresa", b =>
