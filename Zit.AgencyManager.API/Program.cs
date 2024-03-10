@@ -24,6 +24,8 @@ namespace Zit.AgencyManager.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddTransient<DAL<Agencia>>();
+            builder.Services.AddTransient<DAL<Cargo>>();
+            builder.Services.AddTransient<DAL<Colaborador>>();
 
             builder.Services.AddCors(
                 options => options.AddPolicy(
@@ -38,6 +40,8 @@ namespace Zit.AgencyManager.API
             var app = builder.Build();
 
             app.AddEndPointsContatos();
+            app.AddEndPointsCargos();
+            app.AddEndPointsColaboradores();
 
             if (app.Environment.IsDevelopment())
             {

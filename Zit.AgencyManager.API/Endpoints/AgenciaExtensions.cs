@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection.Metadata;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -24,8 +21,20 @@ namespace Zit.AgencyManager.API.Endpoints
                 {
                     return Results.NotFound();
                 }
-                var listaDeArtistaResponse = EntityListToResponseList(listaDeAgencias);
-                return Results.Ok(listaDeAgencias);
+                var listaDeAgenciaResponse = EntityListToResponseList(listaDeAgencias);
+                return Results.Ok(listaDeAgenciaResponse);
+            });
+
+            groupBuilder.MapGet("{id}", ([FromServices] DAL<Agencia> dal, int id) =>
+            {
+                var agencia = dal.RecuperarPor(a => a.Id.Equals(id));
+
+                if (agencia is null)
+                {
+                    return Results.NotFound();
+                }
+                return Results.Ok(EntityToResponse(agencia));
+
             });
 
             groupBuilder.MapPost("", ([FromServices] DAL<Agencia> dal, [FromBody] AgenciaRequest request) =>
@@ -46,11 +55,11 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("", ([FromServices] DAL<Agencia> dal, [FromBody] AgenciaRequestEdit request) =>
+            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal, [FromBody] AgenciaRequestEdit request, int id) =>
             {
                 if (request is null) return Results.BadRequest();
 
-                var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == request.Id);
+                var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
                 if(agenciaAAtualizar is null) return Results.NotFound();
 
@@ -67,16 +76,6 @@ namespace Zit.AgencyManager.API.Endpoints
                     agenciaAAtualizar.Endereco.Cidade = request.Endereco.Cidade;                   
                     agenciaAAtualizar.Endereco.Uf = request.Endereco.Uf;
                     agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;                   
-                }
-
-                if(request.Contatos is not null && agenciaAAtualizar.Contatos != request.Contatos)
-                {
-                    foreach(var item in agenciaAAtualizar.Contatos)
-                    {
-                        if(!request.Contatos.Contains(item)) agenciaAAtualizar.Contatos.Remove(item);
-                    }
-
-                    agenciaAAtualizar.Contatos.Concat(request.Contatos);
                 }
 
                 dal.Atualizar(agenciaAAtualizar);

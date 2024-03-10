@@ -11,7 +11,6 @@ namespace Zit.AgencyManager.Dominio.Modelos
         public bool Ativa { get; set; } = true;
         public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
-        public virtual ICollection<Colaborador> Colaboradores { get; set; } = new List<Colaborador>();
         public virtual ICollection<ContratoAgenciaEmpresa> Empresas { get; set; } = new List<ContratoAgenciaEmpresa>();       
     }
 }

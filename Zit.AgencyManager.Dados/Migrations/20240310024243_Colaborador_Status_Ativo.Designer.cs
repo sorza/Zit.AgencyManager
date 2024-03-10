@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zit.AgencyManager.Dados.Banco;
 
@@ -11,9 +12,11 @@ using Zit.AgencyManager.Dados.Banco;
 namespace Zit.AgencyManager.Dados.Migrations
 {
     [DbContext(typeof(AgencyManagerContext))]
-    partial class AgencyManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240310024243_Colaborador_Status_Ativo")]
+    partial class Colaborador_Status_Ativo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
