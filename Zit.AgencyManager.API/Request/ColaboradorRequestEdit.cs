@@ -11,8 +11,8 @@ namespace Zit.AgencyManager.API.Request
         int CargoId,
         DateOnly DataAdmissao,
         DateOnly DataDemissao,
-        Endereco Endereco,
-        ICollection<Contato> Contatos,
+        ICollection<Endereco>? Enderecos,
+        ICollection<Contato>? Contatos,
         bool Ativo
-     ) : ColaboradorRequest (Nome,CPF,RG,DataNascimento, AgenciaId,CargoId, DataAdmissao, Endereco, Contatos, Ativo);
+     );
 }

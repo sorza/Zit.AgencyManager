@@ -2,6 +2,5 @@
 
 namespace Zit.AgencyManager.API.Request
 {
-    public record CargoRequestEdit([Required] string Descricao, [Required] string Atribuicoes, [Required] decimal Salario)
-        : CargoRequest(Descricao, Atribuicoes, Salario);
+    public record CargoRequestEdit(string Descricao, string Atribuicoes, decimal Salario);
 }

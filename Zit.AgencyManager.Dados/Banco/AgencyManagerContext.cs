@@ -53,12 +53,12 @@ namespace Zit.AgencyManager.Dados.Banco
             {
                 property.SetColumnType("varchar(90)");
             }          
-
+            /*
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
-            }
+            }*/
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AgencyManagerContext).Assembly);
 

@@ -14,7 +14,7 @@ namespace Zit.AgencyManager.API.Response
         Cargo Cargo,
         DateOnly DataAdmissao,
         DateOnly DataDemissao,
-        Endereco Endereco,
+        ICollection<Endereco> Enderecos,
         ICollection<Contato> Contatos
      );
 }

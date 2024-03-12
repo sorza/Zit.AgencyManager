@@ -1,5 +1,7 @@
 
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Zit.AgencyManager.API.Endpoints;
 using Zit.AgencyManager.Dados.Banco;
 using Zit.AgencyManager.Dominio.Modelos;
@@ -26,6 +28,7 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Agencia>>();
             builder.Services.AddTransient<DAL<Cargo>>();
             builder.Services.AddTransient<DAL<Colaborador>>();
+            builder.Services.AddTransient<DAL<Endereco>>();
 
             builder.Services.AddCors(
                 options => options.AddPolicy(
