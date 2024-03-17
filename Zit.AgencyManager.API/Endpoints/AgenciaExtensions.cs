@@ -55,15 +55,13 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato,[FromBody] AgenciaRequestEdit request, int id) =>
             {
                 if (request is null) return Results.BadRequest();
 
                 var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
                 if(agenciaAAtualizar is null) return Results.NotFound();
-
-                agenciaAAtualizar.Ativa = request.Ativa;
 
                 if (!request.CNPJ.IsNullOrEmpty() && request.CNPJ != agenciaAAtualizar.CNPJ) agenciaAAtualizar.CNPJ = request.CNPJ!;
                 if (!request.Descricao.IsNullOrEmpty() && request.Descricao != agenciaAAtualizar.Descricao) agenciaAAtualizar.Descricao = request.Descricao!;
@@ -78,6 +76,20 @@ namespace Zit.AgencyManager.API.Endpoints
                     agenciaAAtualizar.Endereco.CEP = request.Endereco.CEP;
                     agenciaAAtualizar.Endereco.Uf = request.Endereco.Uf;
                     agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;
+                }
+
+                if(request.Contatos is not null)
+                {                   
+                    var contatosARemover = new List<Contato>();
+
+                    foreach(var item in request.Contatos)
+                        if(!agenciaAAtualizar.Contatos.Contains(item)) agenciaAAtualizar.Contatos.Add(item);
+
+                    foreach(var item in agenciaAAtualizar.Contatos)
+                        if(!request.Contatos.Contains(item)) contatosARemover.Add(item);
+
+                    foreach (var item in contatosARemover)
+                        dalContato.Deletar(item);
                 }
                
                 dal.Atualizar(agenciaAAtualizar);
@@ -95,6 +107,23 @@ namespace Zit.AgencyManager.API.Endpoints
         private static AgenciaResponse EntityToResponse(Agencia agencia)
         {
             return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos);
+        }
+
+        private static bool CompararContatos(ICollection<Contato> contatosExistentes, ICollection<Contato> contatosRecebidos)
+        {
+            var contatosExistentesOrdenados = contatosExistentes
+                .OrderBy(c => c.TipoContato)
+                .ThenBy(c => c.Descricao)
+                .ThenBy(c => c.Complemento)
+                .ToList();
+
+            var contatosRecebidosOrdenados = contatosRecebidos
+               .OrderBy(c => c.TipoContato)
+               .ThenBy(c => c.Descricao)
+               .ThenBy(c => c.Complemento)
+               .ToList();
+
+            return contatosExistentesOrdenados.SequenceEqual(contatosRecebidosOrdenados);
         }
     }
 }

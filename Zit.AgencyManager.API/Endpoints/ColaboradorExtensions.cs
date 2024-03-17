@@ -59,7 +59,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Created();
             });
 
-            groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal,[FromBody] ColaboradorRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal, [FromServices] DAL<Contato> dalContato,[FromBody] ColaboradorRequestEdit request, int id) =>
             {
                 if (request is null) return Results.BadRequest();
 
@@ -86,6 +86,20 @@ namespace Zit.AgencyManager.API.Endpoints
                     colaborador.Endereco.CEP = request.Endereco.CEP;
                     colaborador.Endereco.Uf = request.Endereco.Uf;
                     colaborador.Endereco.Complemento = request.Endereco.Complemento;
+                }
+
+                if (request.Contatos is not null)
+                {                    
+                    var contatosARemover = new List<Contato>();
+
+                    foreach (var item in request.Contatos)
+                        if (!colaborador.Contatos.Contains(item)) colaborador.Contatos.Add(item);
+
+                    foreach (var item in colaborador.Contatos)
+                        if (!request.Contatos.Contains(item)) colaborador.Contatos.Remove(item);
+
+                    foreach (var item in contatosARemover)
+                        dalContato.Deletar(item);
                 }
 
                 dal.Atualizar(colaborador);             
