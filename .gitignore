@@ -8,5 +8,6 @@
 *.pdb
 *.cache
 *.bin
-
+*.json
+*.gz
 
