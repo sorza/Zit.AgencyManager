@@ -49,7 +49,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     AgenciaId = request.AgenciaId,
                     CargoId = request.CargoId,
                     DataAdmissao = request.DataAdmissao,
-                    Enderecos = request.Enderecos                 
+                    Endereco = request.Endereco                
                 };
 
                 if (request.Contatos is not null) colaborador.Contatos = request.Contatos;
@@ -59,7 +59,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Created();
             });
 
-            groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal,[FromServices] DAL<Endereco> end, [FromBody] ColaboradorRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal,[FromBody] ColaboradorRequestEdit request, int id) =>
             {
                 if (request is null) return Results.BadRequest();
 
@@ -77,23 +77,18 @@ namespace Zit.AgencyManager.API.Endpoints
                 if(request.DataDemissao != DateOnly.MinValue && !request.DataDemissao.Equals(colaborador.DataDemissao)) colaborador.DataDemissao = request.DataDemissao;
                 if(request.Ativo != colaborador.Ativo) colaborador.Ativo = request.Ativo;
 
-                var listaARemover = new List<int>();              
-
-                if (!request.Enderecos.IsNullOrEmpty())
+                if (request.Endereco is not null)
                 {
-                    foreach (var item in colaborador.Enderecos)
-                        listaARemover.Add(item.Id);
-
-                    colaborador.Enderecos = request.Enderecos!;
+                    colaborador.Endereco.Logradouro = request.Endereco.Logradouro;
+                    colaborador.Endereco.Numero = request.Endereco.Numero;
+                    colaborador.Endereco.Cidade = request.Endereco.Cidade;
+                    colaborador.Endereco.Bairro = request.Endereco.Bairro;
+                    colaborador.Endereco.CEP = request.Endereco.CEP;
+                    colaborador.Endereco.Uf = request.Endereco.Uf;
+                    colaborador.Endereco.Complemento = request.Endereco.Complemento;
                 }
 
-                dal.Atualizar(colaborador);
-
-                if (!listaARemover.IsNullOrEmpty())
-                {
-                    foreach (var item in listaARemover)
-                        end.Deletar(end.RecuperarPor(x => x.Id == item)!);
-                }
+                dal.Atualizar(colaborador);             
 
                 return Results.NoContent();
 
@@ -107,7 +102,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static ColaboradorResponse EntityToResponse(Colaborador colaborador)
         {
-            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Enderecos, colaborador.Contatos);
+            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos);
         }
     }
 }

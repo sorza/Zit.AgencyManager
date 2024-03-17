@@ -28,6 +28,7 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Agencia>>();
             builder.Services.AddTransient<DAL<Cargo>>();
             builder.Services.AddTransient<DAL<Colaborador>>();
+            builder.Services.AddTransient<DAL<Empresa>>();
             builder.Services.AddTransient<DAL<Endereco>>();
 
             builder.Services.AddCors(
@@ -45,6 +46,7 @@ namespace Zit.AgencyManager.API
             app.AddEndPointsContatos();
             app.AddEndPointsCargos();
             app.AddEndPointsColaboradores();
+            app.AddEndPointsEmpresas();
 
             if (app.Environment.IsDevelopment())
             {

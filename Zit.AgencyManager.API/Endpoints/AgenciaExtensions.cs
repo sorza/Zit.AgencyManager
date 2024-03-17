@@ -37,15 +37,15 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groupBuilder.MapPost("", ([FromServices] DAL<Agencia> dal, [FromBody] AgenciaRequest request) =>
+            groupBuilder.MapPost("", ([FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
             {
                 if(request is null) return Results.BadRequest();
 
-                var agencia = new Agencia()
+                Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ,
-                    Descricao = request.Descricao,
-                    Enderecos = request.Enderecos
+                    Descricao = request.Descricao,  
+                    Endereco = request.Endereco
                 };
 
                 if(request.Contatos is not  null) agencia.Contatos = request.Contatos;
@@ -55,7 +55,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal, [FromServices] DAL<Endereco> end, [FromBody] AgenciaRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequestEdit request, int id) =>
             {
                 if (request is null) return Results.BadRequest();
 
@@ -68,24 +68,19 @@ namespace Zit.AgencyManager.API.Endpoints
                 if (!request.CNPJ.IsNullOrEmpty() && request.CNPJ != agenciaAAtualizar.CNPJ) agenciaAAtualizar.CNPJ = request.CNPJ!;
                 if (!request.Descricao.IsNullOrEmpty() && request.Descricao != agenciaAAtualizar.Descricao) agenciaAAtualizar.Descricao = request.Descricao!;
                 if (request.Ativa != agenciaAAtualizar.Ativa) agenciaAAtualizar.Ativa = request.Ativa;
-
-                var listaARemover = new List<int>();
-
-                if (!request.Enderecos.IsNullOrEmpty() )
-                {                   
-                    foreach (var item in agenciaAAtualizar.Enderecos)
-                            listaARemover.Add(item.Id);
-
-                    agenciaAAtualizar.Enderecos = request.Enderecos!;                                                         
-                } 
-
-                dal.Atualizar(agenciaAAtualizar);
-
-                if (!listaARemover.IsNullOrEmpty())
+                             
+                if(request.Endereco is not null)
                 {
-                    foreach (var item in listaARemover)
-                        end.Deletar(end.RecuperarPor(x => x.Id == item)!);
+                    agenciaAAtualizar.Endereco.Logradouro = request.Endereco.Logradouro;
+                    agenciaAAtualizar.Endereco.Numero = request.Endereco.Numero;
+                    agenciaAAtualizar.Endereco.Cidade = request.Endereco.Cidade;
+                    agenciaAAtualizar.Endereco.Bairro = request.Endereco.Bairro;
+                    agenciaAAtualizar.Endereco.CEP = request.Endereco.CEP;
+                    agenciaAAtualizar.Endereco.Uf = request.Endereco.Uf;
+                    agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;
                 }
+               
+                dal.Atualizar(agenciaAAtualizar);
 
                 return Results.NoContent();
                
@@ -99,7 +94,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static AgenciaResponse EntityToResponse(Agencia agencia)
         {
-            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Enderecos, agencia.Contatos);
+            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos);
         }
     }
 }

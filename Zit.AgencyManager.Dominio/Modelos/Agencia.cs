@@ -8,8 +8,10 @@ namespace Zit.AgencyManager.Dominio.Modelos
         public string Descricao { get; set; } = string.Empty;
         public string CNPJ { get; set; } = string.Empty;
         public bool Ativa { get; set; } = true;
-        public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
-        public virtual ICollection<ContratoAgenciaEmpresa> Empresas { get; set; } = new List<ContratoAgenciaEmpresa>();       
+        public virtual ICollection<ContratoAgenciaEmpresa> Empresas { get; set; } = new List<ContratoAgenciaEmpresa>();
+       
     }
 }

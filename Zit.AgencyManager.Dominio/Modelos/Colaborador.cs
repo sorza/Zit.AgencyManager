@@ -14,7 +14,8 @@
         public virtual Cargo Cargo { get; set; }
         public DateOnly DataAdmissao { get; set; } = new DateOnly();
         public DateOnly DataDemissao { get; set; } = new DateOnly();
-        public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
         public void AdicionarContato(Contato contato)
         {

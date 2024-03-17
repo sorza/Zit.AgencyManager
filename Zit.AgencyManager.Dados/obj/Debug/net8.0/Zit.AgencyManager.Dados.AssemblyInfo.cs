@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zit.AgencyManager.Dados")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f49dca958fdd35410cd9e01d38864f135208bc5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78a65836e293b1c2956c141163a8aa2264838b1a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zit.AgencyManager.Dados")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zit.AgencyManager.Dados")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
