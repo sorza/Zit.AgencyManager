@@ -5,7 +5,7 @@ namespace Zit.AgencyManager.API.Response
 {
     public record AgenciaResponse
      (      
-        int id,
+        int Id,
         string Descricao,      
         string CNPJ,
         Endereco Endereco,

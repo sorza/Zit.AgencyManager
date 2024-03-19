@@ -9,7 +9,7 @@ namespace Zit.AgencyManager.API.Endpoints
 {
     public static class ColaboradorExtensions
     {
-        public static void AddEndPointsColaboradores(this WebApplication app)
+        public static void AddEndpointsColaboradores(this WebApplication app)
         {
             var groupBuilder = app.MapGroup("colaboradores")
                 .WithTags("Colaboradores");

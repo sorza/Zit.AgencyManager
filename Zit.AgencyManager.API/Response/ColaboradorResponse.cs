@@ -5,7 +5,7 @@ namespace Zit.AgencyManager.API.Response
 { 
      public record ColaboradorResponse(
 
-        int id,
+        int Id,
         string Nome,
         string CPF,
         string RG,

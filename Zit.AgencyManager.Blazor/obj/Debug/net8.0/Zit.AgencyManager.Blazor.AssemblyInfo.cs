@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zit.AgencyManager.Blazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78a65836e293b1c2956c141163a8aa2264838b1a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e92d8de630688b2f7dff3b950f8cca93d15a8ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zit.AgencyManager.Blazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zit.AgencyManager.Blazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

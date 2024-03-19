@@ -9,7 +9,7 @@ namespace Zit.AgencyManager.API.Endpoints
 {
     public static class CargoExtensions
     {
-        public static void AddEndPointsCargos(this WebApplication app)
+        public static void AddEndpointsCargos(this WebApplication app)
         {
             var groupBuilder = app.MapGroup("cargos")
                 .WithTags("Cargos");

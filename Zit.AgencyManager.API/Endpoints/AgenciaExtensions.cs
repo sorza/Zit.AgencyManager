@@ -9,7 +9,7 @@ namespace Zit.AgencyManager.API.Endpoints
 {
     public static class AgenciaExtensions
     {
-        public static void AddEndPointsContatos(this WebApplication app)
+        public static void AddEndpointsContatos(this WebApplication app)
         {
             var groupBuilder = app.MapGroup("agencias")              
                 .WithTags("Agências");

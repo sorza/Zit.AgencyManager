@@ -3,24 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\empresaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\empresaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\contratoagenciaempresaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\contratoagenciaempresaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\agenciaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\agenciaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\colaboradorextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\colaboradorextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ADB57BBA-7FE1-4789-B422-80475F8C37F2}|Zit.AgencyManager.Dominio\\Zit.AgencyManager.Dominio.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.dominio\\modelos\\contato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ADB57BBA-7FE1-4789-B422-80475F8C37F2}|Zit.AgencyManager.Dominio\\Zit.AgencyManager.Dominio.csproj|solutionrelative:zit.agencymanager.dominio\\modelos\\contato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\request\\empresarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\request\\empresarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\request\\contratoagenciaempresarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\request\\contratoagenciaempresarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,67 +22,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EmpresaRequestEdit.cs",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\EmpresaRequestEdit.cs",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Request\\EmpresaRequestEdit.cs",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\EmpresaRequestEdit.cs",
-              "RelativeToolTip": "Zit.AgencyManager.API\\Request\\EmpresaRequestEdit.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAlAAAA",
+              "DocumentIndex": 1,
+              "Title": "ContratoAgenciaEmpresaRequestEdit.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\ContratoAgenciaEmpresaRequestEdit.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Request\\ContratoAgenciaEmpresaRequestEdit.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\ContratoAgenciaEmpresaRequestEdit.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Request\\ContratoAgenciaEmpresaRequestEdit.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T19:05:55.402Z",
+              "WhenOpened": "2024-03-17T21:03:21.862Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EmpresaExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\EmpresaExtensions.cs",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\EmpresaExtensions.cs",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\EmpresaExtensions.cs",
-              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\EmpresaExtensions.cs",
-              "ViewState": "AQIAAEYAAAAAAAAAAAAgwFwAAAAxAAAA",
+              "Title": "ContratoAgenciaEmpresaExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\ContratoAgenciaEmpresaExtensions.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\ContratoAgenciaEmpresaExtensions.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\ContratoAgenciaEmpresaExtensions.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\ContratoAgenciaEmpresaExtensions.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAgwFoAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T19:05:08.197Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Contato.cs",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Dominio\\Modelos\\Contato.cs",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.Dominio\\Modelos\\Contato.cs",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Dominio\\Modelos\\Contato.cs",
-              "RelativeToolTip": "Zit.AgencyManager.Dominio\\Modelos\\Contato.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T17:23:14.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ColaboradorExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\ColaboradorExtensions.cs",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\ColaboradorExtensions.cs",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\ColaboradorExtensions.cs",
-              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\ColaboradorExtensions.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAwwGAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T03:08:54.959Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AgenciaExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
-              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
-              "ViewState": "AQIAADgAAAAAAAAAAAAQwEQAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T02:15:54.826Z",
+              "WhenOpened": "2024-03-17T21:01:19.864Z",
               "EditorCaption": ""
             }
           ]
