@@ -10,5 +10,6 @@
 *.bin
 *.json
 *.gz
-*.cs
-*.cache
+.cs
+.cache
+.env
