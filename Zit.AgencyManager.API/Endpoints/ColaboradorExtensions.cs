@@ -49,7 +49,8 @@ namespace Zit.AgencyManager.API.Endpoints
                     AgenciaId = request.AgenciaId,
                     CargoId = request.CargoId,
                     DataAdmissao = request.DataAdmissao,
-                    Endereco = request.Endereco                
+                    Endereco = request.Endereco,
+                    UsuarioId = request.UsuarioId
                 };
 
                 if (request.Contatos is not null) colaborador.Contatos = request.Contatos;
@@ -76,6 +77,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 if(request.DataAdmissao != DateOnly.MinValue && !request.DataAdmissao.Equals(colaborador.DataAdmissao)) colaborador.DataAdmissao = request.DataAdmissao;
                 if(request.DataDemissao != DateOnly.MinValue && !request.DataDemissao.Equals(colaborador.DataDemissao)) colaborador.DataDemissao = request.DataDemissao;
                 if(request.Ativo != colaborador.Ativo) colaborador.Ativo = request.Ativo;
+                if(request.UsuarioId > 0) colaborador.UsuarioId = request.UsuarioId; 
 
                 if (request.Endereco is not null)
                 {
@@ -116,7 +118,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static ColaboradorResponse EntityToResponse(Colaborador colaborador)
         {
-            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos);
+            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario);
         }
     }
 }

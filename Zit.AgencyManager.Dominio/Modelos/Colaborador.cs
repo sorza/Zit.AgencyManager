@@ -16,6 +16,8 @@
         public DateOnly DataDemissao { get; set; } = new DateOnly();
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
+        public int UsuarioId { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
         public void AdicionarContato(Contato contato)
         {

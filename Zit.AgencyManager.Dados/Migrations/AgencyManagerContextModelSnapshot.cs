@@ -25,6 +25,139 @@ namespace Zit.AgencyManager.Dados.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("varchar(90)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dados.Modelos.PerfilDeAcesso", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(90)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
                 {
                     b.Property<int>("Id")
@@ -51,7 +184,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Agencias", (string)null);
+                    b.ToTable("Agencias");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Caixa", b =>
@@ -65,6 +198,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<bool>("Aberto")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ColaboradorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
@@ -77,15 +213,11 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<decimal?>("TrocoInicial")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<string>("UsuarioId")
-                        .IsRequired()
-                        .HasColumnType("varchar(90)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("ColaboradorId");
 
-                    b.ToTable("Caixa", (string)null);
+                    b.ToTable("Caixa");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cargo", b =>
@@ -109,7 +241,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cargos", (string)null);
+                    b.ToTable("Cargos");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>
@@ -153,6 +285,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(90)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AgenciaId");
@@ -161,7 +296,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Colaboradores", (string)null);
+                    b.ToTable("Colaboradores");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Contato", b =>
@@ -201,7 +336,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("Contatos", (string)null);
+                    b.ToTable("Contatos");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.ContratoAgenciaEmpresa", b =>
@@ -251,7 +386,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("ContratosAgenciaEmpresa", (string)null);
+                    b.ToTable("ContratosAgenciaEmpresa");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Empresa", b =>
@@ -280,7 +415,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Empresas", (string)null);
+                    b.ToTable("Empresas");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Endereco", b =>
@@ -320,24 +455,26 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Enderecos", (string)null);
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Usuario", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(90)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColaboradorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(256)
                         .HasColumnType("varchar(90)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -350,9 +487,11 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("PasswordHash")
@@ -371,13 +510,71 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .HasMaxLength(256)
                         .HasColumnType("varchar(90)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ColaboradorId");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dados.Modelos.PerfilDeAcesso", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dados.Modelos.PerfilDeAcesso", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
@@ -393,13 +590,13 @@ namespace Zit.AgencyManager.Dados.Migrations
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Caixa", b =>
                 {
-                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", "Usuario")
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Colaborador", "Colaborador")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("ColaboradorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Colaborador");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>
@@ -447,7 +644,7 @@ namespace Zit.AgencyManager.Dados.Migrations
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.ContratoAgenciaEmpresa", b =>
                 {
                     b.HasOne("Zit.AgencyManager.Dominio.Modelos.Agencia", "Agencia")
-                        .WithMany("Empresas")
+                        .WithMany()
                         .HasForeignKey("AgenciaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -474,22 +671,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Navigation("Endereco");
                 });
 
-            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Usuario", b =>
-                {
-                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Colaborador", "Colaborador")
-                        .WithMany()
-                        .HasForeignKey("ColaboradorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Colaborador");
-                });
-
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
                 {
                     b.Navigation("Contatos");
-
-                    b.Navigation("Empresas");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>

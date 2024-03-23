@@ -20,6 +20,10 @@ namespace Zit.AgencyManager.API
                         .UseLazyLoadingProxies();
             });
 
+            builder.Services
+                .AddIdentityApiEndpoints<Usuario>()
+                .AddEntityFrameworkStores<AgencyManagerContext>();
+
             builder.Services.AddAuthorization();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -49,6 +53,8 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsColaboradores();
             app.AddEndpointsEmpresas();
             app.AddEndpointsContratoAgenciaEmpresas();
+
+            app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 
             if (app.Environment.IsDevelopment())
             {

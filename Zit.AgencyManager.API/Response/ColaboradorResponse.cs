@@ -2,8 +2,8 @@
 using Zit.AgencyManager.Dominio.Modelos;
 
 namespace Zit.AgencyManager.API.Response
-{ 
-     public record ColaboradorResponse(
+{
+    public record ColaboradorResponse(
 
         int Id,
         string Nome,
@@ -15,6 +15,7 @@ namespace Zit.AgencyManager.API.Response
         DateOnly DataAdmissao,
         DateOnly DataDemissao,
         Endereco Endereco,
-        ICollection<Contato> Contatos
+        ICollection<Contato> Contatos,
+        Usuario Usuario
      );
 }

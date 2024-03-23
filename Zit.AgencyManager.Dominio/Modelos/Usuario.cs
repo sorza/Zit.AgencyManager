@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Zit.AgencyManager.Dominio.Modelos
 {
-    public class Usuario : IdentityUser
+    public class Usuario : IdentityUser<int>
     {
-        public int ColaboradorId { get; set; }
-        public virtual Colaborador Colaborador { get; set; }
+
     }
 }
