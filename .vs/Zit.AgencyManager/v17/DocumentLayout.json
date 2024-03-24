@@ -1,12 +1,139 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\caixaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\caixaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\endpoints\\agenciaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\endpoints\\agenciaextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\request\\caixarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\request\\caixarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\request\\caixarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\request\\caixarequestedit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADB57BBA-7FE1-4789-B422-80475F8C37F2}|Zit.AgencyManager.Dominio\\Zit.AgencyManager.Dominio.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.dominio\\modelos\\caixa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADB57BBA-7FE1-4789-B422-80475F8C37F2}|Zit.AgencyManager.Dominio\\Zit.AgencyManager.Dominio.csproj|solutionrelative:zit.agencymanager.dominio\\modelos\\caixa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.api\\response\\caixaresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{448D0247-75F2-4BAF-B81C-4653F72E3045}|Zit.AgencyManager.API\\Zit.AgencyManager.API.csproj|solutionrelative:zit.agencymanager.api\\response\\caixaresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Program.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Program.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Program.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Program.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAgwDgAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:40:55.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AgenciaExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\AgenciaExtensions.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAgwB0AAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:11:06.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CaixaExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\CaixaExtensions.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Endpoints\\CaixaExtensions.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Endpoints\\CaixaExtensions.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Endpoints\\CaixaExtensions.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAgwE8AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:10:24.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CaixaResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Response\\CaixaResponse.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Response\\CaixaResponse.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Response\\CaixaResponse.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Response\\CaixaResponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:08:40.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CaixaRequestEdit.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\CaixaRequestEdit.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Request\\CaixaRequestEdit.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\CaixaRequestEdit.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Request\\CaixaRequestEdit.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:06:51.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CaixaRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\CaixaRequest.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.API\\Request\\CaixaRequest.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\Request\\CaixaRequest.cs",
+              "RelativeToolTip": "Zit.AgencyManager.API\\Request\\CaixaRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T01:02:55.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Caixa.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Dominio\\Modelos\\Caixa.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.Dominio\\Modelos\\Caixa.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Dominio\\Modelos\\Caixa.cs",
+              "RelativeToolTip": "Zit.AgencyManager.Dominio\\Modelos\\Caixa.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T00:48:02.765Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -204,9 +204,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Saldo")
-                        .HasColumnType("decimal(6,2)");
-
                     b.Property<decimal?>("TrocoFinal")
                         .HasColumnType("decimal(6,2)");
 
@@ -295,6 +292,8 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasIndex("CargoId");
 
                     b.HasIndex("EnderecoId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Colaboradores");
                 });
@@ -619,11 +618,19 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Agencia");
 
                     b.Navigation("Cargo");
 
                     b.Navigation("Endereco");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Contato", b =>

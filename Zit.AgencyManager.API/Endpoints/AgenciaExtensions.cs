@@ -107,23 +107,6 @@ namespace Zit.AgencyManager.API.Endpoints
         private static AgenciaResponse EntityToResponse(Agencia agencia)
         {
             return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos);
-        }
-
-        private static bool CompararContatos(ICollection<Contato> contatosExistentes, ICollection<Contato> contatosRecebidos)
-        {
-            var contatosExistentesOrdenados = contatosExistentes
-                .OrderBy(c => c.TipoContato)
-                .ThenBy(c => c.Descricao)
-                .ThenBy(c => c.Complemento)
-                .ToList();
-
-            var contatosRecebidosOrdenados = contatosRecebidos
-               .OrderBy(c => c.TipoContato)
-               .ThenBy(c => c.Descricao)
-               .ThenBy(c => c.Complemento)
-               .ToList();
-
-            return contatosExistentesOrdenados.SequenceEqual(contatosRecebidosOrdenados);
-        }
+        }              
     }
 }

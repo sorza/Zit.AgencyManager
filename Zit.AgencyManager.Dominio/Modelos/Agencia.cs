@@ -1,6 +1,4 @@
-﻿using System.Security;
-
-namespace Zit.AgencyManager.Dominio.Modelos
+﻿namespace Zit.AgencyManager.Dominio.Modelos
 {
     public class Agencia
     {

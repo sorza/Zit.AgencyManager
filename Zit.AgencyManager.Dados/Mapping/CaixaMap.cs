@@ -13,9 +13,6 @@ namespace Zit.AgencyManager.Dados.Mapping
 
             builder.Property(x => x.TrocoFinal)
                 .HasColumnType("decimal(6,2)");
-
-            builder.Property(x => x.Saldo)
-                .HasColumnType("decimal(6,2)");
         }
     }
 }

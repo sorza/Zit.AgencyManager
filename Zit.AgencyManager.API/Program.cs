@@ -35,6 +35,7 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Empresa>>();
             builder.Services.AddTransient<DAL<Contato>>();
             builder.Services.AddTransient<DAL<ContratoAgenciaEmpresa>>();
+            builder.Services.AddTransient<DAL<Caixa>>();
 
             builder.Services.AddCors(
                 options => options.AddPolicy(
@@ -53,6 +54,7 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsColaboradores();
             app.AddEndpointsEmpresas();
             app.AddEndpointsContratoAgenciaEmpresas();
+            app.AddEndpointsCaixa();
 
             app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 
