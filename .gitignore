@@ -13,3 +13,4 @@
 .cs
 .cache
 .env
+*.v7.bin
