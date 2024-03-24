@@ -204,17 +204,17 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("TrocoFinal")
+                    b.Property<decimal>("TrocoFinal")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<decimal?>("TrocoInicial")
+                    b.Property<decimal>("TrocoInicial")
                         .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ColaboradorId");
 
-                    b.ToTable("Caixa");
+                    b.ToTable("Caixas");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cargo", b =>
@@ -525,6 +525,35 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CaixaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Cartao")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Dinheiro")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaixaId");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("Vendas");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Zit.AgencyManager.Dados.Modelos.PerfilDeAcesso", null)
@@ -676,6 +705,25 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired();
 
                     b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Venda", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Caixa", "Caixa")
+                        .WithMany()
+                        .HasForeignKey("CaixaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Caixa");
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
