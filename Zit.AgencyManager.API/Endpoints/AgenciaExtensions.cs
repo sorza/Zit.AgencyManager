@@ -15,14 +15,8 @@ namespace Zit.AgencyManager.API.Endpoints
                 .WithTags("Agências");
 
             groupBuilder.MapGet("", ([FromServices] DAL<Agencia> dal) =>
-            {
-                var listaDeAgencias = dal.Listar();
-                if (listaDeAgencias is null)
-                {
-                    return Results.NotFound();
-                }
-                var listaDeAgenciaResponse = EntityListToResponseList(listaDeAgencias);
-                return Results.Ok(listaDeAgenciaResponse);
+            {               
+                return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Agencia> dal, int id) =>

@@ -38,6 +38,8 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Caixa>>();
             builder.Services.AddTransient<DAL<Venda>>();
             builder.Services.AddTransient<DAL<Localidade>>();
+            builder.Services.AddTransient<DAL<VendaVirtual>>();
+            builder.Services.AddTransient<DAL<Cliente>>();
 
             builder.Services.AddCors(
                 options => options.AddPolicy(
@@ -59,6 +61,8 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsCaixas();
             app.AddEndpointsVendas();
             app.AddEndpointsLocalidades();
+            app.AddEndpointsVendasVirtuais();
+            app.AddEndpointsClientes();
 
             app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 

@@ -625,6 +625,54 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.ToTable("Vendas");
                 });
 
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.VendaVirtual", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CaixaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DestinoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FormaPagamento")
+                        .IsRequired()
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<int>("OrigemId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaixaId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("DestinoId");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("OrigemId");
+
+                    b.ToTable("VendasVirtuais");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Zit.AgencyManager.Dados.Modelos.PerfilDeAcesso", null)
@@ -810,6 +858,49 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Navigation("Caixa");
 
                     b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.VendaVirtual", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Caixa", "Caixa")
+                        .WithMany()
+                        .HasForeignKey("CaixaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Localidade", "Destino")
+                        .WithMany()
+                        .HasForeignKey("DestinoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Localidade", "Origem")
+                        .WithMany()
+                        .HasForeignKey("OrigemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Caixa");
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Destino");
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Origem");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
