@@ -1,1 +1,1 @@
-Gerenciador voltado para Agências de Passagens Rodoviárias Multimarcas
+Gerenciador voltado para agências de passagens rodoviárias multimarcas
