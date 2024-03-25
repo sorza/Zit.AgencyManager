@@ -19,10 +19,6 @@
         public int UsuarioId { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
-        public void AdicionarContato(Contato contato)
-        {
-            if(contato is not null)
-                Contatos.Add(contato);
-        }
+      
     }
 }

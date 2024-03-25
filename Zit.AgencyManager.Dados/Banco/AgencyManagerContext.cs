@@ -21,6 +21,9 @@ namespace Zit.AgencyManager.Dados.Banco
         public DbSet<Agencia> Agencias { get; set; }
         public DbSet<Venda> Vendas { get; set; }
         public DbSet<Caixa> Caixas { get; set; }
+        public DbSet<Movimentacao> Movimentacoes { get; set; }
+        public DbSet<Localidade> Localidades { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AgencyManager;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 

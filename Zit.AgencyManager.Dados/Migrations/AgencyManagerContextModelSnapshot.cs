@@ -241,6 +241,23 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.ToTable("Cargos");
                 });
 
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(90)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+                });
+
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>
                 {
                     b.Property<int>("Id")
@@ -309,6 +326,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int?>("AgenciaId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ColaboradorId")
                         .HasColumnType("int");
 
@@ -330,6 +350,8 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgenciaId");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("ColaboradorId");
 
@@ -455,6 +477,55 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Localidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("UF")
+                        .IsRequired()
+                        .HasColumnType("varchar(90)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Localidades");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Movimentacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CaixaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("varchar(90)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CaixaId");
+
+                    b.ToTable("Movimentacoes");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Usuario", b =>
@@ -668,6 +739,10 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .WithMany("Contatos")
                         .HasForeignKey("AgenciaId");
 
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Cliente", null)
+                        .WithMany("Contatos")
+                        .HasForeignKey("ClienteId");
+
                     b.HasOne("Zit.AgencyManager.Dominio.Modelos.Colaborador", null)
                         .WithMany("Contatos")
                         .HasForeignKey("ColaboradorId");
@@ -707,6 +782,17 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Navigation("Endereco");
                 });
 
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Movimentacao", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Caixa", "Caixa")
+                        .WithMany()
+                        .HasForeignKey("CaixaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Caixa");
+                });
+
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Venda", b =>
                 {
                     b.HasOne("Zit.AgencyManager.Dominio.Modelos.Caixa", "Caixa")
@@ -727,6 +813,11 @@ namespace Zit.AgencyManager.Dados.Migrations
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
+                {
+                    b.Navigation("Contatos");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cliente", b =>
                 {
                     b.Navigation("Contatos");
                 });
