@@ -23,10 +23,8 @@ namespace Zit.AgencyManager.API.Endpoints
             {
                 var cargo = dal.RecuperarPor(a => a.Id.Equals(id));
 
-                if (cargo is null)
-                {
-                    return Results.NotFound();
-                }
+                if (cargo is null) return Results.NotFound();
+                
                 return Results.Ok(EntityToResponse(cargo));
 
             });
@@ -49,8 +47,6 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPut("{id}", ([FromServices] DAL<Cargo> dal, CargoRequestEdit request, int id ) =>
             {
-                if ( request is null) return Results.BadRequest();
-
                 var cargo = dal.RecuperarPor(c => c.Id ==  id);
 
                 if (cargo is null) return Results.NotFound();

@@ -23,17 +23,13 @@ namespace Zit.AgencyManager.API.Endpoints
             {
                 var colaborador = dal.RecuperarPor(a => a.Id.Equals(id));
 
-                if (colaborador is null)
-                {
-                    return Results.NotFound();
-                }
+                if (colaborador is null) return Results.NotFound();
+               
                 return Results.Ok(EntityToResponse(colaborador));
             });
 
             groupBuilder.MapPost("", ([FromServices] DAL<Colaborador> dal, [FromBody] ColaboradorRequest request) =>
             {
-                if(request is null) return Results.BadRequest();
-
                 var colaborador = new Colaborador()
                 {                   
                     Nome = request.Nome,
@@ -55,9 +51,7 @@ namespace Zit.AgencyManager.API.Endpoints
             });
 
             groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal, [FromServices] DAL<Contato> dalContato,[FromBody] ColaboradorRequestEdit request, int id) =>
-            {
-                if (request is null) return Results.BadRequest();
-
+            {              
                 var colaborador = dal.RecuperarPor(c => c.Id == id);
 
                 if (colaborador is null) return Results.NotFound();

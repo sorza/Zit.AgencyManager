@@ -23,18 +23,14 @@ namespace Zit.AgencyManager.API.Endpoints
             {
                 var agencia = dal.RecuperarPor(a => a.Id.Equals(id));
 
-                if (agencia is null)
-                {
-                    return Results.NotFound();
-                }
+                if (agencia is null) return Results.NotFound();
+
                 return Results.Ok(EntityToResponse(agencia));
 
             });
 
             groupBuilder.MapPost("", ([FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
-            {
-                if(request is null) return Results.BadRequest();
-
+            {                
                 Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ,
@@ -51,8 +47,6 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato,[FromBody] AgenciaRequestEdit request, int id) =>
             {
-                if (request is null) return Results.BadRequest();
-
                 var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
                 if(agenciaAAtualizar is null) return Results.NotFound();
