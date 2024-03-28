@@ -26,16 +26,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/Pages/Agencias.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWdlbmNpYXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/Pages/CadastrarAgencia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyQWdlbmNpYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Blazor/_Imports.razor]

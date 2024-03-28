@@ -1,0 +1,26 @@
+﻿@page "/agencias"
+
+@inject AgenciaAPI agenciaAPI
+
+@if(agencias != null)
+{
+    <MudGrid>
+    @foreach (var agencia in agencias)
+    {
+        <MudItem xs="3">
+            <CardAgencia Agencia="agencia" />
+        </MudItem>
+        
+    }
+    </MudGrid>
+}
+
+
+@code {
+    private ICollection<AgenciaResponse>? agencias;
+
+    protected override async Task OnInitializedAsync()
+    {
+        agencias = await agenciaAPI.GetAgenciasAsync();
+    }
+}

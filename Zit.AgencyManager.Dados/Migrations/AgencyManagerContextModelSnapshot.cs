@@ -519,7 +519,7 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("varchar(90)");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(12,4)");
 
                     b.HasKey("Id");
 
@@ -608,10 +608,10 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Cartao")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(12,4)");
 
                     b.Property<decimal>("Dinheiro")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(12,4)");
 
                     b.Property<int>("EmpresaId")
                         .HasColumnType("int");
@@ -656,7 +656,7 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(12,4)");
 
                     b.HasKey("Id");
 

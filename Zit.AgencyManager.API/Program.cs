@@ -20,6 +20,15 @@ namespace Zit.AgencyManager.API
                         .UseLazyLoadingProxies();
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("wasm",
+                    builder => builder.WithOrigins("https://localhost:7040")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             builder.Services
                 .AddIdentityApiEndpoints<Usuario>()
                 .AddEntityFrameworkStores<AgencyManagerContext>();
@@ -40,18 +49,11 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Localidade>>();
             builder.Services.AddTransient<DAL<VendaVirtual>>();
             builder.Services.AddTransient<DAL<Cliente>>();
-
-            builder.Services.AddCors(
-                options => options.AddPolicy(
-                    "wasm",
-                    policy => policy.WithOrigins([builder.Configuration["BackendUrl"] ?? "https://localhost:7089",
-                        builder.Configuration["FrontendUrl"] ?? "https://localhost:7015"])
-                        .AllowAnyMethod()
-                        .SetIsOriginAllowed(pol => true)
-                        .AllowAnyHeader()
-                        .AllowCredentials()));
-
+            builder.Services.AddTransient<DAL<Movimentacao>>();
+           
             var app = builder.Build();
+
+            app.UseCors("wasm");
 
             app.AddEndpointsContatos();
             app.AddEndpointsCargos();
@@ -63,6 +65,7 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsLocalidades();
             app.AddEndpointsVendasVirtuais();
             app.AddEndpointsClientes();
+            app.AddEndpointsMovimentacoes();
 
             app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 
