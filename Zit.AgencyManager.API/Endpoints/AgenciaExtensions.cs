@@ -85,6 +85,26 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.NoContent();
                
             });
+
+            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Agencia> dalAgencia, [FromServices]DAL<Contato> dalContato, int id) =>
+            {
+                var agencia = dalAgencia.RecuperarPor(ag => ag.Id == id);
+
+                if (agencia is null) return Results.NotFound();
+
+                var contatosARemover = new List<Contato>();
+
+                foreach (var contato in agencia.Contatos)
+                    contatosARemover.Add(contato);
+
+                foreach(var contato in contatosARemover)
+                    dalContato.Deletar(contato);
+
+                dalAgencia.Deletar(agencia);
+
+                return Results.NoContent();
+
+            });
         }
 
         private static ICollection<AgenciaResponse> EntityListToResponseList(IEnumerable<Agencia> listaDeAgencias)

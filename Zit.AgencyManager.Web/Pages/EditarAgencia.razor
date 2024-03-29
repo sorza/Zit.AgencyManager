@@ -1,33 +1,33 @@
-﻿@page "/CadastrarAgencia"
+﻿@page "/EditarAgencia/{AgenciaId}"
 
-@inject AgenciaAPI agencia
+@inject AgenciaAPI agenciaAPI
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-12 my-8" Justify="Justify.Center">
 
-    <MudText Class="mt-8" Typo="Typo.h4">Cadastro de Agência</MudText>
-    
+    <MudText Class="mt-8" Typo="Typo.h4">Edição de Agência</MudText>
+
     <MudForm>
         <MudText Class="mt-8" Typo="Typo.h6">Dados</MudText>
         <MudGrid>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-4" T="string" Placeholder="Nome da Agência"
-                                Variant="Variant.Outlined"
-                                Required="true"
-                                @bind-Value="descricao"
-                                RequiredError="Campo obrigatório." />
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="descricao"
+                              RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-4" T="string" Placeholder="CNPJ"
-                                Variant="Variant.Outlined"
-                                Required="true"
-                                @bind-Value="cnpj"
-                                RequiredError="Campo obrigatório." />
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="cnpj"
+                              RequiredError="Campo obrigatório." />
             </MudItem>
         </MudGrid>
         <MudText Class="mt-8" Typo="Typo.h6">Endereço</MudText>
-        <MudGrid>            
+        <MudGrid>
             <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-4" T="string" Placeholder="CEP"
                               Variant="Variant.Outlined"
@@ -80,12 +80,12 @@
         <MudText Class="mt-8" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
-                
+
                 <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
                     <MudSelectItem Value="@("Fixo")" />
                     <MudSelectItem Value="@("Celular")" />
                     <MudSelectItem Value="@("Email")" />
-                </MudSelect>               
+                </MudSelect>
 
                 <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
                               Variant="Variant.Outlined"
@@ -99,16 +99,16 @@
                               @bind-Value="Contato.Complemento"
                               RequiredError="Campo obrigatório." />
 
-               
-                <MudButton  Style="width: 97%"
-                            Class="mt-4 mb-4"
-                            Size="@Size.Large"
-                            Variant="@Variant.Filled"
-                            @onclick="AdicionarContato"
-                            Color="@Color.Success">
+
+                <MudButton Style="width: 97%"
+                           Class="mt-4 mb-4"
+                           Size="@Size.Large"
+                           Variant="@Variant.Filled"
+                           @onclick="AdicionarContato"
+                           Color="@Color.Success">
                     Adicionar Contato
                 </MudButton>
-                
+
             </MudItem>
 
             <MudItem xs="12" sm="8">
@@ -130,31 +130,37 @@
                     </Columns>
                 </MudDataGrid>
             </MudItem>
-            
+
         </MudGrid>
-       
+
         <MudButton Variant="Variant.Filled"
-                    Style="width: 100%"
-                    Size="Size.Large"
-                    @onclick="Cadastrar"
-                    Color="Color.Primary"
-                    Class="ml-auto">
-            Cadastrar Agência
+                   Style="width: 100%"
+                   Size="Size.Large"
+                   @onclick="Deletar"
+                   Color="Color.Error"
+                   Class="ml-auto">
+            Deletar Agência
         </MudButton>
-      
+
 
     </MudForm>
 </MudPaper>
 
 
 @code {
+    [Parameter] 
+    public string AgenciaId { get; set; }
+
+    public AgenciaResponse? Agencia { get; set; }
+
     private string descricao;
     private string cnpj;
 
     private Endereco Endereco = new Endereco();
     private Contato Contato = new Contato { Tipo = "Fixo"};
+    private ICollection<Contato> Contatos = new List<Contato>();
 
-    private List<Contato> Contatos = new List<Contato>();
+
 
     private async Task BuscarCep()
     {
@@ -166,24 +172,34 @@
             Endereco.Logradouro = endereco.Logradouro;
             Endereco.Bairro = endereco.Bairro;
             Endereco.Cidade = endereco.Localidade;
-            Endereco.Uf = endereco.Uf;           
+            Endereco.Uf = endereco.Uf;
         }
     }
 
-    private async Task Cadastrar()
+    protected override async Task OnInitializedAsync()
+    {
+        Agencia = await agenciaAPI.GetAgenciaPorIdAsync(Convert.ToInt32(AgenciaId));
+
+        cnpj = Agencia!.CNPJ;
+        descricao = Agencia!.Descricao;
+        Endereco = Agencia.Endereco;
+        Contatos = Agencia.Contatos;
+    }
+
+    private async Task Deletar()
     {
         try
         {
-            await agencia.AddAgenciaAsync(new AgenciaRequest(descricao, cnpj, Endereco, Contatos));
-
-            Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
+            await agenciaAPI.DeleteAgenciaAsync(Agencia.Id);
+            Snackbar.Add("Agência deletada com sucesso!", Severity.Success);
             navigationManager.NavigateTo("/Agencias");
+
         }
         catch
         {
-            Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
+            Snackbar.Add("Houve um erro durante a deleção!", Severity.Error);
         }
-
+       
     }
 
     private void AdicionarContato()
@@ -191,7 +207,7 @@
         Contato item = new()
         {
             Tipo = Contato.Tipo,
-            Descricao = Contato.Descricao, 
+            Descricao = Contato.Descricao,
             Complemento = Contato.Complemento
         };
 
@@ -206,8 +222,5 @@
     {
         Contatos.Remove(contato);
     }
-    
+
 }
-
-    
-
