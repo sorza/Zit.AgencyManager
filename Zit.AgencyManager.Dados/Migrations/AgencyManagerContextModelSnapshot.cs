@@ -343,7 +343,7 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int?>("EmpresaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoContato")
+                    b.Property<string>("Tipo")
                         .IsRequired()
                         .HasColumnType("varchar(90)");
 

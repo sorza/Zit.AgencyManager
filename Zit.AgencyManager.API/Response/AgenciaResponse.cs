@@ -8,6 +8,7 @@ namespace Zit.AgencyManager.API.Response
         int Id,
         string Descricao,      
         string CNPJ,
+        bool Ativa,
         Endereco Endereco,
         ICollection<Contato> Contatos
      );

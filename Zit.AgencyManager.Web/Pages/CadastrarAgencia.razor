@@ -1,0 +1,205 @@
+﻿@page "/CadastrarAgencia"
+
+@inject AgenciaAPI agencia
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-12 my-8" Justify="Justify.Center">
+
+    <MudText Class="mt-8" Typo="Typo.h4">Cadastro de Agência</MudText>
+    
+    <MudForm>
+        <MudText Class="mt-8" Typo="Typo.h6">Dados</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudTextField Class="mt-4" T="string" Placeholder="Nome da Agência"
+                                Variant="Variant.Outlined"
+                                Required="true"
+                                @bind-Value="descricao"
+                                RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudTextField Class="mt-4" T="string" Placeholder="CNPJ"
+                                Variant="Variant.Outlined"
+                                Required="true"
+                                @bind-Value="cnpj"
+                                RequiredError="Campo obrigatório." />
+            </MudItem>
+        </MudGrid>
+        <MudText Class="mt-8" Typo="Typo.h6">Endereço</MudText>
+        <MudGrid>            
+            <MudItem xs="12" sm="3">
+                <MudTextField Class="mt-4" T="string" Placeholder="CEP"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              OnBlur="BuscarCep"
+                              @bind-Value="Endereco.CEP"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="7">
+                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Logradouro"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="Endereco.Logradouro"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-4" T="string" Placeholder="Número"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="Endereco.Numero"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="5">
+                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Bairro"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="Endereco.Bairro"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="5">
+                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Cidade"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="Endereco.Cidade"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="UF"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="Endereco.Uf"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="12">
+                <MudTextField Class="mt-4" T="string" Placeholder="Complemento"
+                              Variant="Variant.Outlined"
+                              @bind-Value="Endereco.Complemento" />
+            </MudItem>
+        </MudGrid>
+        <MudText Class="mt-8" Typo="Typo.h6">Contatos</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Fixo")" />
+                    <MudSelectItem Value="@("Celular")" />
+                    <MudSelectItem Value="@("Email")" />
+                </MudSelect>
+            </MudItem>
+                       
+            <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
+                            Variant="Variant.Outlined"
+                            Required="true"
+                            @bind-Value="Contato.Descricao"
+                            RequiredError="Campo obrigatório." />          
+           
+            <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
+                            Variant="Variant.Outlined"
+                            Required="true"
+                            @bind-Value="Contato.Complemento"
+                            RequiredError="Campo obrigatório." />
+            
+                <MudButton Class="mt-4 mb-4 mr-3" 
+                            Size="@Size.Large" 
+                            Variant="@Variant.Filled"
+                            @onclick="AdicionarContato"
+                            Color="@Color.Success">Adicionar Contato
+                </MudButton>
+           
+            
+           
+        </MudGrid>
+
+        <MudDataGrid Items="@Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-4">
+            <Columns>
+                <PropertyColumn Property="x => x.Tipo" />
+                <PropertyColumn Property="x => x.Descricao" />
+                <PropertyColumn Property="x => x.Complemento" />
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate Context="cellContext">
+                        @{
+                            var contato = cellContext.Item;
+                        }
+                        <MudStack Row>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverContato(contato)">Remover</MudButton>
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+        </MudDataGrid>
+
+
+
+        <div class="d-flex align-center justify-space-between mt-4">
+            <MudButton Variant="Variant.Filled"
+                       @onclick="Cadastrar"
+                       Color="Color.Primary"
+                       Class="ml-auto">
+                Cadastrar Agência
+            </MudButton>
+        </div>
+
+    </MudForm>
+</MudPaper>
+
+
+@code {
+    private string descricao;
+    private string cnpj;
+
+    private Endereco Endereco = new Endereco();
+    private Contato Contato = new Contato();
+    private List<Contato> Contatos = new List<Contato>();
+
+    private async Task BuscarCep()
+    {
+        var httpClient = new HttpClient();
+        var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{Endereco.CEP}/json/");
+        if (response.IsSuccessStatusCode)
+        {
+            var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
+            Endereco.Logradouro = endereco.Logradouro;
+            Endereco.Bairro = endereco.Bairro;
+            Endereco.Cidade = endereco.Localidade;
+            Endereco.Uf = endereco.Uf;           
+        }
+    }
+
+    private async Task Cadastrar()
+    {
+        try
+        {
+            await agencia.AddAgenciaAsync(new AgenciaRequest(descricao, cnpj, Endereco, Contatos));
+
+            Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
+            navigationManager.NavigateTo("/Agencias");
+        }
+        catch
+        {
+            Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
+        }
+
+    }
+
+    private void AdicionarContato()
+    {
+        Contato item = new()
+        {
+            Tipo = Contato.Tipo,
+            Descricao = Contato.Descricao, 
+            Complemento = Contato.Complemento
+        };
+
+        if (item.Tipo != "" && item.Descricao != "" && item.Complemento != "") Contatos.Add(item);
+       
+    }
+
+    private void RemoverContato(Contato contato)
+    {
+        Contatos.Remove(contato);
+    }
+    
+}
+
+    
+

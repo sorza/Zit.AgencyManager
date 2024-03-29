@@ -22,5 +22,6 @@
     protected override async Task OnInitializedAsync()
     {
         agencias = await agenciaAPI.GetAgenciasAsync();
+        agencias = agencias.Where(a => a.Ativa == true).ToList();
     }
 }

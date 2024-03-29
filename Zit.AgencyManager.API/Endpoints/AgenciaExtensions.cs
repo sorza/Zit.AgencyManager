@@ -38,7 +38,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     Endereco = request.Endereco
                 };
 
-                if(request.Contatos is not  null) agencia.Contatos = request.Contatos;
+                if(request.Contatos is not null) agencia.Contatos = request.Contatos;
 
                 dal.Adicionar(agencia);
 
@@ -94,7 +94,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static AgenciaResponse EntityToResponse(Agencia agencia)
         {
-            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos);
+            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Ativa, agencia.Endereco, agencia.Contatos);
         }              
     }
 }

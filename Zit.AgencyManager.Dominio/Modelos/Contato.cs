@@ -3,7 +3,7 @@
     public class Contato
     {
         public int Id { get; set; }
-        public string TipoContato { get; set; }
+        public string Tipo { get; set; }
         public string Descricao { get; set; }
         public string Complemento { get; set; }
 
@@ -13,14 +13,14 @@
 
             var contato = (Contato)obj;
 
-            return TipoContato == contato.TipoContato &&
+            return Tipo == contato.Tipo &&
                    Descricao == contato.Descricao &&
                    Complemento == contato.Complemento;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(TipoContato, Descricao, Complemento);
+            return HashCode.Combine(Tipo, Descricao, Complemento);
         }
     }
  }
