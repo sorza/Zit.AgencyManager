@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Zit.AgencyManager.Blazor.props" />
-</Project>

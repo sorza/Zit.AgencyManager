@@ -1,9 +1,154 @@
-﻿@page "/Cargos/{AgenciaId}"
-<h3>Cargos</h3>
+﻿@page "/Cargos/{IdAgencia}"
+@inject CargoAPI cargoAPI;
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+
+<MudText Class="mt-6 mb-6" Typo="Typo.h4">Cargos da Agência</MudText>
+
+    <MudDataGrid Items="@cargos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+        <Columns>
+            <PropertyColumn Property="x => x.Descricao" />
+            <PropertyColumn Property="x => x.Atribuicoes"/>
+            <PropertyColumn Property="x => x.Salario"/>
+           
+            <TemplateColumn CellClass="d-flex justify-end">
+                <CellTemplate Context="cellContext">
+                    @{
+                        var cargo = cellContext.Item;
+                    }
+                    <MudStack Row>                       
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" OnClick="() => Editar(cargo)">Editar</MudButton>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => Remover(cargo)">Remover</MudButton>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+
+<MudForm Class="mt-8">
+    <MudText Class="mt-4" Typo="Typo.h6">Novo Cargo</MudText>
+
+    <MudGrid>
+            <MudItem xs="12" sm="3">
+                <MudTextField Class="mt-2" T="string" Placeholder="Descrição"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="cargo.Descricao"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="5">
+                <MudTextField Class="mt-2" T="string" Placeholder="Atribuições"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="cargo.Atribuicoes"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-2" T="decimal" Placeholder="Salário"
+                              Variant="Variant.Outlined"
+                              Required="true"
+                              @bind-Value="cargo.Salario"
+                              RequiredError="Campo obrigatório." />
+            </MudItem>
+
+            <MudItem xs="12" sm="2" Class="mb-2">
+                <MudButton  Size="@Size.Large" 
+                            Variant="@Variant.Filled" 
+                            Color="@Color.Success" 
+                            Class="mt-2 mb-2" 
+                            Style="width:100%; height:100%"
+                            OnClick="Adicionar">
+                            @btn_Confirmar</MudButton>
+            </MudItem>
+    </MudGrid>
+</MudForm>
+
+</MudPaper>
 
 @code {
 
     [Parameter]
-    public string? AgenciaId { get; set; }
+    public string? IdAgencia { get; set; }    
 
+    private ICollection<CargoResponse>? cargos;
+    private Cargo cargo = new Cargo();
+    private string btn_Confirmar = "Novo Cargo";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarCargos();
+    }
+
+    private async Task CarregarCargos()
+    {
+        cargo.Id = 0;
+        cargo.Descricao = "";       
+        cargo.Atribuicoes = "";
+        cargo.Salario = 0;
+
+        cargos = await cargoAPI.GetCargosAsync();
+
+        if (cargos is not null) cargos = cargos.Where(c => c.Agencia.Id == Convert.ToInt32(IdAgencia)).ToList();
+
+    }
+
+    private async Task Adicionar()
+    {
+        if (!cargo.Descricao.Equals("") &&
+            !cargo.Atribuicoes.Equals("") &&
+            cargo.Salario > 0)
+        {
+            if(btn_Confirmar.Equals("Novo Cargo"))
+            {
+                if (await cargoAPI.AddCargoAsync(new CargoRequest(cargo.Descricao, cargo.Atribuicoes, cargo.Salario, Convert.ToInt32(IdAgencia))))
+                {                    
+                    Snackbar.Add("Cargo cadastrado com sucesso!", Severity.Success);
+                    await CarregarCargos();
+                }
+                else
+                {
+                    Snackbar.Add("Houve um erro ao cadastrar!", Severity.Error);
+                }
+            }
+            else
+            {
+                if (await cargoAPI.UpdateCargoAsync(cargo.Id, new CargoRequestEdit(cargo.Descricao, cargo.Atribuicoes, cargo.Salario)))
+                {
+                    btn_Confirmar = "Novo Cargo";
+                    Snackbar.Add("Cargo atualizado com sucesso!", Severity.Success);
+                    await CarregarCargos();
+                }
+                else
+                {
+                    Snackbar.Add("Houve um erro ao cadastrar!", Severity.Error);
+                }
+            }
+            await CarregarCargos();
+        }
+    }
+
+    private void Editar(CargoResponse cargoResponse)
+    {
+        cargo.Id = cargoResponse.Id;
+        cargo.Descricao = cargoResponse.Descricao;
+        cargo.Salario = cargoResponse.Salario;
+        cargo.Atribuicoes = cargoResponse.Atribuicoes;
+
+        btn_Confirmar = "Atualizar";
+    }
+
+    private async Task Remover(CargoResponse cargo)
+    {      
+        if (await cargoAPI.DeleteCargoAsync(cargo.Id))
+        {
+            Snackbar.Add("Cargo removido com sucesso!", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Este cargo não está obsoleto!\nSó é permitido remover um cargo que não esteja sendo desempenhado por nenhum colaborador.", Severity.Error);
+        }
+
+        await CarregarCargos();
+    }
 }

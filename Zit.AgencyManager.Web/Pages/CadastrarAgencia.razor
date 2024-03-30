@@ -4,22 +4,22 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-12 my-8" Justify="Justify.Center">
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
 
-    <MudText Class="mt-8" Typo="Typo.h4">Cadastro de Agência</MudText>
+    <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Agência</MudText>
     
     <MudForm>
-        <MudText Class="mt-8" Typo="Typo.h6">Dados</MudText>
+        <MudText Class="mt-6" Typo="Typo.h6">Dados</MudText>
         <MudGrid>
             <MudItem xs="12" sm="6">
-                <MudTextField Class="mt-4" T="string" Placeholder="Nome da Agência"
+                <MudTextField Class="mt-2" T="string" Placeholder="Nome da Agência"
                                 Variant="Variant.Outlined"
                                 Required="true"
                                 @bind-Value="descricao"
                                 RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="6">
-                <MudTextField Class="mt-4" T="string" Placeholder="CNPJ"
+                <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
                                 Variant="Variant.Outlined"
                                 Required="true"
                                 @bind-Value="cnpj"
@@ -29,7 +29,7 @@
         <MudText Class="mt-8" Typo="Typo.h6">Endereço</MudText>
         <MudGrid>            
             <MudItem xs="12" sm="3">
-                <MudTextField Class="mt-4" T="string" Placeholder="CEP"
+                <MudTextField Class="mt-2" T="string" Placeholder="CEP"
                               Variant="Variant.Outlined"
                               Required="true"
                               OnBlur="BuscarCep"
@@ -37,42 +37,42 @@
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="7">
-                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Logradouro"
+                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Logradouro"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="Endereco.Logradouro"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="2">
-                <MudTextField Class="mt-4" T="string" Placeholder="Número"
+                <MudTextField Class="mt-2" T="string" Placeholder="Número"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="Endereco.Numero"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="5">
-                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Bairro"
+                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Bairro"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="Endereco.Bairro"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="5">
-                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="Cidade"
+                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Cidade"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="Endereco.Cidade"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="2">
-                <MudTextField Disabled="true" Class="mt-4" T="string" Placeholder="UF"
+                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="UF"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="Endereco.Uf"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="12">
-                <MudTextField Class="mt-4" T="string" Placeholder="Complemento"
+                <MudTextField Class="mt-2" T="string" Placeholder="Complemento"
                               Variant="Variant.Outlined"
                               @bind-Value="Endereco.Complemento" />
             </MudItem>

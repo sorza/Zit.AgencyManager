@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\baixarcaixas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\baixarcaixas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\gerenciaragencia.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\gerenciaragencia.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\caixas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\caixas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BaixarCaixas.razor",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\BaixarCaixas.razor",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\BaixarCaixas.razor",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\BaixarCaixas.razor",
-              "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\BaixarCaixas.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-30T03:33:41.753Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Caixas.razor",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\Caixas.razor",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\Caixas.razor",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\Caixas.razor",
-              "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\Caixas.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-30T03:32:28.714Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "GerenciarAgencia.razor",
               "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\GerenciarAgencia.razor",
               "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\GerenciarAgencia.razor",
               "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\GerenciarAgencia.razor",
               "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\GerenciarAgencia.razor",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAAABIAAAAxAAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAADUAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-30T03:27:22.907Z",
+              "WhenOpened": "2024-03-30T22:06:36.045Z",
               "EditorCaption": ""
             }
           ]
