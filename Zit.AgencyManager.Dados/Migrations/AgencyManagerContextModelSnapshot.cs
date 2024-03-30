@@ -228,6 +228,9 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AgenciaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Atribuicoes")
                         .IsRequired()
                         .HasColumnType("varchar(300)");
@@ -240,6 +243,8 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AgenciaId");
 
                     b.ToTable("Cargos");
                 });
@@ -747,6 +752,17 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired();
 
                     b.Navigation("Colaborador");
+                });
+
+            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cargo", b =>
+                {
+                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Agencia", "Agencia")
+                        .WithMany()
+                        .HasForeignKey("AgenciaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agencia");
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>

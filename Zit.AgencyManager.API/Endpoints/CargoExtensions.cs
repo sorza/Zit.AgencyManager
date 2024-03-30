@@ -37,7 +37,8 @@ namespace Zit.AgencyManager.API.Endpoints
                 {
                     Atribuicoes = request.Atribuicoes,
                     Descricao = request.Descricao,
-                    Salario = request.Salario
+                    Salario = request.Salario,
+                    AgenciaId = request.AgenciaId
                 };
                             
                 dal.Adicionar(cargo);
@@ -88,7 +89,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static CargoResponse EntityToResponse(Cargo cargo)
         {
-            return new CargoResponse(cargo.Id, cargo.Descricao, cargo.Atribuicoes, cargo.Salario);
+            return new CargoResponse(cargo.Id, cargo.Descricao, cargo.Atribuicoes, cargo.Salario, cargo.Agencia);
         }
     }
 }

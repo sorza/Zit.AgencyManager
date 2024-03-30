@@ -8,14 +8,16 @@
     <MudCardContent>
         <MudText Typo="Typo.body2">@Agencia.Endereco.Logradouro, @Agencia.Endereco.Numero <br />  @Agencia.Endereco.Bairro <br /> @Agencia.Endereco.Complemento <br /> @Agencia.Endereco.Cidade / @Agencia.Endereco.Uf </MudText>
     </MudCardContent>
-    <MudCardActions>
-        <MudButton Color="Color.Warning"
-                   Variant="Variant.Outlined"
-                   Href=@($"/EditarAgencia/{Agencia!.Id}")>Editar Dados</MudButton> 
-                   
+    <MudCardActions>        
         <MudButton Color="Color.Primary"
                    Variant="Variant.Outlined"
-                   Href=@($"/GerenciarAgencia/{Agencia!.Id}")>Gerenciar</MudButton>
+                   Class="mr-2"
+                   Href=@($"/GerenciarAgencia/{Agencia!.Id}")>Gerenciar Agência</MudButton>
+
+        <MudButton Color="Color.Warning"
+                   Variant="Variant.Outlined"
+                   Href=@($"/EditarAgencia/{Agencia!.Id}")>Editar Dados</MudButton>                    
+        
     </MudCardActions>    
 </MudCard>
 
@@ -28,5 +30,4 @@
     {
         Imagem = Agencia!.Foto is null ? "images/cardAgencia.jpg" : $"https://localhost:7006/{Agencia!.Foto}";
     }
-
 }

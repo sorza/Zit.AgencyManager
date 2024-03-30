@@ -1,4 +1,6 @@
-﻿namespace Zit.AgencyManager.API.Response
+﻿using Zit.AgencyManager.Dominio.Modelos;
+
+namespace Zit.AgencyManager.API.Response
 {
-    public record CargoResponse(int Id, string Descricao, string Atribuicoes, decimal Salario);
+    public record CargoResponse(int Id, string Descricao, string Atribuicoes, decimal Salario, Agencia Agencia);
 }

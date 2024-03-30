@@ -1,7 +1,8 @@
-﻿@page "/CadastrarColaborador"
+﻿@page "/CadastrarColaborador/{AgenciaId}"
 
 <h3>CadastrarColaborador</h3>
 
 @code {
-
+    [Parameter]
+    public string? AgenciaId { get; set; }
 }

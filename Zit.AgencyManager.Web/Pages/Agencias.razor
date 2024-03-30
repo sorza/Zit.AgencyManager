@@ -1,7 +1,8 @@
 ﻿@page "/agencias"
 @inject AgenciaAPI agenciaAPI
 
-<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">    
+<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">
+    <MudText Class="mb-4" Typo="Typo.h4">Minhas Agências</MudText>
     <MudPagination Count="@totalPaginas" SelectedChanged="@PaginaMudou"></MudPagination>    
 </MudStack>
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Go4QVkHaSAci4jj99MmodfhVjbq1lIkSwyI4EokQAKM=",
+  "Hash": "UaVnWLywO0Bzk7PC7Cn3VNGaQeVkVNGOl/DLEpKTAZU=",
   "Source": "Zit.AgencyManager.API",
   "BasePath": "_content/Zit.AgencyManager.API",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg",
+      "SourceId": "Zit.AgencyManager.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\",
+      "BasePath": "_content/Zit.AgencyManager.API",
+      "RelativePath": "FotosAgencia/290320240919.ARARAS - RODOVIARIA.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg"
+    },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240933.AMERICANA - RODOVIARIA.jpeg",
       "SourceId": "Zit.AgencyManager.API",

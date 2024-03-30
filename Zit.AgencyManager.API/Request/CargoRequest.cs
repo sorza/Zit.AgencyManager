@@ -5,6 +5,7 @@ namespace Zit.AgencyManager.API.Request
     public record CargoRequest(
         [Required] string Descricao, 
         [Required] string Atribuicoes, 
-        [Required] decimal Salario);
+        [Required] decimal Salario,
+        [Required] int AgenciaId);
 
 }
