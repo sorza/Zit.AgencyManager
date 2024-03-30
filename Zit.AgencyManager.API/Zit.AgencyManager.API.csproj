@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Zit.AgencyManager.Dominio\Zit.AgencyManager.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\FotosAgencia\" />
+  </ItemGroup>
+
 </Project>

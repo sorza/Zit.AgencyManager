@@ -10,6 +10,7 @@ namespace Zit.AgencyManager.API.Response
         string CNPJ,
         bool Ativa,
         Endereco Endereco,
-        ICollection<Contato> Contatos
+        ICollection<Contato> Contatos,
+        string? Foto
      );
 }

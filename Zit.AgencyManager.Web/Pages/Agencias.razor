@@ -1,11 +1,14 @@
 ﻿@page "/agencias"
-
 @inject AgenciaAPI agenciaAPI
+
+<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">    
+    <MudPagination Count="@totalPaginas" SelectedChanged="@PaginaMudou"></MudPagination>    
+</MudStack>
 
 @if(agencias != null)
 {
     <MudGrid>
-    @foreach (var agencia in agencias)
+        @foreach (var agencia in agenciasPorPagina)
     {
         <MudItem xs="3">
             <CardAgencia Agencia="agencia" />
@@ -15,12 +18,33 @@
     </MudGrid>
 }
 
-
 @code {
     private ICollection<AgenciaResponse>? agencias;
+    private int tamanho = 8;
+    private int totalItens;
+    private int totalPaginas;
+    private ICollection<AgenciaResponse>? agenciasPorPagina;
 
     protected override async Task OnInitializedAsync()
     {
         agencias = await agenciaAPI.GetAgenciasAsync();       
+
+        if(agencias is not null)
+        {
+            agencias = agencias.OrderByDescending(a => a.Id).ToList();
+
+            totalItens = agencias.Count();
+            totalPaginas = Convert.ToInt32(Math.Ceiling((totalItens * 1.0) / tamanho));
+            this.PaginaMudou(1);
+        }
+    }
+
+    private void PaginaMudou(int numPagina)
+    {
+        var indice = numPagina - 1;
+        agenciasPorPagina = agencias!
+            .Skip(tamanho * indice)
+            .Take(tamanho)
+            .ToList();
     }
 }

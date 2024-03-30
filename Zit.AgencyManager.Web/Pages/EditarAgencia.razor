@@ -77,6 +77,20 @@
                               @bind-Value="Endereco.Complemento" />
             </MudItem>
         </MudGrid>
+
+        <MudImage Class="mt-4" src="@fileImage" />
+        <MudFileUpload T="IBrowserFile" Accept=".jpeg" FilesChanged="UploadFile">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PhotoCamera"
+                           for="@context">
+                    Foto da Agência
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+
         <MudText Class="mt-8" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
@@ -133,15 +147,22 @@
 
         </MudGrid>
 
-        <MudButton Variant="Variant.Filled"
-                   Style="width: 100%"
+        <MudItem Class="d-flex justify-end">
+            <MudButton Variant="Variant.Filled"
                    Size="Size.Large"
-                   @onclick="Deletar"
-                   Color="Color.Error"
-                   Class="ml-auto">
-            Deletar Agência
-        </MudButton>
+                   @onclick="Editar"
+                   Color="Color.Secondary"  >               
+                Atualizar Dados
+            </MudButton>
 
+            <MudButton Variant="Variant.Filled"
+                       Size="Size.Large"
+                       @onclick="Deletar"
+                       Color="Color.Error"
+                       Class="ml-3">                  
+                Deletar Agência
+            </MudButton>
+        </MudItem>
 
     </MudForm>
 </MudPaper>
@@ -149,18 +170,17 @@
 
 @code {
     [Parameter] 
-    public string AgenciaId { get; set; }
+    public string? AgenciaId { get; set; }
 
-    public AgenciaResponse? Agencia { get; set; }
+    private string? descricao;
+    private string? cnpj;
+    private string? fileImage;
+    private string? fotoAgencia;
 
-    private string descricao;
-    private string cnpj;
-
+    private AgenciaResponse? Agencia;
     private Endereco Endereco = new Endereco();
     private Contato Contato = new Contato { Tipo = "Fixo"};
     private ICollection<Contato> Contatos = new List<Contato>();
-
-
 
     private async Task BuscarCep()
     {
@@ -199,7 +219,22 @@
         {
             Snackbar.Add("Houve um erro durante a deleção!", Severity.Error);
         }
-       
+
+    }
+
+    private async Task Editar()
+    {
+        try
+        {
+            await agenciaAPI.UpdateAgenciaAsync(Agencia!.Id, new AgenciaRequestEdit(descricao, cnpj, Endereco, Contatos, true, fotoAgencia));
+
+            Snackbar.Add("Agência atualizada com sucesso!", Severity.Success);
+            navigationManager.NavigateTo("/Agencias");
+        }
+        catch
+        {
+            Snackbar.Add("Erro ao atualizar agência!", Severity.Error);
+        }
     }
 
     private void AdicionarContato()
@@ -223,4 +258,19 @@
         Contatos.Remove(contato);
     }
 
+    private async Task UploadFile(IBrowserFile file)
+    {       
+        var format = "image/jpeg";
+        var resizedImage = await file.RequestImageFileAsync(format, 200, 200);
+
+        using var fileStream = resizedImage.OpenReadStream();
+        using var memoryStream = new MemoryStream();
+        await fileStream.CopyToAsync(memoryStream);
+
+        var imageUpload = Convert.ToBase64String(memoryStream.ToArray());
+        fileImage = $"data:{format};base64,{imageUpload}";
+        fotoAgencia = imageUpload;
+
+        fileImage = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+    }
 }

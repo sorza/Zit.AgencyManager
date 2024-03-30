@@ -38,8 +38,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyQWdlbmNpYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/CadastrarColaborador.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyQ29sYWJvcmFkb3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/Colaboradores.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29sYWJvcmFkb3Jlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/EditarAgencia.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdGFyQWdlbmNpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/EditarColaborador.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdGFyQ29sYWJvcmFkb3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/GerenciarAgencia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2VyZW5jaWFyQWdlbmNpYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/Home.razor]

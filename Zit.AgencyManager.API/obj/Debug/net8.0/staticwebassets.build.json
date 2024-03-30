@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "wG+0ZoYLMDtjailPm+KLVbUtrIld7rGtUs2gf50lowI=",
+  "Hash": "Go4QVkHaSAci4jj99MmodfhVjbq1lIkSwyI4EokQAKM=",
   "Source": "Zit.AgencyManager.API",
   "BasePath": "_content/Zit.AgencyManager.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Zit.AgencyManager.API\\wwwroot",
+      "Source": "Zit.AgencyManager.API",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\",
+      "BasePath": "_content/Zit.AgencyManager.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240933.AMERICANA - RODOVIARIA.jpeg",
+      "SourceId": "Zit.AgencyManager.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\",
+      "BasePath": "_content/Zit.AgencyManager.API",
+      "RelativePath": "FotosAgencia/290320240933.AMERICANA - RODOVIARIA.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\FotosAgencia\\290320240933.AMERICANA - RODOVIARIA.jpeg"
+    }
+  ]
 }

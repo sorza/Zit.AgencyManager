@@ -180,6 +180,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int>("EnderecoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Foto")
+                        .HasColumnType("varchar(90)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EnderecoId");

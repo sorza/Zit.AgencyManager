@@ -9,6 +9,7 @@
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
         public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
+        public string? Foto { get; set; }
        
     }
 }

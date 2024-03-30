@@ -7,7 +7,8 @@ namespace Zit.AgencyManager.API.Request
         [Required] string Descricao, 
         [Required] string CNPJ, 
         [Required] Endereco Endereco, 
-        [Required] ICollection<Contato>? Contatos)
+        [Required] ICollection<Contato>? Contatos,
+        string? Foto)
     {
         bool Ativa = true;
     }

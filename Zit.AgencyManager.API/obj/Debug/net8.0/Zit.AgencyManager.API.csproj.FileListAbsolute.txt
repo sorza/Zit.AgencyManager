@@ -151,3 +151,4 @@ C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManage
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.API\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.API\obj\Debug\net8.0\Zit.Agen.10920BBF.Up2Date
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.API\bin\Debug\net8.0\Zit.AgencyManager.API.staticwebassets.runtime.json

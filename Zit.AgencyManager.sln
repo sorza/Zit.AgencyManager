@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zit.AgencyManager.Dominio",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zit.AgencyManager.API", "Zit.AgencyManager.API\Zit.AgencyManager.API.csproj", "{448D0247-75F2-4BAF-B81C-4653F72E3045}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zit.AgencyManager.Web", "Zit.AgencyManager.Web\Zit.AgencyManager.Web.csproj", "{F192606F-841E-4E97-9915-1BF0633CE99B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zit.AgencyManager.Web", "Zit.AgencyManager.Web\Zit.AgencyManager.Web.csproj", "{F192606F-841E-4E97-9915-1BF0633CE99B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

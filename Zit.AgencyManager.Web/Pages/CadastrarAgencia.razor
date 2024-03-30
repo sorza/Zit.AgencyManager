@@ -1,6 +1,6 @@
 ﻿@page "/CadastrarAgencia"
 
-@inject AgenciaAPI agencia
+@inject AgenciaAPI agenciaAPI
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
@@ -77,6 +77,18 @@
                               @bind-Value="Endereco.Complemento" />
             </MudItem>
         </MudGrid>
+        <MudImage Class="mt-4" src="@fileImage" />
+        <MudFileUpload T="IBrowserFile" Accept=".jpeg" FilesChanged="UploadFile">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PhotoCamera"
+                           for="@context">
+                    Foto da Agência
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
         <MudText Class="mt-8" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
@@ -129,31 +141,29 @@
                         </TemplateColumn>
                     </Columns>
                 </MudDataGrid>
-            </MudItem>
-            
-        </MudGrid>
+            </MudItem>            
+        </MudGrid>        
        
         <MudButton Variant="Variant.Filled"
-                    Style="width: 100%"
                     Size="Size.Large"
                     @onclick="Cadastrar"
                     Color="Color.Primary"
-                    Class="ml-auto">
+                    Class="ml-auto mt-4 d-flex justify-end">
             Cadastrar Agência
         </MudButton>
-      
-
     </MudForm>
 </MudPaper>
 
 
 @code {
-    private string descricao;
-    private string cnpj;
+
+    private string? descricao;
+    private string? cnpj;
+    private string? fileImage;
+    private string? fotoAgencia;
 
     private Endereco Endereco = new Endereco();
     private Contato Contato = new Contato { Tipo = "Fixo"};
-
     private List<Contato> Contatos = new List<Contato>();
 
     private async Task BuscarCep()
@@ -174,7 +184,7 @@
     {
         try
         {
-            await agencia.AddAgenciaAsync(new AgenciaRequest(descricao, cnpj, Endereco, Contatos));
+            await agenciaAPI.AddAgenciaAsync(new AgenciaRequest(descricao, cnpj, Endereco, Contatos, fotoAgencia));
 
             Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
             navigationManager.NavigateTo("/Agencias");
@@ -206,7 +216,23 @@
     {
         Contatos.Remove(contato);
     }
-    
+
+    private async Task UploadFile(IBrowserFile file)
+    {      
+        var format = "image/jpeg";
+        var resizedImage = await file.RequestImageFileAsync(format, 200, 200);
+
+        using var fileStream = resizedImage.OpenReadStream();
+        using var memoryStream = new MemoryStream();
+        await fileStream.CopyToAsync(memoryStream);
+
+        var imageUpload = Convert.ToBase64String(memoryStream.ToArray());
+        fileImage = $"data:{format};base64,{imageUpload}";
+        fotoAgencia = imageUpload;
+
+        fileImage = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+
+    }
 }
 
     

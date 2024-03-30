@@ -53,6 +53,8 @@ namespace Zit.AgencyManager.API
            
             var app = builder.Build();
 
+            app.UseStaticFiles();
+
             app.UseCors("wasm");
 
             app.AddEndpointsContatos();

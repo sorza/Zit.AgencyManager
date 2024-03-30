@@ -29,8 +29,8 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groupBuilder.MapPost("", ([FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
-            {                
+            groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,[FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
+            {              
                 Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ,
@@ -40,12 +40,27 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if(request.Contatos is not null) agencia.Contatos = request.Contatos;
 
+                if(request.Foto is not null)
+                {
+                    var nome = request.Descricao.Trim();
+                    var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
+
+                    var path = Path.Combine(env.ContentRootPath,
+                          "wwwroot", "FotosAgencia", imagemAgencia);
+
+                    using MemoryStream ms = new MemoryStream(Convert.FromBase64String(request.Foto!));
+                    using FileStream fs = new(path, FileMode.Create);
+                    await ms.CopyToAsync(fs);
+
+                    agencia.Foto = $"FotosAgencia/{imagemAgencia}";
+                }
+
                 dal.Adicionar(agencia);
 
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("{id}", ([FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato,[FromBody] AgenciaRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env,[FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato,[FromBody] AgenciaRequestEdit request, int id) =>
             {
                 var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
@@ -79,7 +94,22 @@ namespace Zit.AgencyManager.API.Endpoints
                     foreach (var item in contatosARemover)
                         dalContato.Deletar(item);
                 }
-               
+
+                if (request.Foto is not null && !request.Foto.Equals(agenciaAAtualizar.Foto))
+                {
+                    var nome = request.Descricao.Trim();
+                    var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
+
+                    var path = Path.Combine(env.ContentRootPath,
+                          "wwwroot", "FotosAgencia", imagemAgencia);
+
+                    using MemoryStream ms = new MemoryStream(Convert.FromBase64String(request.Foto!));
+                    using FileStream fs = new(path, FileMode.Create);
+                    await ms.CopyToAsync(fs);
+
+                    agenciaAAtualizar.Foto = $"FotosAgencia/{imagemAgencia}";
+                }
+
                 dal.Atualizar(agenciaAAtualizar);
 
                 return Results.NoContent();
@@ -114,7 +144,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static AgenciaResponse EntityToResponse(Agencia agencia)
         {
-            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Ativa, agencia.Endereco, agencia.Contatos);
+            return new AgenciaResponse(agencia.Id, agencia.Descricao, agencia.CNPJ, agencia.Ativa, agencia.Endereco, agencia.Contatos, agencia.Foto);
         }              
     }
 }
