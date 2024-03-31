@@ -1,8 +1,54 @@
 ﻿@page "/colaboradores/{AgenciaId}"
+@inject ColaboradorAPI colaboradorAPI
 
-<h3>Seus colaboradores</h3>
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+
+    <MudText Class="mt-6 mb-6" Typo="Typo.h4">Colaboradores</MudText>
+
+    <MudDataGrid Items="@colaboradores" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+        <Columns>
+            <PropertyColumn Property="x => x.Nome" Title="Nome Completo" />
+            <PropertyColumn Property="x => x.CPF" Title="RG" />
+            <PropertyColumn Property="x => x.RG" Title="CPF" />
+            <PropertyColumn Property="x => x.Cargo.Descricao" Title="Cargo" />
+            <PropertyColumn Property="x => x.DataAdmissao" Title="Data Admissão" />
+            <PropertyColumn Property="x => x.Usuario.UserName" Title="Usuário de acesso" />
+
+            <TemplateColumn CellClass="d-flex justify-end">
+                <CellTemplate Context="cellContext">
+                    @{
+                        var cargo = cellContext.Item;
+                    }
+                    <MudStack Row>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" >Ficha Completa</MudButton>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error">Remover</MudButton>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+   
+    <MudButton Variant="Variant.Filled"
+                Size="Size.Large"
+                Href=@($"/CadastrarColaborador/{AgenciaId}")
+                Color="Color.Primary"
+                Class="ml-auto mt-4 mr-2 justify-end">
+        <MudIcon Icon="@Icons.Material.Filled.Person" Class="mr-2"/>
+        Contratar
+    </MudButton>
+</MudPaper>
 
 @code {
     [Parameter]
     public string? AgenciaId { get; set; }
+
+    private ICollection<ColaboradorResponse>? colaboradores;
+
+    protected override async Task OnInitializedAsync()
+    {
+        colaboradores = await colaboradorAPI.GetColaboradoresAsync();
+
+        if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).ToList();
+    }
+
 }

@@ -4,81 +4,81 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
 
     <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Agência</MudText>
     
     <MudForm>
-        <MudText Class="mt-6" Typo="Typo.h6">Dados</MudText>
+        <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
         <MudGrid>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="Nome da Agência"
                                 Variant="Variant.Outlined"
                                 Required="true"
-                                @bind-Value="descricao"
+                              @bind-Value="agencia.Descricao"
                                 RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
                                 Variant="Variant.Outlined"
                                 Required="true"
-                                @bind-Value="cnpj"
+                                @bind-Value="agencia.CNPJ"
                                 RequiredError="Campo obrigatório." />
             </MudItem>
         </MudGrid>
-        <MudText Class="mt-8" Typo="Typo.h6">Endereço</MudText>
-        <MudGrid>            
-            <MudItem xs="12" sm="3">
-                <MudTextField Class="mt-2" T="string" Placeholder="CEP"
+        <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-1" T="string" Placeholder="CEP"
                               Variant="Variant.Outlined"
                               Required="true"
                               OnBlur="BuscarCep"
-                              @bind-Value="Endereco.CEP"
+                              @bind-Value="agencia.Endereco.CEP"
                               RequiredError="Campo obrigatório." />
             </MudItem>
-            <MudItem xs="12" sm="7">
-                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Logradouro"
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
                               Variant="Variant.Outlined"
                               Required="true"
-                              @bind-Value="Endereco.Logradouro"
+                              @bind-Value="agencia.Endereco.Logradouro"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="2">
-                <MudTextField Class="mt-2" T="string" Placeholder="Número"
+                <MudTextField Class="mt-1" T="string" Placeholder="Número"
                               Variant="Variant.Outlined"
                               Required="true"
-                              @bind-Value="Endereco.Numero"
+                              @bind-Value="agencia.Endereco.Numero"
                               RequiredError="Campo obrigatório." />
             </MudItem>
-            <MudItem xs="12" sm="5">
-                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Bairro"
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
                               Variant="Variant.Outlined"
                               Required="true"
-                              @bind-Value="Endereco.Bairro"
+                              @bind-Value="agencia.Endereco.Bairro"
                               RequiredError="Campo obrigatório." />
             </MudItem>
-            <MudItem xs="12" sm="5">
-                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="Cidade"
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
                               Variant="Variant.Outlined"
                               Required="true"
-                              @bind-Value="Endereco.Cidade"
+                              @bind-Value="agencia.Endereco.Cidade"
                               RequiredError="Campo obrigatório." />
             </MudItem>
             <MudItem xs="12" sm="2">
-                <MudTextField Disabled="true" Class="mt-2" T="string" Placeholder="UF"
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
                               Variant="Variant.Outlined"
                               Required="true"
-                              @bind-Value="Endereco.Uf"
+                              @bind-Value="agencia.Endereco.Uf"
                               RequiredError="Campo obrigatório." />
             </MudItem>
-            <MudItem xs="12" sm="12">
-                <MudTextField Class="mt-2" T="string" Placeholder="Complemento"
+            <MudItem xs="12" sm="6">
+                <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
                               Variant="Variant.Outlined"
-                              @bind-Value="Endereco.Complemento" />
+                              @bind-Value="agencia.Endereco.Complemento" />
             </MudItem>
         </MudGrid>
         <MudImage Class="mt-4" src="@fileImage" />
-        <MudFileUpload T="IBrowserFile" Accept=".jpeg" FilesChanged="UploadFile">
+        <MudFileUpload T="IBrowserFile" Accept=".jpg" FilesChanged="UploadFile">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
                            Variant="Variant.Filled"
@@ -89,7 +89,7 @@
                 </MudButton>
             </ButtonTemplate>
         </MudFileUpload>
-        <MudText Class="mt-8" Typo="Typo.h6">Contatos</MudText>
+        <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
                 
@@ -110,21 +110,21 @@
                               Required="true"
                               @bind-Value="Contato.Complemento"
                               RequiredError="Campo obrigatório." />
-
                
-                <MudButton  Style="width: 97%"
+                <MudButton  Style="width: 100%"
                             Class="mt-4 mb-4"
                             Size="@Size.Large"
                             Variant="@Variant.Filled"
                             @onclick="AdicionarContato"
                             Color="@Color.Success">
+                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
                     Adicionar Contato
                 </MudButton>
                 
             </MudItem>
 
             <MudItem xs="12" sm="8">
-                <MudDataGrid Items="@Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-2">
+                <MudDataGrid Items="@agencia.Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-2">
                     <Columns>
                         <PropertyColumn Property="x => x.Tipo" />
                         <PropertyColumn Property="x => x.Descricao" />
@@ -148,52 +148,46 @@
                     Size="Size.Large"
                     @onclick="Cadastrar"
                     Color="Color.Primary"
-                    Class="ml-auto mt-4 d-flex justify-end">
+                    Class="ml-auto mt-2 d-flex justify-end">
+            <MudIcon Icon="@Icons.Material.Filled.Storefront" Class="mr-2" />
             Cadastrar Agência
         </MudButton>
     </MudForm>
 </MudPaper>
 
-
 @code {
 
-    private string? descricao;
-    private string? cnpj;
+    private Agencia agencia = new() { Endereco = new Endereco(), Contatos = new List<Contato>() };
+   
     private string? fileImage;
-    private string? fotoAgencia;
 
-    private Endereco Endereco = new Endereco();
     private Contato Contato = new Contato { Tipo = "Fixo"};
-    private List<Contato> Contatos = new List<Contato>();
 
     private async Task BuscarCep()
     {
         var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{Endereco.CEP}/json/");
+        var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{agencia.Endereco.CEP}/json/");
         if (response.IsSuccessStatusCode)
         {
             var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
-            Endereco.Logradouro = endereco.Logradouro;
-            Endereco.Bairro = endereco.Bairro;
-            Endereco.Cidade = endereco.Localidade;
-            Endereco.Uf = endereco.Uf;           
+            agencia.Endereco.Logradouro = endereco.Logradouro;
+            agencia.Endereco.Bairro = endereco.Bairro;
+            agencia.Endereco.Cidade = endereco.Localidade;
+            agencia.Endereco.Uf = endereco.Uf;
         }
     }
 
     private async Task Cadastrar()
     {
-        try
+        if(await agenciaAPI.AddAgenciaAsync(new AgenciaRequest(agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos, agencia.Foto)))
         {
-            await agenciaAPI.AddAgenciaAsync(new AgenciaRequest(descricao, cnpj, Endereco, Contatos, fotoAgencia));
-
             Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
             navigationManager.NavigateTo("/Agencias");
         }
-        catch
+        else
         {
             Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
-        }
-
+        }    
     }
 
     private void AdicionarContato()
@@ -207,14 +201,14 @@
 
         if (!item.Tipo.Equals("") && !item.Descricao.Equals("") && !item.Complemento.Equals(""))
         {
-            Contatos.Add(item);
+            agencia.Contatos.Add(item);
         }
 
     }
 
     private void RemoverContato(Contato contato)
     {
-        Contatos.Remove(contato);
+        agencia.Contatos.Remove(contato);
     }
 
     private async Task UploadFile(IBrowserFile file)
@@ -228,7 +222,7 @@
 
         var imageUpload = Convert.ToBase64String(memoryStream.ToArray());
         fileImage = $"data:{format};base64,{imageUpload}";
-        fotoAgencia = imageUpload;
+        agencia.Foto = imageUpload;
 
         fileImage = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
 

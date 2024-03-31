@@ -32,9 +32,9 @@ namespace Zit.AgencyManager.API.Endpoints
             {
                 var colaborador = new Colaborador()
                 {                   
-                    Nome = request.Nome,
-                    RG = request.RG,
+                    Nome = request.Nome,                   
                     CPF = request.CPF,
+                    RG = request.RG,
                     DataNascimento = request.DataNascimento,
                     AgenciaId = request.AgenciaId,
                     CargoId = request.CargoId,
