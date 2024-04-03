@@ -50,7 +50,9 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<VendaVirtual>>();
             builder.Services.AddTransient<DAL<Cliente>>();
             builder.Services.AddTransient<DAL<Movimentacao>>();
-           
+            builder.Services.AddTransient<DAL<Endereco>>();
+            builder.Services.AddTransient<DAL<Usuario>>();
+
             var app = builder.Build();
 
             app.UseStaticFiles();
@@ -68,6 +70,7 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsVendasVirtuais();
             app.AddEndpointsClientes();
             app.AddEndpointsMovimentacoes();
+            app.AddEndpointsUsuario();
 
             app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 

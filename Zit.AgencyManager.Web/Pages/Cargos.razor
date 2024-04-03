@@ -18,8 +18,8 @@
                         var cargo = cellContext.Item;
                     }
                     <MudStack Row>                       
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" OnClick="() => Editar(cargo)">Editar</MudButton>
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => Remover(cargo)">Remover</MudButton>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" StartIcon="@Icons.Material.Filled.Save" OnClick="() => Editar(cargo)">Editar</MudButton>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="() => Remover(cargo)">Remover</MudButton>
                     </MudStack>
                 </CellTemplate>
             </TemplateColumn>

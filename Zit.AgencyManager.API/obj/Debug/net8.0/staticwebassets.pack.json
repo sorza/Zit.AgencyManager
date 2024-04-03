@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg",
+      "PackagePath": "staticwebassets\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240933.AMERICANA - RODOVIARIA.jpeg",
+      "PackagePath": "staticwebassets\\FotosAgencia\\290320240933.AMERICANA - RODOVIARIA.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Zit.AgencyManager.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Zit.AgencyManager.API.props",
+      "PackagePath": "build\\Zit.AgencyManager.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Zit.AgencyManager.API.props",
+      "PackagePath": "buildMultiTargeting\\Zit.AgencyManager.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Zit.AgencyManager.API.props",
+      "PackagePath": "buildTransitive\\Zit.AgencyManager.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

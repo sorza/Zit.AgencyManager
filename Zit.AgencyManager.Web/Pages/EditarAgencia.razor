@@ -152,7 +152,8 @@
             <MudButton Variant="Variant.Filled"
                    Size="Size.Large"
                    @onclick="Editar"
-                   Color="Color.Secondary"  >               
+                   Color="Color.Secondary"
+                   StartIcon="@Icons.Material.Filled.Save">
                 Atualizar Dados
             </MudButton>
 
@@ -160,7 +161,8 @@
                        Size="Size.Large"
                        @onclick="Deletar"
                        Color="Color.Error"
-                       Class="ml-3">                  
+                       Class="ml-3"
+                       StartIcon="@Icons.Material.Filled.Delete">                
                 Deletar Agência
             </MudButton>
         </MudItem>
@@ -212,7 +214,7 @@
         }
         else
         {
-            Snackbar.Add("Houve um erro durante a deleção!", Severity.Error);
+            Snackbar.Add("Não é possível remover o registro desta agência pois há Colaboradores vinculados a ela!", Severity.Error);
         }
     }
 

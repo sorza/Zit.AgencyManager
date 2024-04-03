@@ -1,5 +1,6 @@
 ﻿@page "/colaboradores/{AgenciaId}"
 @inject ColaboradorAPI colaboradorAPI
+@inject ISnackbar Snackbar
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
 
@@ -12,16 +13,30 @@
             <PropertyColumn Property="x => x.RG" Title="CPF" />
             <PropertyColumn Property="x => x.Cargo.Descricao" Title="Cargo" />
             <PropertyColumn Property="x => x.DataAdmissao" Title="Data Admissão" />
+            <PropertyColumn Property="x => x.Ativo"/>
             <PropertyColumn Property="x => x.Usuario.UserName" Title="Usuário de acesso" />
 
             <TemplateColumn CellClass="d-flex justify-end">
                 <CellTemplate Context="cellContext">
                     @{
-                        var cargo = cellContext.Item;
+                        var colaborador = cellContext.Item;
                     }
                     <MudStack Row>
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" >Ficha Completa</MudButton>
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error">Remover</MudButton>
+                        <MudButton  Size="@Size.Small" 
+                                    Variant="@Variant.Filled" 
+                                    Color="@Color.Info"
+                                    Href=@($"/EditarColaborador/{colaborador.Id}")
+                                    StartIcon="@Icons.Material.Filled.Edit">
+                         Ficha Completa
+                         </MudButton>
+                       
+                        <MudButton Size="@Size.Small" 
+                                   Variant="@Variant.Filled" 
+                                   Color="@Color.Error" 
+                                   OnClick="() => Remover(colaborador)"
+                                   StartIcon="@Icons.Material.Filled.Delete">
+                         Remover
+                        </MudButton>
                     </MudStack>
                 </CellTemplate>
             </TemplateColumn>
@@ -46,9 +61,29 @@
 
     protected override async Task OnInitializedAsync()
     {
-        colaboradores = await colaboradorAPI.GetColaboradoresAsync();
-
-        if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).ToList();
+        await CarregarColaboradores();
     }
 
+    private async Task CarregarColaboradores()
+    {
+        colaboradores = await colaboradorAPI.GetColaboradoresAsync();
+
+        if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderBy(c => c.Ativo).ToList();
+    }
+
+    private async Task Remover(ColaboradorResponse colaborador)
+    {
+        if(colaborador is not null)
+        {
+            if (await colaboradorAPI.DeleteColaboradorAsync(colaborador.Id))
+            {
+                Snackbar.Add("Cargo removido com sucesso!", Severity.Success);
+                await CarregarColaboradores();
+            }
+            else
+            {
+                Snackbar.Add("Houve um erro durante a exclusão do colaborador, por favor tente mais tarde!", Severity.Error);
+            }
+        }
+    }
 }

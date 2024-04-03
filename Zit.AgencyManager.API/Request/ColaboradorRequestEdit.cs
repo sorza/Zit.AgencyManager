@@ -13,7 +13,6 @@ namespace Zit.AgencyManager.API.Request
         DateOnly DataDemissao,
         Endereco Endereco,
         ICollection<Contato>? Contatos,
-        int UsuarioId,
         bool Ativo
      );
 }

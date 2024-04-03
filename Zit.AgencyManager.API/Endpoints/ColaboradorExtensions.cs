@@ -63,9 +63,9 @@ namespace Zit.AgencyManager.API.Endpoints
                 if(request.AgenciaId > 0 && !request.AgenciaId.Equals(colaborador.AgenciaId)) colaborador.AgenciaId = request.AgenciaId;
                 if(request.CargoId > 0 && !request.CargoId.Equals(colaborador.CargoId)) colaborador.CargoId = request.CargoId;
                 if(request.DataAdmissao != DateOnly.MinValue && !request.DataAdmissao.Equals(colaborador.DataAdmissao)) colaborador.DataAdmissao = request.DataAdmissao;
-                if(request.DataDemissao != DateOnly.MinValue && !request.DataDemissao.Equals(colaborador.DataDemissao)) colaborador.DataDemissao = request.DataDemissao;
-                if(request.Ativo != colaborador.Ativo) colaborador.Ativo = request.Ativo;
-                if(request.UsuarioId > 0) colaborador.UsuarioId = request.UsuarioId; 
+                
+                colaborador.DataDemissao = request.DataDemissao;
+                colaborador.Ativo = request.Ativo;                
 
                 if (request.Endereco is not null)
                 {
@@ -97,6 +97,34 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.NoContent();
 
             });
+
+            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Colaborador> dal,
+                                            [FromServices] DAL<Contato> dalContato,
+                                            [FromServices] DAL<Endereco> dalEndereco,
+                                            [FromServices] DAL<Usuario> dalUsuario,
+                                            int id) =>
+            {
+                var colaborador = dal.RecuperarPor(c=>c.Id == id);
+                
+                if (colaborador is null) return Results.NotFound();
+
+                var contatosARemover = new List<Contato>();
+
+                foreach (var contato in colaborador.Contatos)
+                    contatosARemover.Add(contato);
+
+                foreach (var contato in contatosARemover)
+                    dalContato.Deletar(contato);
+
+                var enderecoARemover = colaborador.Endereco;
+
+                dalUsuario.Deletar(colaborador.Usuario);
+
+                dalEndereco.Deletar(enderecoARemover);
+                
+
+                return Results.NoContent();
+            });
         }
 
         private static ICollection<ColaboradorResponse> EntityListToResponseList(IEnumerable<Colaborador> listaDeColaboradores)
@@ -106,7 +134,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static ColaboradorResponse EntityToResponse(Colaborador colaborador)
         {
-            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario);
+            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario, colaborador.Ativo);
         }
     }
 }

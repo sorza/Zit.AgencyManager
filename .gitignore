@@ -1,16 +1,12 @@
-*.bin
-*.vsidx
-*.dll
-*.suo
-*.v2
-*.exe
-*.cs
-*.pdb
-*.cache
-*.bin
-*.json
-*.gz
-.cs
-.cache
-.env
-*.v7.bin
+using System.ComponentModel.DataAnnotations;
+
+namespace Zit.AgencyManager.Web.Request
+{
+    public record UsuarioRequest
+    (
+        [Required]
+        string Email,
+        [Required]
+        string Password
+    );
+}

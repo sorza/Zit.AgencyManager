@@ -2,6 +2,9 @@
 
 @inject ColaboradorAPI colaboradorAPI
 @inject CargoAPI cargoAPI
+@inject UsuarioAPI usuarioAPI
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
 
@@ -146,7 +149,7 @@
 
         <MudText Class="mt-4" Typo="Typo.h6">Dados Funcionais</MudText>
         <MudGrid>
-            <MudItem xs="12" sm="4">
+            <MudItem xs="12" sm="3">
                 <MudSelect Dense="true" T="CargoResponse" Label="Selecione um Cargo" @bind-Value="cargo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
                     @foreach (var item in cargos)
                     {
@@ -154,15 +157,17 @@
                     }
                 </MudSelect>
             </MudItem>
-            <MudItem xs="12" sm="4">
+            <MudItem xs="12" sm="3">
+                <MudDatePicker Label="Data de Admissão" Editable="true" @bind-Date="dataAdmissao" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Placeholder="pt-BR Date" />
+            </MudItem>
+            <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-1" T="string" Placeholder="Usuário de Acesso"
                               Variant="Variant.Outlined"
                               Required="true"
                               @bind-Value="usuario"
                               RequiredError="Campo obrigatório." />
             </MudItem>
-
-            <MudItem xs="12" sm="4">
+            <MudItem xs="12" sm="3">
                 <MudButton Variant="Variant.Filled"
                            Size="Size.Large"
                            @onclick="Cadastrar"
@@ -183,10 +188,11 @@
 
     private Colaborador colaborador = new() { Endereco = new(), Contatos = new List<Contato>() };
     DateTime? dataNascimento = DateTime.Today;
+    DateTime? dataAdmissao = DateTime.Today;
     private Contato Contato = new Contato { Tipo = "Fixo" };
-    private ICollection<CargoResponse>? cargos = new List<CargoResponse>();
     private CargoResponse? cargo;
-    private string? usuario;
+    private ICollection<CargoResponse>? cargos = new List<CargoResponse>();
+    private string? usuario = "";
 
 
     protected override async Task OnInitializedAsync()
@@ -197,7 +203,42 @@
 
     private async Task Cadastrar()
     {
-        
+        if (dataNascimento is not null && cargo is not null && !usuario!.Equals("")) 
+        {
+            if(await usuarioAPI.AddUsuarioAsync(new UsuarioRequest(usuario, "Senha@123")))
+            {
+                colaborador.DataNascimento = DateOnly.FromDateTime(dataNascimento.Value);
+                colaborador.DataAdmissao = DateOnly.FromDateTime(dataAdmissao.Value);
+                colaborador.CargoId = cargo.Id;
+                colaborador.UsuarioId = await usuarioAPI.GetUsuarioIdAsync(usuario);
+                colaborador.Ativo = true;
+
+                if (await colaboradorAPI.AddColaboradorAsync(new ColaboradorRequest(colaborador.Nome,
+                                                                                    colaborador.CPF,
+                                                                                    colaborador.RG,
+                                                                                    colaborador.DataNascimento,
+                                                                                    Convert.ToInt32(AgenciaId),
+                                                                                    colaborador.CargoId,
+                                                                                    colaborador.DataAdmissao,
+                                                                                    colaborador.Endereco,
+                                                                                    colaborador.Contatos,
+                                                                                    colaborador.UsuarioId,
+                                                                                    colaborador.Ativo)))
+                {
+                    Snackbar.Add("Colaborador cadastrado com sucesso!", Severity.Success);
+                    navigationManager.NavigateTo($"/colaboradores/{AgenciaId}");
+                }
+                else
+                {
+                    Snackbar.Add("Houve um erro durante o cadastro!", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Operação cancelada! Houve um erro ao registrar o usuário de acesso do colaborador. Por favor, tente novamente!", Severity.Error);
+            }
+        }
+
     }
 
     private async Task BuscarCep()

@@ -29,7 +29,9 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,[FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
+            groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,
+                                            [FromServices] DAL<Agencia> dal,
+                                            [FromBody] AgenciaRequest request) =>
             {              
                 Agencia agencia = new()
                 {
@@ -60,7 +62,10 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env,[FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato,[FromBody] AgenciaRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env,
+                                              [FromServices] DAL<Agencia> dal,                                              
+                                              [FromServices]DAL<Contato> dalContato,
+                                              [FromBody] AgenciaRequestEdit request, int id) =>
             {
                 var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
@@ -116,7 +121,10 @@ namespace Zit.AgencyManager.API.Endpoints
                
             });
 
-            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Agencia> dalAgencia, [FromServices]DAL<Contato> dalContato, int id) =>
+            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Agencia> dalAgencia, 
+                                            [FromServices] DAL<Contato> dalContato,
+                                            [FromServices] DAL<Endereco> dalEndereco,
+                                            int id) =>
             {
                 var agencia = dalAgencia.RecuperarPor(ag => ag.Id == id);
 
@@ -129,6 +137,8 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 foreach(var contato in contatosARemover)
                     dalContato.Deletar(contato);
+
+                dalEndereco.Deletar(agencia.Endereco);
 
                 dalAgencia.Deletar(agencia);
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zit.AgencyManager.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14579e3b059fd993b1213952aa41b9b8dfdcde1f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff864be560985676f69eb091fc64166d270107eb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zit.AgencyManager.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zit.AgencyManager.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

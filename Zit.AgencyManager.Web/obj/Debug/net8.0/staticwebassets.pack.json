@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\jorjx3p997.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Zit.AgencyManager.Web.styles.css",
+      "PackagePath": "staticwebassets\\Zit.AgencyManager.Web.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\Logo.png",
+      "PackagePath": "staticwebassets\\images\\Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\cardAgencia.jpg",
+      "PackagePath": "staticwebassets\\images\\cardAgencia.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\cardCargos.png",
+      "PackagePath": "staticwebassets\\images\\cardCargos.png"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\cardColaborador.png",
+      "PackagePath": "staticwebassets\\images\\cardColaborador.png"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Zit.AgencyManager.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Zit.AgencyManager.Web.props",
+      "PackagePath": "build\\Zit.AgencyManager.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Zit.AgencyManager.Web.props",
+      "PackagePath": "buildMultiTargeting\\Zit.AgencyManager.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Zit.AgencyManager.Web.props",
+      "PackagePath": "buildTransitive\\Zit.AgencyManager.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
