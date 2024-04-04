@@ -68,7 +68,7 @@
     {
         colaboradores = await colaboradorAPI.GetColaboradoresAsync();
 
-        if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderBy(c => c.Ativo).ToList();
+        if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderByDescending(c => c.Ativo).ToList();
     }
 
     private async Task Remover(ColaboradorResponse colaborador)

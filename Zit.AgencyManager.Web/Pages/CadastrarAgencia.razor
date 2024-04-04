@@ -8,22 +8,20 @@
 
     <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Agência</MudText>
     
-    <MudForm>
+    <MudForm Model="@agencia" @ref="form">
         <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
         <MudGrid>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="Nome da Agência"
-                                Variant="Variant.Outlined"
-                                Required="true"
-                              @bind-Value="agencia.Descricao"
-                                RequiredError="Campo obrigatório." />
+                                Variant="Variant.Outlined"                               
+                                @bind-Value="agencia.Descricao"
+                                Label="Descrição" For="@(() => agencia.Descricao)" />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
-                                Variant="Variant.Outlined"
-                                Required="true"
+                                Variant="Variant.Outlined"                              
                                 @bind-Value="agencia.CNPJ"
-                                RequiredError="Campo obrigatório." />
+                                Label="CNPJ" For="@(() => agencia.CNPJ)" />
             </MudItem>
         </MudGrid>
         <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
@@ -101,15 +99,11 @@
 
                 <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="Contato.Descricao"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="Contato.Descricao"/>
 
                 <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="Contato.Complemento"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="Contato.Complemento"/>
                
                 <MudButton  Style="width: 100%"
                             Class="mt-4 mb-4"
@@ -156,42 +150,70 @@
 </MudPaper>
 
 @code {
+    private AgenciaRequest agencia = new();   
+    private MudForm form;
 
-    private Agencia agencia = new() { Endereco = new Endereco(), Contatos = new List<Contato>() };
-   
     private string? fileImage;
 
     private Contato Contato = new Contato { Tipo = "Fixo"};
 
     private async Task BuscarCep()
     {
-        var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{agencia.Endereco.CEP}/json/");
-        if (response.IsSuccessStatusCode)
+        HttpClient httpClient = new();
+
+        try
         {
-            var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
-            agencia.Endereco.Logradouro = endereco.Logradouro;
-            agencia.Endereco.Bairro = endereco.Bairro;
-            agencia.Endereco.Cidade = endereco.Localidade;
-            agencia.Endereco.Uf = endereco.Uf;
+            var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{agencia.Endereco.CEP}/json/");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
+                agencia.Endereco.Logradouro = endereco!.Logradouro;
+                agencia.Endereco.Bairro = endereco!.Bairro;
+                agencia.Endereco.Cidade = endereco!.Localidade;
+                agencia.Endereco.Uf = endereco!.Uf;
+            }
         }
+        catch
+        {
+            Snackbar.Add("CEP Inválido ou não encontrado!", Severity.Error);
+        }
+
     }
 
     private async Task Cadastrar()
     {
-        if(await agenciaAPI.AddAgenciaAsync(new AgenciaRequest(agencia.Descricao, agencia.CNPJ, agencia.Endereco, agencia.Contatos, agencia.Foto)))
+        await form.Validate();
+
+        if(agencia.Contatos.Count > 0)
         {
-            Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
-            navigationManager.NavigateTo("/Agencias");
+            if (form.IsValid)
+            {
+                if (await agenciaAPI.AddAgenciaAsync(agencia))
+                {
+                    Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
+                    navigationManager.NavigateTo("/Agencias");
+                }
+                else
+                {
+                    Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Por favor, preencha todos os campos!", Severity.Error);
+            }
         }
         else
         {
-            Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
-        }    
+            Snackbar.Add("É obrigatório cadastrar pelo menos um contato!", Severity.Error);
+        }
     }
 
     private void AdicionarContato()
     {
+        bool isValid = true;
+
         Contato item = new()
         {
             Tipo = Contato.Tipo,
@@ -199,16 +221,49 @@
             Complemento = Contato.Complemento
         };
 
-        if (!item.Tipo.Equals("") && !item.Descricao.Equals("") && !item.Complemento.Equals(""))
+        if(item.Descricao is not null && item.Complemento is not null)
         {
-            agencia.Contatos.Add(item);
-        }
+            switch (item.Tipo)
+            {
+                case "Fixo":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{10}$")) isValid = false;
+                    break;
+                case "Celular":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{11}$")) isValid = false;
+                    break;
+                case "Email":
+                    if (!Regex.IsMatch(item.Descricao, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) isValid = false;
+                    break;
+            }
 
+            if (isValid)
+            {
+                if (!agencia.Contatos.Any(c => c.Descricao.Equals(item.Descricao)))
+                {
+                    agencia.Contatos.Add(item);
+
+                    Contato.Descricao = string.Empty;
+                    Contato.Complemento = string.Empty;
+                }
+                else
+                {
+                    Snackbar.Add("Este contato já existe.", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Contato inválido!", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("Preencha os campos de contato!", Severity.Error);
+        }        
     }
 
     private void RemoverContato(Contato contato)
     {
-        agencia.Contatos.Remove(contato);
+        agencia.Contatos!.Remove(contato);
     }
 
     private async Task UploadFile(IBrowserFile file)

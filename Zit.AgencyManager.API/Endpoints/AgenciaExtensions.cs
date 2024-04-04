@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -32,7 +33,18 @@ namespace Zit.AgencyManager.API.Endpoints
             groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,
                                             [FromServices] DAL<Agencia> dal,
                                             [FromBody] AgenciaRequest request) =>
-            {              
+            {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ,
@@ -40,9 +52,9 @@ namespace Zit.AgencyManager.API.Endpoints
                     Endereco = request.Endereco
                 };
 
-                if(request.Contatos is not null) agencia.Contatos = request.Contatos;
+                if(request.Contatos is not null) agencia.Contatos = request.Contatos!;
 
-                if(request.Foto is not null)
+                if (request.Foto is not null)
                 {
                     var nome = request.Descricao.Trim();
                     var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";

@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\editarcolaborador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\editarcolaborador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\cadastraragencia.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\cadastraragencia.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\pages\\colaboradores.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\pages\\colaboradores.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|c:\\users\\alexandre z dur\u00E3es\\documents\\github\\zit.agencymanager\\zit.agencymanager.web\\request\\agenciarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F192606F-841E-4E97-9915-1BF0633CE99B}|Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj|solutionrelative:zit.agencymanager.web\\request\\agenciarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EditarColaborador.razor",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\EditarColaborador.razor",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\EditarColaborador.razor",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\EditarColaborador.razor",
-              "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\EditarColaborador.razor",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAACsAAABHAAAA",
+              "DocumentIndex": 1,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\_Imports.razor",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\_Imports.razor",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\_Imports.razor",
+              "RelativeToolTip": "Zit.AgencyManager.Web\\_Imports.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-03T02:23:01.827Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-04T02:45:12.916Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Colaboradores.razor",
-              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\Colaboradores.razor",
-              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\Colaboradores.razor",
-              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\Colaboradores.razor",
-              "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\Colaboradores.razor",
-              "ViewState": "AQIAADkAAAAAAAAAAAAAAFMAAAANAAAA",
+              "DocumentIndex": 2,
+              "Title": "AgenciaRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Request\\AgenciaRequest.cs",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Request\\AgenciaRequest.cs",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Request\\AgenciaRequest.cs",
+              "RelativeToolTip": "Zit.AgencyManager.Web\\Request\\AgenciaRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-04T02:30:52.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CadastrarAgencia.razor",
+              "DocumentMoniker": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\CadastrarAgencia.razor",
+              "RelativeDocumentMoniker": "Zit.AgencyManager.Web\\Pages\\CadastrarAgencia.razor",
+              "ToolTip": "C:\\Users\\Alexandre Z Dur\u00E3es\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Pages\\CadastrarAgencia.razor",
+              "RelativeToolTip": "Zit.AgencyManager.Web\\Pages\\CadastrarAgencia.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAALcAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-02T01:01:11.81Z",
+              "WhenOpened": "2024-04-04T00:51:07.679Z",
               "EditorCaption": ""
             }
           ]
