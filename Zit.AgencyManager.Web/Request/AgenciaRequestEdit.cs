@@ -10,6 +10,7 @@ namespace Zit.AgencyManager.Web.Request
 
         [RegularExpression(@"^\d{14}$", ErrorMessage = "O CNPJ deve conter 14 dígitos.")]
         string CNPJ,
+
         Endereco? Endereco,
         ICollection<Contato>? Contatos,
         bool Ativa,

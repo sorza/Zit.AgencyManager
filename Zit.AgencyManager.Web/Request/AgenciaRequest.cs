@@ -14,7 +14,7 @@ namespace Zit.AgencyManager.Web.Request
         public string? CNPJ { get; set; }
 
         [Required(ErrorMessage = "É obrigatório informar um endereço")]
-        public virtual Endereco? Endereco { get; set; } = new();
+        public EnderecoRequest? Endereco { get; set; } = new();
        
         public virtual ICollection<Contato>? Contatos { get; set; } = new List<Contato>();
         public string? Foto {  get; set; }    

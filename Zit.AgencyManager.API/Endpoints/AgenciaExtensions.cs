@@ -30,9 +30,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,
-                                            [FromServices] DAL<Agencia> dal,
-                                            [FromBody] AgenciaRequest request) =>
+            groupBuilder.MapPost("", async ([FromServices]IHostEnvironment env,[FromServices] DAL<Agencia> dal,[FromBody] AgenciaRequest request) =>
             {
                 var context = new ValidationContext(request);
                 var results = new List<ValidationResult>();
@@ -48,8 +46,18 @@ namespace Zit.AgencyManager.API.Endpoints
                 Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ,
-                    Descricao = request.Descricao,  
-                    Endereco = request.Endereco
+                    Descricao = request.Descricao
+                };
+
+                agencia.Endereco = new()
+                {
+                    CEP = request.Endereco.CEP,
+                    Logradouro = request.Endereco.Logradouro,
+                    Bairro = request.Endereco.Bairro,
+                    Numero = request.Endereco.Numero,
+                    Cidade = request.Endereco.Localidade,
+                    Uf = request.Endereco.UF,
+                    Complemento = request.Endereco.Complemento
                 };
 
                 if(request.Contatos is not null) agencia.Contatos = request.Contatos!;
@@ -74,10 +82,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok();
             });
 
-            groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env,
-                                              [FromServices] DAL<Agencia> dal,                                              
-                                              [FromServices]DAL<Contato> dalContato,
-                                              [FromBody] AgenciaRequestEdit request, int id) =>
+            groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env, [FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato, [FromBody] AgenciaRequestEdit request, int id) =>
             {
                 var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
                 
@@ -133,10 +138,7 @@ namespace Zit.AgencyManager.API.Endpoints
                
             });
 
-            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Agencia> dalAgencia, 
-                                            [FromServices] DAL<Contato> dalContato,
-                                            [FromServices] DAL<Endereco> dalEndereco,
-                                            int id) =>
+            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Agencia> dalAgencia,[FromServices] DAL<Contato> dalContato, [FromServices] DAL<Endereco> dalEndereco, int id) =>
             {
                 var agencia = dalAgencia.RecuperarPor(ag => ag.Id == id);
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dominio.Modelos;
 
 namespace Zit.AgencyManager.API.Request
@@ -14,7 +15,7 @@ namespace Zit.AgencyManager.API.Request
         public string? CNPJ { get; set; }
 
         [Required(ErrorMessage = "É obrigatório informar um endereço")]
-        public virtual Endereco? Endereco { get; set; } = new();
+        public virtual EnderecoRequest Endereco { get; set; } = new();
 
         public virtual ICollection<Contato>? Contatos { get; set; } = new List<Contato>();
         public string? Foto { get; set; }

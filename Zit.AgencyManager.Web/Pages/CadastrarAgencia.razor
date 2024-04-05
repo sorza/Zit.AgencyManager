@@ -15,7 +15,7 @@
                 <MudTextField Class="mt-2" T="string" Placeholder="Nome da Agência"
                                 Variant="Variant.Outlined"                               
                                 @bind-Value="agencia.Descricao"
-                                Label="Descrição" For="@(() => agencia.Descricao)" />
+                                Label="Nome da agência" For="@(() => agencia.Descricao)" />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
@@ -28,51 +28,46 @@
         <MudGrid>
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-1" T="string" Placeholder="CEP"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                              
                               OnBlur="BuscarCep"
-                              @bind-Value="agencia.Endereco.CEP"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.CEP"
+                              Label="CEP" For="@(() => agencia.Endereco!.CEP)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="agencia.Endereco.Logradouro"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.Logradouro"
+                              Label="Logradouro" For="@(() => agencia.Endereco!.Logradouro)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-1" T="string" Placeholder="Número"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="agencia.Endereco.Numero"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.Numero"
+                              Label="Número" For="@(() => agencia.Endereco!.Numero)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="agencia.Endereco.Bairro"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.Bairro"
+                              Label="Bairro" For="@(() => agencia.Endereco!.Bairro)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="agencia.Endereco.Cidade"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.Localidade"
+                              Label="Cidade" For="@(() => agencia.Endereco!.Localidade)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="agencia.Endereco.Uf"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="agencia.Endereco!.UF"
+                              Label="UF" For="@(() => agencia.Endereco!.UF)" />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
                               Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco.Complemento" />
+                              @bind-Value="agencia.Endereco!.Complemento" 
+                              Label="Complemento" For="@(() => agencia.Endereco!.Complemento)" />
             </MudItem>
         </MudGrid>
         <MudImage Class="mt-4" src="@fileImage" />
@@ -159,33 +154,35 @@
 
     private async Task BuscarCep()
     {
-        HttpClient httpClient = new();
-
-        try
+        if (agencia.Endereco!.CEP.Length == 8 && Regex.IsMatch(agencia.Endereco.CEP, @"^\d{8}$"))
         {
-            var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{agencia.Endereco.CEP}/json/");
+            HttpClient httpClient = new();
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
-                agencia.Endereco.Logradouro = endereco!.Logradouro;
-                agencia.Endereco.Bairro = endereco!.Bairro;
-                agencia.Endereco.Cidade = endereco!.Localidade;
-                agencia.Endereco.Uf = endereco!.Uf;
+                var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{agencia.Endereco.CEP}/json/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
+                    agencia.Endereco.Logradouro = endereco!.Logradouro;
+                    agencia.Endereco.Bairro = endereco!.Bairro;
+                    agencia.Endereco.Localidade = endereco!.Localidade;
+                    agencia.Endereco.UF = endereco!.Uf;
+                }
+            }
+            catch
+            {
+                Snackbar.Add("CEP Inválido ou não encontrado!", Severity.Error);
             }
         }
-        catch
-        {
-            Snackbar.Add("CEP Inválido ou não encontrado!", Severity.Error);
-        }
-
     }
 
     private async Task Cadastrar()
     {
         await form.Validate();
 
-        if(agencia.Contatos.Count > 0)
+        if(agencia.Contatos!.Count > 0)
         {
             if (form.IsValid)
             {
