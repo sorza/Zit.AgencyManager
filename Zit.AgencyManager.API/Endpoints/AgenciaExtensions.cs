@@ -45,8 +45,8 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 Agencia agencia = new()
                 {
-                    CNPJ = request.CNPJ,
-                    Descricao = request.Descricao
+                    CNPJ = request.CNPJ!,
+                    Descricao = request.Descricao!
                 };
 
                 agencia.Endereco = new()
@@ -64,7 +64,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if (request.Foto is not null)
                 {
-                    var nome = request.Descricao.Trim();
+                    var nome = request.Descricao!.Trim();
                     var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
 
                     var path = Path.Combine(env.ContentRootPath,
@@ -88,38 +88,45 @@ namespace Zit.AgencyManager.API.Endpoints
                 
                 if(agenciaAAtualizar is null) return Results.NotFound();
 
-                if (!request.CNPJ.IsNullOrEmpty() && request.CNPJ != agenciaAAtualizar.CNPJ) agenciaAAtualizar.CNPJ = request.CNPJ!;
-                if (!request.Descricao.IsNullOrEmpty() && request.Descricao != agenciaAAtualizar.Descricao) agenciaAAtualizar.Descricao = request.Descricao!;
-                if (request.Ativa != agenciaAAtualizar.Ativa) agenciaAAtualizar.Ativa = request.Ativa;
-                             
-                if(request.Endereco is not null)
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
                 {
-                    agenciaAAtualizar.Endereco.Logradouro = request.Endereco.Logradouro;
-                    agenciaAAtualizar.Endereco.Numero = request.Endereco.Numero;
-                    agenciaAAtualizar.Endereco.Cidade = request.Endereco.Cidade;
-                    agenciaAAtualizar.Endereco.Bairro = request.Endereco.Bairro;
-                    agenciaAAtualizar.Endereco.CEP = request.Endereco.CEP;
-                    agenciaAAtualizar.Endereco.Uf = request.Endereco.Uf;
-                    agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
                 }
 
-                if(request.Contatos is not null)
-                {                   
-                    var contatosARemover = new List<Contato>();
+                agenciaAAtualizar.CNPJ = request.CNPJ!;
+                agenciaAAtualizar.Descricao = request.Descricao!;
+                agenciaAAtualizar.Ativa = request.Ativa;                             
+                
+                agenciaAAtualizar.Endereco.Logradouro = request.Endereco.Logradouro;
+                agenciaAAtualizar.Endereco.Numero = request.Endereco.Numero;
+                agenciaAAtualizar.Endereco.Cidade = request.Endereco.Localidade;
+                agenciaAAtualizar.Endereco.Bairro = request.Endereco.Bairro;
+                agenciaAAtualizar.Endereco.CEP = request.Endereco.CEP;
+                agenciaAAtualizar.Endereco.Uf = request.Endereco.UF;
+                agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;
+                
+                                                  
+                var contatosARemover = new List<Contato>();
 
-                    foreach(var item in request.Contatos)
-                        if(!agenciaAAtualizar.Contatos.Contains(item)) agenciaAAtualizar.Contatos.Add(item);
+                foreach(var item in request.Contatos!)
+                    if(!agenciaAAtualizar.Contatos.Contains(item)) agenciaAAtualizar.Contatos.Add(item);
 
-                    foreach(var item in agenciaAAtualizar.Contatos)
-                        if(!request.Contatos.Contains(item)) contatosARemover.Add(item);
+                foreach(var item in agenciaAAtualizar.Contatos)
+                    if(!request.Contatos.Contains(item)) contatosARemover.Add(item);
 
-                    foreach (var item in contatosARemover)
-                        dalContato.Deletar(item);
-                }
+                foreach (var item in contatosARemover)
+                    dalContato.Deletar(item);
+                
 
                 if (request.Foto is not null && !request.Foto.Equals(agenciaAAtualizar.Foto))
                 {
-                    var nome = request.Descricao.Trim();
+                    var nome = request.Descricao!.Trim();
                     var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
 
                     var path = Path.Combine(env.ContentRootPath,
@@ -153,8 +160,6 @@ namespace Zit.AgencyManager.API.Endpoints
                     dalContato.Deletar(contato);
 
                 dalEndereco.Deletar(agencia.Endereco);
-
-                dalAgencia.Deletar(agencia);
 
                 return Results.NoContent();
 

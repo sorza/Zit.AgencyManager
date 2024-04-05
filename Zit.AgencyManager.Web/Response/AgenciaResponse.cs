@@ -9,7 +9,7 @@ namespace Zit.AgencyManager.Web.Response
         string Descricao,
         string CNPJ,
         bool Ativa,
-        Endereco Endereco,
+        EnderecoResponse Endereco,
         ICollection<Contato> Contatos,
         string? Foto
      );

@@ -146,7 +146,7 @@
 
 @code {
     private AgenciaRequest agencia = new();   
-    private MudForm form;
+    private MudForm? form;
 
     private string? fileImage;
 
@@ -180,7 +180,7 @@
 
     private async Task Cadastrar()
     {
-        await form.Validate();
+        await form!.Validate();
 
         if(agencia.Contatos!.Count > 0)
         {
