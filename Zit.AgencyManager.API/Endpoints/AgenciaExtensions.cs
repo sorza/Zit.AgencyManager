@@ -60,7 +60,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     Complemento = request.Endereco.Complemento
                 };
 
-                if(request.Contatos is not null) agencia.Contatos = request.Contatos!;
+                agencia.Contatos = request.Contatos!;
 
                 if (request.Foto is not null)
                 {

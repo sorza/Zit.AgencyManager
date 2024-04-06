@@ -182,7 +182,7 @@
     {
         await form!.Validate();
 
-        if(agencia.Contatos!.Count > 0)
+        if(agencia.Contatos!.Count() > 0)
         {
             if (form.IsValid)
             {

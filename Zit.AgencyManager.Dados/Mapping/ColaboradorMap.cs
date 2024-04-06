@@ -10,6 +10,9 @@ namespace Zit.AgencyManager.Dados.Mapping
         {
             builder.Property(x => x.CPF)
                .HasColumnType("varchar(11)");
+
+            builder.Property(x => x.RG)
+              .HasColumnType("varchar(20)");
         }
     }
 }

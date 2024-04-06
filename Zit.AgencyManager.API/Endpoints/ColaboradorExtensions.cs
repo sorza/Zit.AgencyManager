@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -30,6 +31,17 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPost("", ([FromServices] DAL<Colaborador> dal, [FromBody] ColaboradorRequest request) =>
             {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 var colaborador = new Colaborador()
                 {                   
                     Nome = request.Nome,                   
@@ -39,15 +51,25 @@ namespace Zit.AgencyManager.API.Endpoints
                     AgenciaId = request.AgenciaId,
                     CargoId = request.CargoId,
                     DataAdmissao = request.DataAdmissao,
-                    Endereco = request.Endereco,
                     UsuarioId = request.UsuarioId
                 };
 
-                if (request.Contatos is not null) colaborador.Contatos = request.Contatos;
+                colaborador.Endereco = new()
+                {
+                    CEP = request.Endereco.CEP,
+                    Logradouro = request.Endereco.Logradouro,
+                    Bairro = request.Endereco.Bairro,
+                    Numero = request.Endereco.Numero,
+                    Cidade = request.Endereco.Localidade,
+                    Uf = request.Endereco.UF,
+                    Complemento = request.Endereco.Complemento
+                };
+
+                colaborador.Contatos = request.Contatos;
 
                 dal.Adicionar(colaborador);
 
-                return Results.Created();
+                return Results.Ok();
             });
 
             groupBuilder.MapPut("{id}", ([FromServices] DAL<Colaborador> dal, [FromServices] DAL<Contato> dalContato,[FromBody] ColaboradorRequestEdit request, int id) =>

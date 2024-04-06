@@ -77,7 +77,7 @@
         {
             if (await colaboradorAPI.DeleteColaboradorAsync(colaborador.Id))
             {
-                Snackbar.Add("Cargo removido com sucesso!", Severity.Success);
+                Snackbar.Add("Colaborador removido com sucesso!", Severity.Success);
                 await CarregarColaboradores();
             }
             else

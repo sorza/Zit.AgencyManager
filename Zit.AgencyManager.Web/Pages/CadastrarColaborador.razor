@@ -10,29 +10,26 @@
 
     <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Colaborador</MudText>
     
-    <MudForm>
+    <MudForm Model="@colaborador" @ref="form">
         <MudText Class="mt-4" Typo="Typo.h6">Dados Pessoais</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
                 <MudTextField Class="mt-2" T="string" Placeholder="Nome Completo"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               @bind-Value="colaborador.Nome"
-                              RequiredError="Campo obrigatório." />
+                              Label="Nome Completo" For="@(() => colaborador.Nome)" />
             </MudItem>
             <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-2" T="string" Placeholder="RG"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               @bind-Value="colaborador.RG"
-                              RequiredError="Campo obrigatório." />
+                              Label="RG" For="@(() => colaborador.RG)" />
             </MudItem>
             <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-2" T="string" Placeholder="CPF"
                               Variant="Variant.Outlined"
-                              Required="true"
                               @bind-Value="colaborador.CPF"
-                              RequiredError="Campo obrigatório." />
+                              Label="CPF" For="@(() => colaborador.CPF)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudDatePicker Label="Data de Nascimento" Editable="true" @bind-Date="dataNascimento" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Placeholder="pt-BR Date" />
@@ -43,51 +40,46 @@
         <MudGrid>            
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-1" T="string" Placeholder="CEP"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               OnBlur="BuscarCep"
                               @bind-Value="colaborador.Endereco.CEP"
-                              RequiredError="Campo obrigatório." />
+                              Label="CEP" For="@(() => colaborador.Endereco.CEP)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               @bind-Value="colaborador.Endereco.Logradouro"
-                              RequiredError="Campo obrigatório." />
+                              Label="Logradouro" For="@(() => colaborador.Endereco.Logradouro)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-1" T="string" Placeholder="Número"
                               Variant="Variant.Outlined"
-                              Required="true"
                               @bind-Value="colaborador.Endereco.Numero"
-                              RequiredError="Campo obrigatório." />
+                              Label="Número" For="@(() => colaborador.Endereco.Numero)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
                               Variant="Variant.Outlined"
-                              Required="true"
                               @bind-Value="colaborador.Endereco.Bairro"
-                              RequiredError="Campo obrigatório." />
+                              Label="Bairro" For="@(() => colaborador.Endereco.Bairro)" />
             </MudItem>
             <MudItem xs="12" sm="4">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="colaborador.Endereco.Cidade"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="colaborador.Endereco.Localidade"
+                              Label="Cidade" For="@(() => colaborador.Endereco.Localidade)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="colaborador.Endereco.Uf"
-                              RequiredError="Campo obrigatório." />
+                              @bind-Value="colaborador.Endereco.UF"
+                              Label="UF" For="@(() => colaborador.Endereco.UF)" />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
                               Variant="Variant.Outlined"
-                              @bind-Value="colaborador.Endereco.Complemento" />
+                              @bind-Value="colaborador.Endereco.Complemento" 
+                              Label="Complemento" For="@(() => colaborador.Endereco.Complemento)" />
             </MudItem>
         </MudGrid>
 
@@ -102,17 +94,12 @@
                 </MudSelect>
 
                 <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
-                              Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="Contato.Descricao"
-                              RequiredError="Campo obrigatório." />
+                              Variant="Variant.Outlined"                             
+                              @bind-Value="Contato.Descricao"/>
 
                 <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
                               Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="Contato.Complemento"
-                              RequiredError="Campo obrigatório." />
-
+                              @bind-Value="Contato.Complemento" />
 
                 <MudButton Style="width: 100%"
                            Class="mt-4 mb-4"
@@ -186,9 +173,12 @@
     [Parameter]
     public string? AgenciaId { get; set; }
 
-    private Colaborador colaborador = new() { Endereco = new(), Contatos = new List<Contato>() };
+    private ColaboradorRequest colaborador = new();
+    private MudForm? form;
+
     DateTime? dataNascimento = DateTime.Today;
     DateTime? dataAdmissao = DateTime.Today;
+
     private Contato Contato = new Contato { Tipo = "Fixo" };
     private CargoResponse? cargo;
     private ICollection<CargoResponse>? cargos = new List<CargoResponse>();
@@ -203,72 +193,125 @@
 
     private async Task Cadastrar()
     {
-        if (dataNascimento is not null && cargo is not null && !usuario!.Equals("")) 
-        {
-            if(await usuarioAPI.AddUsuarioAsync(new UsuarioRequest(usuario, "Senha@123")))
-            {
-                colaborador.DataNascimento = DateOnly.FromDateTime(dataNascimento.Value);
-                colaborador.DataAdmissao = DateOnly.FromDateTime(dataAdmissao.Value);
-                colaborador.CargoId = cargo.Id;
-                colaborador.UsuarioId = await usuarioAPI.GetUsuarioIdAsync(usuario);
-                colaborador.Ativo = true;
+        await form!.Validate();
 
-                if (await colaboradorAPI.AddColaboradorAsync(new ColaboradorRequest(colaborador.Nome,
-                                                                                    colaborador.CPF,
-                                                                                    colaborador.RG,
-                                                                                    colaborador.DataNascimento,
-                                                                                    Convert.ToInt32(AgenciaId),
-                                                                                    colaborador.CargoId,
-                                                                                    colaborador.DataAdmissao,
-                                                                                    colaborador.Endereco,
-                                                                                    colaborador.Contatos,
-                                                                                    colaborador.UsuarioId,
-                                                                                    colaborador.Ativo)))
+        if(colaborador.Contatos.Count() > 0)
+        {
+            if(form.IsValid)
+            {
+                if (dataNascimento is not null && cargo is not null && !usuario!.Equals(""))
                 {
-                    Snackbar.Add("Colaborador cadastrado com sucesso!", Severity.Success);
-                    navigationManager.NavigateTo($"/colaboradores/{AgenciaId}");
-                }
-                else
-                {
-                    Snackbar.Add("Houve um erro durante o cadastro!", Severity.Error);
+                    if (await usuarioAPI.AddUsuarioAsync(new UsuarioRequest(usuario, "Senha@123")))
+                    {
+                        colaborador.DataNascimento = DateOnly.FromDateTime(dataNascimento.Value);
+                        colaborador.DataAdmissao = DateOnly.FromDateTime(dataAdmissao!.Value);
+                        colaborador.CargoId = cargo!.Id;
+                        colaborador.AgenciaId = Convert.ToInt32(AgenciaId);
+                        colaborador.UsuarioId = await usuarioAPI.GetUsuarioIdAsync(usuario);
+                        colaborador.Ativo = true;
+
+                        if (await colaboradorAPI.AddColaboradorAsync(colaborador))
+                        {
+                            Snackbar.Add("Colaborador cadastrado com sucesso!", Severity.Success);
+                            navigationManager.NavigateTo($"/colaboradores/{AgenciaId}");
+                        }
+                        else
+                        {
+                            Snackbar.Add("Houve um erro durante o cadastro!", Severity.Error);
+                        }
+                    }
+                    else
+                    {
+                        Snackbar.Add("Operação cancelada! Houve um erro ao registrar o usuário de acesso do colaborador. Por favor, tente novamente!", Severity.Error);
+                    }
                 }
             }
             else
             {
-                Snackbar.Add("Operação cancelada! Houve um erro ao registrar o usuário de acesso do colaborador. Por favor, tente novamente!", Severity.Error);
+                Snackbar.Add("Por favor, preencha todos os campos!", Severity.Error);
             }
         }
-
+        else
+        {
+            Snackbar.Add("É obrigatório cadastrar pelo menos um contato!", Severity.Error);
+        }
     }
 
     private async Task BuscarCep()
     {
-        var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{colaborador.Endereco.CEP}/json/");
-        if (response.IsSuccessStatusCode)
+        if (colaborador.Endereco!.CEP.Length == 8 && Regex.IsMatch(colaborador.Endereco.CEP, @"^\d{8}$"))
         {
-            var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
-            colaborador.Endereco.Logradouro = endereco.Logradouro;
-            colaborador.Endereco.Bairro = endereco.Bairro;
-            colaborador.Endereco.Cidade = endereco.Localidade;
-            colaborador.Endereco.Uf = endereco.Uf;
+            HttpClient httpClient = new();
+
+            try
+            {
+                var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{colaborador.Endereco.CEP}/json/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
+                    colaborador.Endereco.Logradouro = endereco!.Logradouro;
+                    colaborador.Endereco.Bairro = endereco!.Bairro;
+                    colaborador.Endereco.Localidade = endereco!.Localidade;
+                    colaborador.Endereco.UF = endereco!.Uf;
+                }
+            }
+            catch
+            {
+                Snackbar.Add("CEP Inválido ou não encontrado!", Severity.Error);
+            }
         }
     }
    
     private void AdicionarContato()
     {
+        bool isValid = true;
+
         Contato item = new()
-            {
-                Tipo = Contato.Tipo,
-                Descricao = Contato.Descricao,
-                Complemento = Contato.Complemento
-            };
-
-        if (!item.Tipo.Equals("") && !item.Descricao.Equals("") && !item.Complemento.Equals(""))
         {
-            colaborador.Contatos.Add(item);
-        }
+            Tipo = Contato.Tipo,
+            Descricao = Contato.Descricao,
+            Complemento = Contato.Complemento
+        };
 
+        if (item.Descricao is not null && item.Complemento is not null)
+        {
+            switch (item.Tipo)
+            {
+                case "Fixo":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{10}$")) isValid = false;
+                    break;
+                case "Celular":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{11}$")) isValid = false;
+                    break;
+                case "Email":
+                    if (!Regex.IsMatch(item.Descricao, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) isValid = false;
+                    break;
+            }
+
+            if (isValid)
+            {
+                if (!colaborador.Contatos.Any(c => c.Descricao.Equals(item.Descricao)))
+                {
+                    colaborador.Contatos.Add(item);
+
+                    Contato.Descricao = string.Empty;
+                    Contato.Complemento = string.Empty;
+                }
+                else
+                {
+                    Snackbar.Add("Este contato já existe.", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Contato inválido!", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("Preencha os campos de contato!", Severity.Error);
+        }
     }
 
     private void RemoverContato(Contato contato)
