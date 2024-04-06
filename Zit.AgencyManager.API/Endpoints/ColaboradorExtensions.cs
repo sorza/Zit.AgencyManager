@@ -44,9 +44,9 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 var colaborador = new Colaborador()
                 {                   
-                    Nome = request.Nome,                   
-                    CPF = request.CPF,
+                    Nome = request.Nome,
                     RG = request.RG,
+                    CPF = request.CPF,
                     DataNascimento = request.DataNascimento,
                     AgenciaId = request.AgenciaId,
                     CargoId = request.CargoId,
@@ -78,41 +78,47 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if (colaborador is null) return Results.NotFound();
 
-                if(!request.Nome.IsNullOrEmpty() && !request.Nome.Equals(colaborador.Nome)) colaborador.Nome = request.Nome;
-                if(!request.RG.IsNullOrEmpty() && !request.RG.Equals(colaborador.RG)) colaborador.RG = request.RG;
-                if(!request.CPF.IsNullOrEmpty() && !request.CPF.Equals(colaborador.CPF)) colaborador.CPF = request.CPF;
-                if(request.DataNascimento != DateOnly.MinValue && !request.DataNascimento.Equals(colaborador.DataNascimento)) colaborador.DataNascimento = request.DataNascimento;
-                if(request.AgenciaId > 0 && !request.AgenciaId.Equals(colaborador.AgenciaId)) colaborador.AgenciaId = request.AgenciaId;
-                if(request.CargoId > 0 && !request.CargoId.Equals(colaborador.CargoId)) colaborador.CargoId = request.CargoId;
-                if(request.DataAdmissao != DateOnly.MinValue && !request.DataAdmissao.Equals(colaborador.DataAdmissao)) colaborador.DataAdmissao = request.DataAdmissao;
-                
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
+                colaborador.Nome = request.Nome;
+                colaborador.RG = request.RG;
+                colaborador.CPF = request.CPF;
+                colaborador.DataNascimento = request.DataNascimento;
+                colaborador.AgenciaId = request.AgenciaId;
+                colaborador.CargoId = request.CargoId;
+                colaborador.DataAdmissao = request.DataAdmissao;                
                 colaborador.DataDemissao = request.DataDemissao;
                 colaborador.Ativo = request.Ativo;                
+                
+                colaborador.Endereco.Logradouro = request.Endereco.Logradouro;
+                colaborador.Endereco.Numero = request.Endereco.Numero;
+                colaborador.Endereco.Cidade = request.Endereco.Localidade;
+                colaborador.Endereco.Bairro = request.Endereco.Bairro;
+                colaborador.Endereco.CEP = request.Endereco.CEP;
+                colaborador.Endereco.Uf = request.Endereco.UF;
+                colaborador.Endereco.Complemento = request.Endereco.Complemento;
+                
 
-                if (request.Endereco is not null)
-                {
-                    colaborador.Endereco.Logradouro = request.Endereco.Logradouro;
-                    colaborador.Endereco.Numero = request.Endereco.Numero;
-                    colaborador.Endereco.Cidade = request.Endereco.Cidade;
-                    colaborador.Endereco.Bairro = request.Endereco.Bairro;
-                    colaborador.Endereco.CEP = request.Endereco.CEP;
-                    colaborador.Endereco.Uf = request.Endereco.Uf;
-                    colaborador.Endereco.Complemento = request.Endereco.Complemento;
-                }
+                var contatosARemover = new List<Contato>();
 
-                if (request.Contatos is not null)
-                {                    
-                    var contatosARemover = new List<Contato>();
+                foreach (var item in request.Contatos)
+                    if (!colaborador.Contatos.Contains(item)) colaborador.Contatos.Add(item);
 
-                    foreach (var item in request.Contatos)
-                        if (!colaborador.Contatos.Contains(item)) colaborador.Contatos.Add(item);
+                foreach (var item in colaborador.Contatos)
+                    if (!request.Contatos.Contains(item)) colaborador.Contatos.Remove(item);
 
-                    foreach (var item in colaborador.Contatos)
-                        if (!request.Contatos.Contains(item)) colaborador.Contatos.Remove(item);
-
-                    foreach (var item in contatosARemover)
-                        dalContato.Deletar(item);
-                }
+                foreach (var item in contatosARemover)
+                    dalContato.Deletar(item);
+                
 
                 dal.Atualizar(colaborador);             
 
@@ -120,11 +126,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Colaborador> dal,
-                                            [FromServices] DAL<Contato> dalContato,
-                                            [FromServices] DAL<Endereco> dalEndereco,
-                                            [FromServices] DAL<Usuario> dalUsuario,
-                                            int id) =>
+            groupBuilder.MapDelete("{id}", ([FromServices] DAL<Colaborador> dal, [FromServices] DAL<Contato> dalContato,[FromServices] DAL<Endereco> dalEndereco, [FromServices] DAL<Usuario> dalUsuario, int id) =>
             {
                 var colaborador = dal.RecuperarPor(c=>c.Id == id);
                 
@@ -156,7 +158,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static ColaboradorResponse EntityToResponse(Colaborador colaborador)
         {
-            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.RG, colaborador.CPF, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario, colaborador.Ativo);
+            return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.CPF, colaborador.RG, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario, colaborador.Ativo);
         }
     }
 }

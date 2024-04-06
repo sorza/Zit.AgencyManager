@@ -5,7 +5,7 @@ namespace Zit.AgencyManager.Web.Response
 {
     public record ColaboradorResponse(
         int Id,
-        string Nome,
+        string Nome, 
         string CPF,
         string RG,
         DateOnly DataNascimento,

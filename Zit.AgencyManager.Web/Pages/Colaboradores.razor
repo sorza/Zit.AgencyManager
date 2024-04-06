@@ -9,8 +9,8 @@
     <MudDataGrid Items="@colaboradores" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
         <Columns>
             <PropertyColumn Property="x => x.Nome" Title="Nome Completo" />
-            <PropertyColumn Property="x => x.CPF" Title="RG" />
-            <PropertyColumn Property="x => x.RG" Title="CPF" />
+            <PropertyColumn Property="x => x.RG" Title="RG" />
+            <PropertyColumn Property="x => x.CPF" Title="CPF" />
             <PropertyColumn Property="x => x.Cargo.Descricao" Title="Cargo" />
             <PropertyColumn Property="x => x.DataAdmissao" Title="Data Admissão" />
             <PropertyColumn Property="x => x.Ativo"/>
