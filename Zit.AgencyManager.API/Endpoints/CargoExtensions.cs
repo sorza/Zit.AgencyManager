@@ -52,14 +52,9 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if (cargo is null) return Results.NotFound();
 
-                if (!request.Atribuicoes.IsNullOrEmpty()
-                    && !request.Atribuicoes.Equals(cargo.Atribuicoes)) cargo.Atribuicoes = request.Atribuicoes;
-
-                if (!request.Descricao.IsNullOrEmpty()
-                    && !request.Descricao.Equals(cargo.Descricao)) cargo.Descricao = request.Descricao;
-
-                if (request.Salario > 0
-                    && request.Salario != cargo.Salario) cargo.Salario = request.Salario;
+                cargo.Atribuicoes = request.Atribuicoes;
+                cargo.Descricao = request.Descricao;
+                cargo.Salario = request.Salario;
 
                 dal.Atualizar(cargo);
 

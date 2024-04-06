@@ -2,5 +2,19 @@
 
 namespace Zit.AgencyManager.Web.Request
 {
-    public record CargoRequestEdit(string Descricao, string Atribuicoes, decimal Salario);
+    public record CargoRequestEdit
+    (
+        [Required(ErrorMessage = "A Descrição/Título do cargo é obrigatória.")]
+        string Descricao,
+
+        [Required(ErrorMessage = "As atribuições do cargo são obrigatórias.")]
+        string Atribuicoes,
+
+        [Required(ErrorMessage = "O campo salário é obrigatório.")]
+        decimal Salario
+    );
 }
+
+
+
+

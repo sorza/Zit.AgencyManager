@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Zit.AgencyManager.API.Request
+﻿namespace Zit.AgencyManager.API.Request
 {
     public record CaixaRequestEdit
     (

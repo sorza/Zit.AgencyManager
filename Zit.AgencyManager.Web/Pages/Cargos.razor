@@ -26,30 +26,27 @@
         </Columns>
     </MudDataGrid>
 
-<MudForm Class="mt-8">
+    <MudForm Model="@cargo" @ref="form" Class="mt-8">
     <MudText Class="mt-4" Typo="Typo.h6">Novo Cargo</MudText>
 
     <MudGrid>
             <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-2" T="string" Placeholder="Descrição"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               @bind-Value="cargo.Descricao"
-                              RequiredError="Campo obrigatório." />
+                              Label="Descricao" For="@(() => cargo.Descricao!)" />
             </MudItem>
             <MudItem xs="12" sm="5">
                 <MudTextField Class="mt-2" T="string" Placeholder="Atribuições"
-                              Variant="Variant.Outlined"
-                              Required="true"
+                              Variant="Variant.Outlined"                             
                               @bind-Value="cargo.Atribuicoes"
-                              RequiredError="Campo obrigatório." />
+                              Label="Atribuições" For="@(() => cargo.Atribuicoes!)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-2" T="decimal" Placeholder="Salário"
-                              Variant="Variant.Outlined"
-                              Required="true"
-                              @bind-Value="cargo.Salario"
-                              RequiredError="Campo obrigatório." />
+                              Variant="Variant.Outlined"                             
+                              @bind-Value="cargo.Salario" 
+                              Label="Salário" For="@(() => cargo.Salario!)" />
             </MudItem>
 
             <MudItem xs="12" sm="2" Class="mb-2">
@@ -58,7 +55,7 @@
                             Color="@Color.Success" 
                             Class="mt-2 mb-2" 
                             Style="width:100%; height:100%"
-                            OnClick="Adicionar">
+                           OnClick="Confirmar">
                             @btn_Confirmar</MudButton>
             </MudItem>
     </MudGrid>
@@ -72,7 +69,9 @@
     public string? IdAgencia { get; set; }    
 
     private ICollection<CargoResponse>? cargos;
-    private Cargo cargo = new Cargo();
+    private CargoRequest cargo = new();
+    private MudForm? form;
+
     private string btn_Confirmar = "Novo Cargo";
 
     protected override async Task OnInitializedAsync()
@@ -93,16 +92,18 @@
 
     }
 
-    private async Task Adicionar()
-    {
-        if (!cargo.Descricao.Equals("") &&
-            !cargo.Atribuicoes.Equals("") &&
-            cargo.Salario > 0)
+    private async Task Confirmar()
+    {    
+        await form!.Validate();
+
+        if(form.IsValid)
         {
-            if(btn_Confirmar.Equals("Novo Cargo"))
+            if (btn_Confirmar.Equals("Novo Cargo"))
             {
-                if (await cargoAPI.AddCargoAsync(new CargoRequest(cargo.Descricao, cargo.Atribuicoes, cargo.Salario, Convert.ToInt32(IdAgencia))))
-                {                    
+                cargo.AgenciaId = Convert.ToInt32(IdAgencia);
+
+                if (await cargoAPI.AddCargoAsync(cargo))
+                {
                     Snackbar.Add("Cargo cadastrado com sucesso!", Severity.Success);
                     await CarregarCargos();
                 }
@@ -112,7 +113,7 @@
                 }
             }
             else
-            {
+            {        
                 if (await cargoAPI.UpdateCargoAsync(cargo.Id, new CargoRequestEdit(cargo.Descricao, cargo.Atribuicoes, cargo.Salario)))
                 {
                     btn_Confirmar = "Novo Cargo";
@@ -124,16 +125,18 @@
                     Snackbar.Add("Houve um erro ao cadastrar!", Severity.Error);
                 }
             }
+
             await CarregarCargos();
-        }
+        }                      
     }
 
     private void Editar(CargoResponse cargoResponse)
     {
         cargo.Id = cargoResponse.Id;
         cargo.Descricao = cargoResponse.Descricao;
-        cargo.Salario = cargoResponse.Salario;
         cargo.Atribuicoes = cargoResponse.Atribuicoes;
+        cargo.Salario = cargoResponse.Salario;
+        cargo.AgenciaId = cargoResponse.Agencia.Id;
 
         btn_Confirmar = "Atualizar";
     }
