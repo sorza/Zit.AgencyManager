@@ -6,6 +6,7 @@
     <MudPagination Count="@totalPaginas" SelectedChanged="@PaginaMudou"></MudPagination>    
 </MudStack>
 
+
 @if(agencias != null)
 {
     <MudGrid>
@@ -14,7 +15,6 @@
         <MudItem xs="3">
             <CardAgencia Agencia="agencia" />
         </MudItem>
-        
     }
     </MudGrid>
 }

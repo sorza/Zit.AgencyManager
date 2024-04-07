@@ -6,7 +6,7 @@
          string Logradouro,
          string Numero,
          string Bairro,
-         string Cidade,
+         string Localidade,
          string Uf,
          string? Complemento
      );

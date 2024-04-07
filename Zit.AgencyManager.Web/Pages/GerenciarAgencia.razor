@@ -3,20 +3,16 @@
     <MudItem xs="3">
         <MudCard>
             <MudCardMedia Image=""></MudCardMedia>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Caixas</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
+            
             <MudCardActions>
                 <MudButton Color="Color.Primary"
                            Variant="Variant.Outlined"
                            Class="mr-2"
-                           Href=@($"/Caixas/{AgenciaId}")>Conferir</MudButton>
-
-                <MudButton Color="Color.Warning"
-                           Variant="Variant.Outlined"
-                           Href=@($"/BaixarCaixas/{AgenciaId}")>Baixar</MudButton>
+                           Style="width: 100%"
+                           Href=@($"/Contratos/{AgenciaId}")>
+                    <MudIcon Icon="@Icons.Material.Filled.Assignment" Class="mr-2" />
+                 Contratos
+                </MudButton>
 
             </MudCardActions>
         </MudCard>
@@ -49,28 +45,6 @@
                            Class="mr-2"
                            Style="width: 100%"
                            Href=@($"/Cargos/{AgenciaId}")>Cargos</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-
-    <MudItem xs="3">
-        <MudCard>
-            <MudCardMedia Image=""></MudCardMedia>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Contratos</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardActions>
-                <MudButton Color="Color.Primary"
-                           Variant="Variant.Outlined"
-                           Class="mr-2"
-                           Href=@($"/Contratos/{AgenciaId}")>Exibir</MudButton>
-
-                <MudButton Color="Color.Warning"
-                           Variant="Variant.Outlined"
-                           Href=@($"/CadastrarContrato/{AgenciaId}")>Novo Contrato</MudButton>
-
             </MudCardActions>
         </MudCard>
     </MudItem>

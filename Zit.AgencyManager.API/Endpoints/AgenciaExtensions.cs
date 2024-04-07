@@ -55,7 +55,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     Logradouro = request.Endereco.Logradouro,
                     Bairro = request.Endereco.Bairro,
                     Numero = request.Endereco.Numero,
-                    Cidade = request.Endereco.Localidade,
+                    Localidade = request.Endereco.Localidade,
                     Uf = request.Endereco.UF,
                     Complemento = request.Endereco.Complemento
                 };
@@ -84,9 +84,9 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPut("{id}", async([FromServices]IHostEnvironment env, [FromServices] DAL<Agencia> dal, [FromServices]DAL<Contato> dalContato, [FromBody] AgenciaRequestEdit request, int id) =>
             {
-                var agenciaAAtualizar = dal.RecuperarPor(ag => ag.Id == id);
+                var agencia = dal.RecuperarPor(ag => ag.Id == id);
                 
-                if(agenciaAAtualizar is null) return Results.NotFound();
+                if(agencia is null) return Results.NotFound();
 
                 var context = new ValidationContext(request);
                 var results = new List<ValidationResult>();
@@ -99,32 +99,32 @@ namespace Zit.AgencyManager.API.Endpoints
                     return Results.BadRequest(errors);
                 }
 
-                agenciaAAtualizar.CNPJ = request.CNPJ!;
-                agenciaAAtualizar.Descricao = request.Descricao!;
-                agenciaAAtualizar.Ativa = request.Ativa;                             
+                agencia.CNPJ = request.CNPJ!;
+                agencia.Descricao = request.Descricao!;
+                agencia.Ativa = request.Ativa;                             
                 
-                agenciaAAtualizar.Endereco.Logradouro = request.Endereco.Logradouro;
-                agenciaAAtualizar.Endereco.Numero = request.Endereco.Numero;
-                agenciaAAtualizar.Endereco.Cidade = request.Endereco.Localidade;
-                agenciaAAtualizar.Endereco.Bairro = request.Endereco.Bairro;
-                agenciaAAtualizar.Endereco.CEP = request.Endereco.CEP;
-                agenciaAAtualizar.Endereco.Uf = request.Endereco.UF;
-                agenciaAAtualizar.Endereco.Complemento = request.Endereco.Complemento;
+                agencia.Endereco.Logradouro = request.Endereco.Logradouro;
+                agencia.Endereco.Numero = request.Endereco.Numero;
+                agencia.Endereco.Localidade = request.Endereco.Localidade;
+                agencia.Endereco.Bairro = request.Endereco.Bairro;
+                agencia.Endereco.CEP = request.Endereco.CEP;
+                agencia.Endereco.Uf = request.Endereco.UF;
+                agencia.Endereco.Complemento = request.Endereco.Complemento;
                 
                                                   
                 var contatosARemover = new List<Contato>();
 
                 foreach(var item in request.Contatos!)
-                    if(!agenciaAAtualizar.Contatos.Contains(item)) agenciaAAtualizar.Contatos.Add(item);
+                    if(!agencia.Contatos.Contains(item)) agencia.Contatos.Add(item);
 
-                foreach(var item in agenciaAAtualizar.Contatos)
+                foreach(var item in agencia.Contatos)
                     if(!request.Contatos.Contains(item)) contatosARemover.Add(item);
 
                 foreach (var item in contatosARemover)
                     dalContato.Deletar(item);
                 
 
-                if (request.Foto is not null && !request.Foto.Equals(agenciaAAtualizar.Foto))
+                if (request.Foto is not null && !request.Foto.Equals(agencia.Foto))
                 {
                     var nome = request.Descricao!.Trim();
                     var imagemAgencia = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
@@ -136,10 +136,10 @@ namespace Zit.AgencyManager.API.Endpoints
                     using FileStream fs = new(path, FileMode.Create);
                     await ms.CopyToAsync(fs);
 
-                    agenciaAAtualizar.Foto = $"FotosAgencia/{imagemAgencia}";
+                    agencia.Foto = $"FotosAgencia/{imagemAgencia}";
                 }
 
-                dal.Atualizar(agenciaAAtualizar);
+                dal.Atualizar(agencia);
 
                 return Results.NoContent();
                

@@ -63,7 +63,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 {
                     empresa.Endereco.Logradouro = request.Endereco.Logradouro;
                     empresa.Endereco.Numero = request.Endereco.Numero;
-                    empresa.Endereco.Cidade = request.Endereco.Cidade;
+                    empresa.Endereco.Localidade = request.Endereco.Localidade;
                     empresa.Endereco.Bairro = request.Endereco.Bairro;
                     empresa.Endereco.CEP = request.Endereco.CEP;
                     empresa.Endereco.Uf = request.Endereco.Uf;

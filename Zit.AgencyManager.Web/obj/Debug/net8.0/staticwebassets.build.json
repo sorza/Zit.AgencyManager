@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Nbprp5rX1wWv7UHCNT/dldG0353/2EsLTBAZhnWw8WI=",
+  "Hash": "Q9SXXaAQLf9sIOqVsKtaWMu4H9kvrmG+5m68gofnnSk=",
   "Source": "Zit.AgencyManager.Web",
   "BasePath": "/",
   "Mode": "Root",
@@ -8679,6 +8679,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\icon-192.png"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\add-agencia.png",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "images/add-agencia.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\add-agencia.png"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\cardAgencia.jpg",

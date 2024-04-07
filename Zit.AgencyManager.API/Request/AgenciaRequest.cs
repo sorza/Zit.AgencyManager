@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dominio.Modelos;
 
 namespace Zit.AgencyManager.API.Request

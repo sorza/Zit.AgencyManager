@@ -60,7 +60,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     Logradouro = request.Endereco.Logradouro,
                     Bairro = request.Endereco.Bairro,
                     Numero = request.Endereco.Numero,
-                    Cidade = request.Endereco.Localidade,
+                    Localidade = request.Endereco.Localidade,
                     Uf = request.Endereco.UF,
                     Complemento = request.Endereco.Complemento
                 };
@@ -101,7 +101,7 @@ namespace Zit.AgencyManager.API.Endpoints
                 
                 colaborador.Endereco.Logradouro = request.Endereco.Logradouro;
                 colaborador.Endereco.Numero = request.Endereco.Numero;
-                colaborador.Endereco.Cidade = request.Endereco.Localidade;
+                colaborador.Endereco.Localidade = request.Endereco.Localidade;
                 colaborador.Endereco.Bairro = request.Endereco.Bairro;
                 colaborador.Endereco.CEP = request.Endereco.CEP;
                 colaborador.Endereco.Uf = request.Endereco.UF;
@@ -155,7 +155,6 @@ namespace Zit.AgencyManager.API.Endpoints
         {
             return listaDeColaboradores.Select(a => EntityToResponse(a)).ToList();
         }
-
         private static ColaboradorResponse EntityToResponse(Colaborador colaborador)
         {
             return new ColaboradorResponse(colaborador.Id, colaborador.Nome, colaborador.CPF, colaborador.RG, colaborador.DataNascimento, colaborador.Agencia, colaborador.Cargo, colaborador.DataAdmissao, colaborador.DataDemissao, colaborador.Endereco, colaborador.Contatos, colaborador.Usuario, colaborador.Ativo);

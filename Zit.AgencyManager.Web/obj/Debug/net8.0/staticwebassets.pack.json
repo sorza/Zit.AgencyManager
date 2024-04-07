@@ -41,6 +41,10 @@
       "PackagePath": "staticwebassets\\images\\Logo.png"
     },
     {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\add-agencia.png",
+      "PackagePath": "staticwebassets\\images\\add-agencia.png"
+    },
+    {
       "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\wwwroot\\images\\cardAgencia.jpg",
       "PackagePath": "staticwebassets\\images\\cardAgencia.jpg"
     },

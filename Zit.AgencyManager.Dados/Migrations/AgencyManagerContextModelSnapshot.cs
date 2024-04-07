@@ -305,7 +305,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.Property<string>("RG")
                         .IsRequired()
-                        .HasColumnType("varchar(90)");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
@@ -433,6 +433,9 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int>("EnderecoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("varchar(90)");
+
                     b.Property<string>("NomeFantasia")
                         .HasColumnType("varchar(90)");
 
@@ -463,11 +466,11 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(90)");
 
-                    b.Property<string>("Cidade")
-                        .IsRequired()
+                    b.Property<string>("Complemento")
                         .HasColumnType("varchar(90)");
 
-                    b.Property<string>("Complemento")
+                    b.Property<string>("Localidade")
+                        .IsRequired()
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("Logradouro")
@@ -501,7 +504,7 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.Property<string>("UF")
                         .IsRequired()
-                        .HasColumnType("varchar(90)");
+                        .HasColumnType("varchar(2)");
 
                     b.HasKey("Id");
 
