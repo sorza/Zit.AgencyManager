@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Zit.AgencyManager.Dominio.Modelos;
+﻿using Zit.AgencyManager.Dominio.Modelos;
 
 namespace Zit.AgencyManager.API.Response
 {
@@ -9,6 +8,6 @@ namespace Zit.AgencyManager.API.Response
         string NomeFantasia,
         string CNPJ,
         Endereco Endereco,
-        ICollection<Contato> Contatos);
-      
+        ICollection<Contato> Contato,
+        string? Logo);
 }

@@ -46,7 +46,8 @@ namespace Zit.AgencyManager.API.Endpoints
                 Agencia agencia = new()
                 {
                     CNPJ = request.CNPJ!,
-                    Descricao = request.Descricao!
+                    Descricao = request.Descricao!,
+                    Contatos = request.Contatos!
                 };
 
                 agencia.Endereco = new()
@@ -59,8 +60,6 @@ namespace Zit.AgencyManager.API.Endpoints
                     Uf = request.Endereco.UF,
                     Complemento = request.Endereco.Complemento
                 };
-
-                agencia.Contatos = request.Contatos!;
 
                 if (request.Foto is not null)
                 {

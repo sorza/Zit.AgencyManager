@@ -1,5 +1,33 @@
-﻿<h3>CardEmpresa</h3>
+﻿<MudCard>
+    <MudCardMedia Image="@Imagem"></MudCardMedia>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">@Empresa!.NomeFantasia</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudText Typo="Typo.body2">
+                    @Empresa!.RazaoSocial <br>
+                    CNPJ: @Empresa.CNPJ
+        </MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Outlined"
+                   Class="mr-2"
+                   Style="width: 100%"
+                   Href=@($"/EditarEmpresa/{Empresa!.Id}")>Editar Empresa</MudButton>
+    </MudCardActions>
+</MudCard>
 
 @code {
+    [Parameter]
+    public EmpresaResponse? Empresa { get; set; }
+    public string? Imagem { get; set; }
 
+    protected override void OnInitialized()
+    {
+        Imagem = Empresa!.Logo is null ? "images/cardAgencia.jpg" : $"https://localhost:7006/{Empresa!.Logo}";
+    }
 }

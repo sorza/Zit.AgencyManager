@@ -1,7 +1,291 @@
 ﻿@page "/CadastrarEmpresa"
 
-<h3>Cadastrar Empresa</h3>
+@inject EmpresaAPI empresaAPI
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+
+    <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Empresas</MudText>
+
+    <MudForm Model="@empresa" @ref="form">
+        <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="4">
+                <MudTextField Class="mt-2" T="string" Placeholder="Razão Social"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.RazaoSocial"
+                              Label="Razão Social" For="@(() => empresa.RazaoSocial)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.CNPJ"
+                              Label="CNPJ" For="@(() => empresa.CNPJ)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Class="mt-2" T="string" Placeholder="Nome Fantasia"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.NomeFantasia"
+                              Label="Nome Fantasia" For="@(() => empresa.NomeFantasia)" />
+            </MudItem>
+        </MudGrid>
+        <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-1" T="string" Placeholder="CEP"
+                              Variant="Variant.Outlined"
+                              OnBlur="BuscarCep"
+                              @bind-Value="empresa.Endereco!.CEP"
+                              Label="CEP" For="@(() => empresa.Endereco!.CEP)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.Logradouro"
+                              Label="Logradouro" For="@(() => empresa.Endereco!.Logradouro)" />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-1" T="string" Placeholder="Número"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.Numero"
+                              Label="Número" For="@(() => empresa.Endereco!.Numero)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.Bairro"
+                              Label="Bairro" For="@(() => empresa.Endereco!.Bairro)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.Localidade"
+                              Label="Cidade" For="@(() => empresa.Endereco!.Localidade)" />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.UF"
+                              Label="UF" For="@(() => empresa.Endereco!.UF)" />
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
+                              Variant="Variant.Outlined"
+                              @bind-Value="empresa.Endereco!.Complemento"
+                              Label="Complemento" For="@(() => empresa.Endereco!.Complemento)" />
+            </MudItem>
+        </MudGrid>
+        <MudImage Class="mt-4" src="@fileImage" />
+        <MudFileUpload T="IBrowserFile" Accept=".jpg" FilesChanged="UploadFile">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PhotoCamera"
+                           for="@context">
+                    Logo da Empresa
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+        <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
+        <MudGrid>
+            <MudItem xs="12" sm="4">
+
+                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Fixo")" />
+                    <MudSelectItem Value="@("Celular")" />
+                    <MudSelectItem Value="@("Email")" />
+                </MudSelect>
+
+                <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
+                              Variant="Variant.Outlined"
+                              @bind-Value="Contato.Descricao" />
+
+                <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
+                              Variant="Variant.Outlined"
+                              @bind-Value="Contato.Complemento" />
+
+                <MudButton Style="width: 100%"
+                           Class="mt-4 mb-4"
+                           Size="@Size.Large"
+                           Variant="@Variant.Filled"
+                           @onclick="AdicionarContato"
+                           Color="@Color.Success">
+                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
+                    Adicionar Contato
+                </MudButton>
+
+            </MudItem>
+
+            <MudItem xs="12" sm="8">
+                <MudDataGrid Items="@empresa.Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-2">
+                    <Columns>
+                        <PropertyColumn Property="x => x.Tipo" />
+                        <PropertyColumn Property="x => x.Descricao" />
+                        <PropertyColumn Property="x => x.Complemento" />
+                        <TemplateColumn CellClass="d-flex justify-end">
+                            <CellTemplate Context="cellContext">
+                                @{
+                                    var contato = cellContext.Item;
+                                }
+                                <MudStack Row>
+                                    <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverContato(contato)">Remover</MudButton>
+                                </MudStack>
+                            </CellTemplate>
+                        </TemplateColumn>
+                    </Columns>
+                </MudDataGrid>
+            </MudItem>
+        </MudGrid>
+
+        <MudButton Variant="Variant.Filled"
+                   Size="Size.Large"
+                   @onclick="Cadastrar"
+                   Color="Color.Primary"
+                   Class="ml-auto mt-2 d-flex justify-end">
+            <MudIcon Icon="@Icons.Material.Filled.Storefront" Class="mr-2" />
+            Cadastrar Empresa
+        </MudButton>
+    </MudForm>
+</MudPaper>
 
 @code {
+    private EmpresaRequest empresa = new();
+    private MudForm? form;
 
+    private string? fileImage;
+
+    private Contato Contato = new Contato { Tipo = "Fixo" };
+
+    private async Task BuscarCep()
+    {
+        if (empresa.Endereco!.CEP.Length == 8 && Regex.IsMatch(empresa.Endereco.CEP, @"^\d{8}$"))
+        {
+            HttpClient httpClient = new();
+
+            try
+            {
+                var response = await httpClient.GetAsync($"https://viacep.com.br/ws/{empresa.Endereco.CEP}/json/");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var endereco = await response.Content.ReadFromJsonAsync<EnderecoResponse>();
+                    empresa.Endereco.Logradouro = endereco!.Logradouro;
+                    empresa.Endereco.Bairro = endereco!.Bairro;
+                    empresa.Endereco.Localidade = endereco!.Localidade;
+                    empresa.Endereco.UF = endereco!.Uf;
+                }
+            }
+            catch
+            {
+                Snackbar.Add("CEP Inválido ou não encontrado!", Severity.Error);
+            }
+        }
+    }
+
+    private async Task Cadastrar()
+    {
+        await form!.Validate();
+
+        if (empresa.Contatos!.Count() > 0)
+        {
+            if (form.IsValid)
+            {
+                if (await empresaAPI.AddEmpresaAsync(empresa))
+                {
+                    Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
+                    navigationManager.NavigateTo("/Empresas");
+                }
+                else
+                {
+                    Snackbar.Add("Erro ao cadastrar agência!", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Por favor, preencha todos os campos!", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("É obrigatório cadastrar pelo menos um contato!", Severity.Error);
+        }
+    }
+
+    private void AdicionarContato()
+    {
+        bool isValid = true;
+
+        Contato item = new()
+            {
+                Tipo = Contato.Tipo,
+                Descricao = Contato.Descricao,
+                Complemento = Contato.Complemento
+            };
+
+        if (item.Descricao is not null && item.Complemento is not null)
+        {
+            switch (item.Tipo)
+            {
+                case "Fixo":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{10}$")) isValid = false;
+                    break;
+                case "Celular":
+                    if (!Regex.IsMatch(item.Descricao, @"^[0-9]{11}$")) isValid = false;
+                    break;
+                case "Email":
+                    if (!Regex.IsMatch(item.Descricao, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) isValid = false;
+                    break;
+            }
+
+            if (isValid)
+            {
+                if (!empresa.Contatos.Any(c => c.Descricao.Equals(item.Descricao)))
+                {
+                    empresa.Contatos.Add(item);
+
+                    Contato.Descricao = string.Empty;
+                    Contato.Complemento = string.Empty;
+                }
+                else
+                {
+                    Snackbar.Add("Este contato já existe.", Severity.Error);
+                }
+            }
+            else
+            {
+                Snackbar.Add("Contato inválido!", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("Preencha os campos de contato!", Severity.Error);
+        }
+    }
+
+    private void RemoverContato(Contato contato)
+    {
+        empresa.Contatos!.Remove(contato);
+    }
+
+    private async Task UploadFile(IBrowserFile file)
+    {
+        var format = "image/jpeg";
+        var resizedImage = await file.RequestImageFileAsync(format, 200, 200);
+
+        using var fileStream = resizedImage.OpenReadStream();
+        using var memoryStream = new MemoryStream();
+        await fileStream.CopyToAsync(memoryStream);
+
+        var imageUpload = Convert.ToBase64String(memoryStream.ToArray());
+        fileImage = $"data:{format};base64,{imageUpload}";
+        empresa.Logo = imageUpload;
+
+        fileImage = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+
+    }
 }
+
+
+

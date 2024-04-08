@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KFTNxX7U3PjVvFFurRVzi4qpBPRAbbj1H9SRj9/Il9o=",
+  "Hash": "DeR/eS/kxhCDgMdIUSF7GEwxmhc/sDt2pp5rBAEzpQ8=",
   "Source": "Zit.AgencyManager.API",
   "BasePath": "_content/Zit.AgencyManager.API",
   "Mode": "Default",
@@ -34,6 +34,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\070420240443.EMPRESA GONTIJO.jpeg",
+      "SourceId": "Zit.AgencyManager.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\",
+      "BasePath": "_content/Zit.AgencyManager.API",
+      "RelativePath": "LogosEmpresas/070420240443.EMPRESA GONTIJO.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\LogosEmpresas\\070420240443.EMPRESA GONTIJO.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\070420240914.EXPRESSO UNIÃO.jpeg",
+      "SourceId": "Zit.AgencyManager.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\",
+      "BasePath": "_content/Zit.AgencyManager.API",
+      "RelativePath": "LogosEmpresas/070420240914.EXPRESSO UNIÃO.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\LogosEmpresas\\070420240914.EXPRESSO UNIÃO.jpeg"
     }
   ]
 }

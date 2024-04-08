@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -28,17 +29,52 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityToResponse(empresa));
             });
 
-            groubuilder.MapPost("", ([FromServices] DAL<Empresa> dal, [FromBody] EmpresaRequest request) =>
-            {             
+            groubuilder.MapPost("", async ([FromServices] IHostEnvironment env, [FromServices] DAL<Empresa> dal, [FromBody] EmpresaRequest request) =>
+            {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 Empresa empresa = new()
                 {
-                    RazaoSocial = request.RazaoSocial,
-                    CNPJ = request.CNPJ,
+                    RazaoSocial = request.RazaoSocial,                   
                     NomeFantasia = request.NomeFantasia,
-                    Endereco = request.Endereco
+                    CNPJ = request.CNPJ,
+                    Contatos = request.Contatos!
                 };
-                
-                if(request.Contatos is not null) empresa.Contatos = request.Contatos;               
+
+                empresa.Endereco = new()
+                {
+                    CEP = request.Endereco.CEP,
+                    Logradouro = request.Endereco.Logradouro,
+                    Bairro = request.Endereco.Bairro,
+                    Numero = request.Endereco.Numero,
+                    Localidade = request.Endereco.Localidade,
+                    Uf = request.Endereco.UF,
+                    Complemento = request.Endereco.Complemento
+                };
+
+                if (request.Logo is not null)
+                {
+                    var nome = request.NomeFantasia!.Trim();
+                    var logoEmpresa = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
+
+                    var path = Path.Combine(env.ContentRootPath,
+                          "wwwroot", "LogosEmpresas", logoEmpresa);
+
+                    using MemoryStream ms = new MemoryStream(Convert.FromBase64String(request.Logo!));
+                    using FileStream fs = new(path, FileMode.Create);
+                    await ms.CopyToAsync(fs);
+
+                    empresa.Logo = $"LogosEmpresas/{logoEmpresa}";
+                }
 
                 dal.Adicionar(empresa);
 
@@ -46,42 +82,59 @@ namespace Zit.AgencyManager.API.Endpoints
 
             });
 
-            groubuilder.MapPut("{id}", ([FromServices] DAL<Empresa> dal, 
-                                        [FromServices] DAL<Contato> dalContato, 
-                                        [FromBody] EmpresaRequestEdit request, 
-                                        int id) =>
+            groubuilder.MapPut("{id}", async([FromServices] IHostEnvironment env,[FromServices] DAL<Empresa> dal, [FromServices] DAL<Contato> dalContato, [FromBody] EmpresaRequestEdit request, int id) =>
             {
                 var empresa = dal.RecuperarPor(e => e.Id == id);
 
                 if(empresa  is null) return Results.NotFound();
 
-                if(!request.RazaoSocial.IsNullOrEmpty()) empresa.RazaoSocial = request.RazaoSocial;
-                if(!request.CNPJ.IsNullOrEmpty()) empresa.CNPJ = request.CNPJ;
-                if(!request.NomeFantasia.IsNullOrEmpty()) empresa.NomeFantasia = request.NomeFantasia;
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
 
-                if (request.Endereco is not null)
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
                 {
-                    empresa.Endereco.Logradouro = request.Endereco.Logradouro;
-                    empresa.Endereco.Numero = request.Endereco.Numero;
-                    empresa.Endereco.Localidade = request.Endereco.Localidade;
-                    empresa.Endereco.Bairro = request.Endereco.Bairro;
-                    empresa.Endereco.CEP = request.Endereco.CEP;
-                    empresa.Endereco.Uf = request.Endereco.Uf;
-                    empresa.Endereco.Complemento = request.Endereco.Complemento;
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
                 }
 
-                if (empresa.Contatos is not null)
-                {                  
-                    var contatosARemover = new List<Contato>();
+                empresa.RazaoSocial = request.RazaoSocial;
+                empresa.CNPJ = request.CNPJ;
+                empresa.NomeFantasia = request.NomeFantasia;
 
-                    foreach (var item in request.Contatos)
-                        if (!empresa.Contatos.Contains(item)) empresa.Contatos.Add(item);
+                empresa.Endereco.Logradouro = request.Endereco.Logradouro;
+                empresa.Endereco.Numero = request.Endereco.Numero;
+                empresa.Endereco.Localidade = request.Endereco.Localidade;
+                empresa.Endereco.Bairro = request.Endereco.Bairro;
+                empresa.Endereco.CEP = request.Endereco.CEP;
+                empresa.Endereco.Uf = request.Endereco.UF;
+                empresa.Endereco.Complemento = request.Endereco.Complemento;  
+                                 
+                var contatosARemover = new List<Contato>();
 
-                    foreach (var item in empresa.Contatos)
-                        if (!request.Contatos.Contains(item)) contatosARemover.Add(item);
+                foreach (var item in request.Contatos!)
+                    if (!empresa.Contatos.Contains(item)) empresa.Contatos.Add(item);
 
-                    foreach (var item in contatosARemover)
-                        dalContato.Deletar(item);
+                foreach (var item in empresa.Contatos)
+                    if (!request.Contatos.Contains(item)) contatosARemover.Add(item);
+
+                foreach (var item in contatosARemover)
+                    dalContato.Deletar(item);
+
+                if (request.Logo is not null && !request.Logo.Equals(empresa.Logo))
+                {
+                    var nome = request.NomeFantasia!.Trim();
+                    var logoEmpresa = DateTime.Now.ToString("ddMMyyyyhhss") + "." + nome + ".jpeg";
+
+                    var path = Path.Combine(env.ContentRootPath,
+                          "wwwroot", "LogosEmpresas", logoEmpresa);
+
+                    using MemoryStream ms = new MemoryStream(Convert.FromBase64String(request.Logo!));
+                    using FileStream fs = new(path, FileMode.Create);
+                    await ms.CopyToAsync(fs);
+
+                    empresa.Logo = $"LogosEmpresas/{logoEmpresa}";
                 }
 
                 dal.Atualizar(empresa);
@@ -89,7 +142,25 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.NoContent();
 
             });
-                       
+
+            groubuilder.MapDelete("{id}", ([FromServices] DAL<Empresa> dal, [FromServices] DAL<Contato> dalContato, [FromServices] DAL<Endereco> dalEndereco, int id) =>
+            {
+                var empresa = dal.RecuperarPor(a => a.Id.Equals(id));
+
+                if (empresa is null) return Results.NotFound();
+
+                var contatosARemover = new List<Contato>();
+
+                foreach (var contato in empresa.Contatos)
+                    contatosARemover.Add(contato);
+
+                foreach (var contato in contatosARemover)
+                    dalContato.Deletar(contato);
+
+                dalEndereco.Deletar(empresa.Endereco);
+
+                return Results.NoContent();
+            });
         }
 
         private static ICollection<EmpresaResponse> EntityListToResponseList(IEnumerable<Empresa> listaDeEmpresas)
@@ -99,7 +170,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static EmpresaResponse EntityToResponse(Empresa empresa)
         {
-            return new EmpresaResponse(empresa.Id, empresa.CNPJ, empresa.NomeFantasia, empresa.RazaoSocial, empresa.Endereco, empresa.Contatos);
+            return new EmpresaResponse(empresa.Id, empresa.RazaoSocial, empresa.NomeFantasia, empresa.CNPJ, empresa.Endereco, empresa.Contatos, empresa.Logo);
         }
     }
 }

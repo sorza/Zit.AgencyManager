@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg"
     },
     {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\070420240443.EMPRESA GONTIJO.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\070420240443.EMPRESA GONTIJO.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\070420240914.EXPRESSO UNIÃO.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\070420240914.EXPRESSO UNIÃO.jpeg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Zit.AgencyManager.API.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
