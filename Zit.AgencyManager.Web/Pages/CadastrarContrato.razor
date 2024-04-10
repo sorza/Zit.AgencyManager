@@ -1,0 +1,119 @@
+﻿@page "/CadastrarContrato/{AgenciaId}"
+@inject EmpresaAPI empresaAPI;
+@inject ContratoAPI contratoAPI;
+
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+
+    <MudText Class="mt-6" Typo="Typo.h4">Novo Contrato</MudText>
+    
+    <MudForm Model="@Contrato" @ref="form">
+        <MudItem xs="12" sm="12" Class="mt-6">
+            <MudSwitch @bind-Value="Contrato.EmiteNota" Label="Emite NF-e" Color="Color.Success" />
+        </MudItem>
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudSelect Dense="true" T="EmpresaResponse" Label="Selecione uma Empresa" @bind-Value="empresa" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    @foreach (var item in empresas)
+                    {
+                        <MudSelectItem Value="@item">@item.RazaoSocial</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudTextField Class="mt-2" T="decimal" Placeholder="Comissão (%)"
+                              Variant="Variant.Outlined"
+                              @bind-Value="Contrato.Comissao"
+                              Label="Valor da comissão" For="@(() => Contrato.Comissao)" />
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Recebimento" @bind-Value="Contrato.ModalidadeComissao" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Diário")" />
+                    <MudSelectItem Value="@("Mensal")" />
+                </MudSelect>
+            </MudItem>            
+        </MudGrid>
+
+        <MudGrid> 
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Tipo de Acerto" @bind-Value="Contrato.ModalidadeAcerto" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Boleto")" />
+                    <MudSelectItem Value="@("Depósito")" />
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Frequência do Acerto" @bind-Value="Contrato.FrequenciaAcerto" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Diário")" />
+                    <MudSelectItem Value="@("Dezenal")" />
+                    <MudSelectItem Value="@("Quinzenal")" />
+                </MudSelect>
+            </MudItem>            
+            <MudItem xs="12" sm="3" Class="mt-2">
+                <MudDatePicker Label="Data de Contrato" 
+                    Required 
+                    RequiredError="A data do dontrato é obrigatória"
+                    Editable="true" 
+                    @bind-Date="dataContrato" 
+                    Mask="@(new DateMask("dd/MM/yyyy"))" 
+                    DateFormat="dd/MM/yyyy" 
+                    Placeholder="Data de Nascimento" />
+            </MudItem>            
+            <MudItem xs="12" sm="3">
+                <MudButton Variant="Variant.Filled"
+                           Size="Size.Large"
+                           @onclick="Cadastrar"
+                           Color="Color.Success"
+                           Style="width: 100%; height:90%"
+                           Class="mt-2">
+                    <MudIcon Icon="@Icons.Material.Filled.Assignment" Class="mr-2" />
+                    Cadastrar
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+
+ </MudPaper>
+@code {
+    [Parameter]
+    public string? AgenciaId { get; set; }
+
+    public ContratoAgenciaEmpresaRequest Contrato = new();
+
+    public MudForm? form;
+    public EmpresaResponse? empresa;
+
+    DateTime? dataContrato = DateTime.Today;
+
+    public ICollection<EmpresaResponse> empresas = new List<EmpresaResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await empresaAPI.GetEmpresasAsync();
+        if (result is not null) empresas = result.ToList();
+    }
+
+    private async Task Cadastrar()
+    {
+        await form!.Validate();
+
+        if(form.IsValid)
+        {
+            Contrato.DataContrato = DateOnly.FromDateTime(dataContrato!.Value);
+            Contrato.AgenciaId = Convert.ToInt32(AgenciaId);
+            Contrato.EmpresaId = empresa!.Id;
+
+            if(await contratoAPI.AddContratoAsync(Contrato))
+            {
+                Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);
+                navigationManager.NavigateTo($"/Contratos/{AgenciaId}");
+            }
+            else
+            {
+                Snackbar.Add("Erro ao registrar contrato!", Severity.Error);
+            }
+        }
+    }
+
+}

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;

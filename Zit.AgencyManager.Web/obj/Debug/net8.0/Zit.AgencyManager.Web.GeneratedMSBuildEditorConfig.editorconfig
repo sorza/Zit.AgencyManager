@@ -50,6 +50,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyQ29sYWJvcmFkb3IucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/CadastrarContrato.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyQ29udHJhdG8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/CadastrarEmpresa.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FkYXN0cmFyRW1wcmVzYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +68,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/Colaboradores.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29sYWJvcmFkb3Jlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/Contratos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udHJhdG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Alexandre Z Durães/Documents/GitHub/Zit.AgencyManager/Zit.AgencyManager.Web/Pages/Destinos.razor]

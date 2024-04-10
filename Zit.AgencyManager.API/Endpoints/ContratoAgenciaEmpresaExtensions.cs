@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -29,6 +30,17 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPost("", ([FromServices] DAL<ContratoAgenciaEmpresa> dal, [FromBody] ContratoAgenciaEmpresaRequest request) => 
             {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 ContratoAgenciaEmpresa contrato = new()
                 {
                     Ativo = true,

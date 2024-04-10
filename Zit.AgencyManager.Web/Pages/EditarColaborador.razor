@@ -265,6 +265,8 @@
                 if (dataNascimento is not null) colaborador.DataNascimento = DateOnly.FromDateTime(dataNascimento.Value);
                 if (dataAdmissao is not null) colaborador.DataAdmissao = DateOnly.FromDateTime(dataAdmissao.Value);
 
+                colaborador.CargoId = cargo!.Id;
+
                 if (colaborador.Ativo)
                 {
                     colaborador.DataDemissao = DateOnly.MinValue;

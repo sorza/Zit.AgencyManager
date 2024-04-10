@@ -20,6 +20,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<ColaboradorAPI>();
             builder.Services.AddTransient<UsuarioAPI>();
             builder.Services.AddTransient<EmpresaAPI>();
+            builder.Services.AddTransient<ContratoAPI>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);

@@ -1,0 +1,89 @@
+﻿@page "/contratos/{AgenciaId}"
+@inject ContratoAPI contratoAPI
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+
+    <MudText Class="mt-6 mb-6" Typo="Typo.h4">Contratos</MudText>
+
+    <MudDataGrid Items="@contratos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+        <Columns>
+            <PropertyColumn Property="x => x.Empresa.NomeFantasia" Title="Empresa"/>
+            <PropertyColumn Property="x => x.Comissao" Title="Comissão (%)" />
+            <PropertyColumn Property="x => x.ModalidadeComissao" Title="Recebimento" />
+            <PropertyColumn Property="x => x.ModalidadeAcerto" Title="Acerto" />
+            <PropertyColumn Property="x => x.FrequenciaAcerto" Title="Pagamento" />
+            <PropertyColumn Property="x => x.EmiteNota" Title="Nota Fiscal" />
+            <PropertyColumn Property="x => x.Ativo" Title="Ativo" />
+
+            <TemplateColumn CellClass="d-flex justify-end">
+                <CellTemplate Context="cellContext">
+                    @{
+                        var contrato = cellContext.Item;
+                    }
+                    <MudStack Row>
+                        <MudButton Size="@Size.Small"
+                                   Variant="@Variant.Filled"
+                                   Color="@Color.Info"
+                                   Href=@($"/EditarContrato/{contrato.Id}")
+                                   StartIcon="@Icons.Material.Filled.Edit">
+                            Ficha Completa
+                        </MudButton>
+
+                        <MudButton Size="@Size.Small"
+                                   Variant="@Variant.Filled"
+                                   Color="@Color.Error"
+                                   OnClick="() => Remover(contrato)"
+                                   StartIcon="@Icons.Material.Filled.Delete">
+                            Remover
+                        </MudButton>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+
+    <MudButton Variant="Variant.Filled"
+               Size="Size.Large"
+               Href=@($"/CadastrarContrato/{AgenciaId}")
+               Color="Color.Primary"
+               Class="ml-auto mt-4 mr-2 justify-end">
+        <MudIcon Icon="@Icons.Material.Filled.Person" Class="mr-2" />
+        Novo Contrato
+    </MudButton>
+</MudPaper>
+
+@code {
+    [Parameter]
+    public string? AgenciaId { get; set; }
+
+    private ICollection<ContratoAgenciaEmpresaResponse>? contratos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarColaboradores();
+    }
+
+    private async Task CarregarColaboradores()
+    {
+        contratos = await contratoAPI.GetContratosAsync();
+
+        if (contratos is not null) contratos = contratos.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderByDescending(c => c.Ativo).ToList();
+    }
+
+    private async Task Remover(ContratoAgenciaEmpresaResponse contrato)
+    {/*
+        if (contrato is not null)
+        {
+            if (await contratoAPI.DeleteColaboradorAsync(contrato.Id))
+            {
+                Snackbar.Add("Contrato removido com sucesso!", Severity.Success);
+                await CarregarColaboradores();
+            }
+            else
+            {
+                Snackbar.Add("Houve um erro durante a exclusão do contrato, por favor tente mais tarde!", Severity.Error);
+            }
+        }*/
+    }
+}
