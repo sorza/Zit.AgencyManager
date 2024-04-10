@@ -11,3 +11,4 @@
 *.env
 *.v7.bin
 *.gz
+*.futdcache.v2
