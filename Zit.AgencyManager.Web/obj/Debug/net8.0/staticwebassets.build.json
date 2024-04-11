@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BJvbgG6IMIPZlE0DyfRftzVJCPXQZKEwa1rdHS1L+uM=",
+  "Hash": "1oQCnRMXOGdlGzrT2GEEQngkzNs/8A7f/f2HfJGq/rE=",
   "Source": "Zit.AgencyManager.Web",
   "BasePath": "/",
   "Mode": "Root",
@@ -109,7 +109,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.js"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js.map",
@@ -128,15 +128,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.js.map"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.js.map"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.3.z5qprdjluv.js",
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.4.yetsinjccq.js",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "_framework/dotnet.native.8.0.3.z5qprdjluv.js",
+      "RelativePath": "_framework/dotnet.native.8.0.4.yetsinjccq.js",
       "AssetKind": "Build",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -147,7 +147,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.native.js"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.native.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.wasm",
@@ -166,15 +166,15 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.native.wasm"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.native.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.3.kfef3x78b3.js",
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.4.y49mk85qar.js",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "_framework/dotnet.runtime.8.0.3.kfef3x78b3.js",
+      "RelativePath": "_framework/dotnet.runtime.8.0.4.y49mk85qar.js",
       "AssetKind": "Build",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -185,7 +185,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.runtime.js"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.runtime.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.js.map",
@@ -204,7 +204,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\dotnet.runtime.js.map"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\dotnet.runtime.js.map"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_CJK.dat",
@@ -223,7 +223,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\icudt_CJK.dat"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\icudt_CJK.dat"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_EFIGS.dat",
@@ -242,7 +242,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\icudt_EFIGS.dat"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\icudt_EFIGS.dat"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_no_CJK.dat",
@@ -261,7 +261,7 @@
       "AssetTraitValue": "native",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.3\\runtimes\\browser-wasm\\native\\icudt_no_CJK.dat"
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.4\\runtimes\\browser-wasm\\native\\icudt_no_CJK.dat"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.wasm",
@@ -4292,6 +4292,25 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\webcil\\Zit.AgencyManager.Web.wasm"
     },
     {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\005qfnmh0q.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/icudt_no_CJK.dat.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_no_CJK.dat",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_no_CJK.dat"
+    },
+    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\02mf980y22.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -4634,25 +4653,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.IO.UnmanagedMemoryStream.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\2fmr7e6ar3.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.native.wasm.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.wasm",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.wasm"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\2kc5fk7ufm.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -4881,25 +4881,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.IO.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\42fla8uh13.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/icudt_CJK.dat.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_CJK.dat",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_CJK.dat"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\47ffsb4jh8.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -4936,6 +4917,25 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\Microsoft.Extensions.DependencyInjection.Abstractions.wasm"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\4jay1sb98b.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/icudt_EFIGS.dat.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_EFIGS.dat",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_EFIGS.dat"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\4kt81tao1m.gz",
@@ -5356,6 +5356,25 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Net.WebProxy.wasm"
     },
     {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\9wgdgbtgxd.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.native.wasm.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.wasm",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.wasm"
+    },
+    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\9z9jrmp1q4.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -5544,6 +5563,25 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Collections.Specialized.wasm"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\b0qjawx7fs.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.js.map.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js.map",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js.map"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\b2slj5h91p.gz",
@@ -6021,25 +6059,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Security.SecureString.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\f2sgrx9srb.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.js.map.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js.map",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js.map"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\f5253f5ulu.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -6171,6 +6190,25 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\Zit.AgencyManager.Web.wasm"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\g0zsxou9lv.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/icudt_CJK.dat.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_CJK.dat",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_CJK.dat"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\g8pz29xiio.gz",
@@ -6648,44 +6686,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Reflection.Emit.ILGeneration.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\k8i86gojrl.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/icudt_EFIGS.dat.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_EFIGS.dat",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_EFIGS.dat"
-    },
-    {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\kfef3x78b3.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.runtime.8.0.3.kfef3x78b3.js.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.3.kfef3x78b3.js",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.3.kfef3x78b3.js"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\kklaabrzv9.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -6990,25 +6990,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Reflection.TypeExtensions.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\nfqpbnccs9.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.js.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\nl9gu58n3c.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -7159,6 +7140,25 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Xml.ReaderWriter.wasm"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\omvl37vp1r.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.js.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\or8q9qwsyb.gz",
@@ -7349,25 +7349,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Net.Sockets.wasm"
-    },
-    {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\qjknmegyie.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.runtime.js.map.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.js.map",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.js.map"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\qpyyfgfyp6.gz",
@@ -7845,6 +7826,25 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Private.Xml.wasm"
     },
     {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\vho6m0rloz.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.runtime.js.map.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.js.map",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.js.map"
+    },
+    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\vlxqtajphe.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -8035,25 +8035,6 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Runtime.wasm"
     },
     {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\x3p0kkpb2n.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/icudt_no_CJK.dat.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_no_CJK.dat",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\icudt_no_CJK.dat"
-    },
-    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\x8d4694cxi.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -8130,6 +8111,25 @@
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\mscorlib.wasm"
     },
     {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\y49mk85qar.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.runtime.8.0.4.y49mk85qar.js.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.4.y49mk85qar.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.runtime.8.0.4.y49mk85qar.js"
+    },
+    {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\y596l30uok.gz",
       "SourceId": "Zit.AgencyManager.Web",
       "SourceType": "Computed",
@@ -8185,6 +8185,25 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Text.Json.wasm"
+    },
+    {
+      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\yetsinjccq.gz",
+      "SourceId": "Zit.AgencyManager.Web",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/dotnet.native.8.0.4.yetsinjccq.js.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.4.yetsinjccq.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.4.yetsinjccq.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\yfz9piqssm.gz",
@@ -8375,25 +8394,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\Microsoft.AspNetCore.Authorization.wasm"
-    },
-    {
-      "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\z5qprdjluv.gz",
-      "SourceId": "Zit.AgencyManager.Web",
-      "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/dotnet.native.8.0.3.z5qprdjluv.js.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.3.z5qprdjluv.js",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\dotnet.native.8.0.3.z5qprdjluv.js"
     },
     {
       "Identity": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\obj\\Debug\\net8.0\\compressed\\zarm17d30v.gz",

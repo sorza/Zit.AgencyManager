@@ -1,0 +1,194 @@
+﻿@page "/EditarContrato/{ContratoId}"
+
+@inject EmpresaAPI empresaAPI;
+@inject ContratoAPI contratoAPI;
+
+@inject NavigationManager navigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+
+    <MudText Class="mt-6" Typo="Typo.h4">Detalhes do Contrato</MudText>
+
+    <MudForm Model="@Contrato" @ref="form">
+        <MudGrid>
+            <MudItem xs="12" sm="2" Class="mt-6">
+                <MudSwitch @bind-Value="Contrato.EmiteNota" Label="Emite NF-e" Color="Color.Success" />
+            </MudItem>
+            <MudItem xs="12" sm="2" Class="mt-6">
+                <MudSwitch @bind-Value="Contrato.Ativo" ReadOnly Label="Ativo" Color="Color.Success" />
+            </MudItem>
+        </MudGrid>       
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudSelect Dense="true" T="EmpresaResponse" Label="Selecione uma Empresa" @bind-Value="empresa" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    @foreach (var item in empresas)
+                    {
+                        <MudSelectItem Value="@item">@item.RazaoSocial</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudTextField Class="mt-2" T="decimal" Placeholder="Comissão (%)"
+                              Variant="Variant.Outlined"
+                              @bind-Value="Contrato.Comissao"
+                              Label="Valor da comissão" For="@(() => Contrato.Comissao)" />
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Recebimento" @bind-Value="Contrato.ModalidadeComissao" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Diário")" />
+                    <MudSelectItem Value="@("Mensal")" />
+                </MudSelect>
+            </MudItem>
+        </MudGrid>
+
+        <MudGrid>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Tipo de Acerto" @bind-Value="Contrato.ModalidadeAcerto" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Boleto")" />
+                    <MudSelectItem Value="@("Depósito")" />
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="3">
+                <MudSelect Dense="true" T="string" Label="Frequência do Acerto" @bind-Value="Contrato.FrequenciaAcerto" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                    <MudSelectItem Value="@("Diário")" />
+                    <MudSelectItem Value="@("Dezenal")" />
+                    <MudSelectItem Value="@("Quinzenal")" />
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" sm="3" Class="mt-2">
+                <MudDatePicker Label="Data de Contrato"
+                               Required
+                               RequiredError="A data do contrato é obrigatória"
+                               Editable="true"
+                               @bind-Date="dataContrato"
+                               Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Placeholder="Data de Contrato" />
+            </MudItem>
+            <MudItem xs="12" sm="3" Class="mt-2">
+                <MudDatePicker Label="Data de Distrato"
+                               @bind-Date="dataDistrato"
+                               Mask="@(new DateMask("dd/MM/yyyy"))"
+                               DateFormat="dd/MM/yyyy"
+                               Placeholder="Data de Distrato" />
+            </MudItem>           
+        </MudGrid>
+        <MudItem Class="d-flex justify-end mt-6">            
+
+            <MudButton Variant="Variant.Filled"
+                       Size="Size.Large"
+                       @onclick="Distratar"
+                       Color="Color.Error"
+                       Class="mr-3"
+                       StartIcon="@Icons.Material.Filled.Delete">
+                @btnDistratar
+            </MudButton>
+
+            <MudButton Variant="Variant.Filled"
+                       Size="Size.Large"
+                       @onclick="Atualizar"
+                       Color="Color.Success"
+                       StartIcon="@Icons.Material.Filled.Save">
+                Confirmar Alterações
+            </MudButton>
+        </MudItem>
+    </MudForm>
+
+</MudPaper>
+
+@code {
+    [Parameter]
+    public string? ContratoId { get; set; }
+
+    public ContratoAgenciaEmpresaRequestEdit Contrato = new();
+
+    public MudForm? form;
+    public EmpresaResponse? empresa;
+
+    DateTime? dataContrato = null;
+    DateTime? dataDistrato = null;
+
+    string btnDistratar = "Distratar";
+
+    public ICollection<EmpresaResponse> empresas = new List<EmpresaResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await contratoAPI.GetContratoAsync(Convert.ToInt32(ContratoId));
+
+        if(response is not null)
+        {
+            Contrato.EmpresaId = response.Empresa.Id;
+            Contrato.AgenciaId = response.Agencia.Id;
+            Contrato.Comissao = response.Comissao;
+            Contrato.ModalidadeComissao = response.ModalidadeComissao;            
+            Contrato.FrequenciaAcerto = response.FrequenciaAcerto;
+            Contrato.ModalidadeAcerto = response.ModalidadeAcerto;
+            Contrato.DataContrato = response.DataContrato;
+            Contrato.DataDistrato = response.DataDistrato;
+            Contrato.Ativo = response.Ativo;
+            Contrato.EmiteNota = response.EmiteNota;
+
+            dataContrato = Contrato.DataContrato.ToDateTime(TimeOnly.MinValue);
+
+            if (Contrato.Ativo)
+            {
+                Contrato.DataDistrato = null;
+                dataDistrato = null;
+            }
+            else
+            {
+                dataDistrato = Contrato.DataDistrato!.Value.ToDateTime(TimeOnly.MinValue);
+            }
+
+            empresas = await empresaAPI.GetEmpresasAsync();
+
+            if (empresas is not null)
+            {
+                empresas = empresas.Where(e => e.Id == Contrato.EmpresaId).ToList();
+                empresa = empresas!.FirstOrDefault();
+            }
+
+        }
+    }
+
+    private void Distratar()
+    {
+        if (btnDistratar.Equals("Distratar"))
+        {
+            dataDistrato = DateTime.Now.Date;
+            Contrato.Ativo = false;
+            btnDistratar = "Desfazer Distrato";
+        }
+        else
+        {
+            dataDistrato = null;
+            Contrato.Ativo = true;
+            btnDistratar = "Distratar";
+        }
+
+    }
+
+    private async Task Atualizar()
+    {
+        await form!.Validate();
+
+        if (form.IsValid)
+        {
+            Contrato.DataContrato = DateOnly.FromDateTime(dataContrato!.Value);
+            
+            if(dataDistrato is not null) Contrato.DataDistrato = DateOnly.FromDateTime(dataDistrato!.Value);
+
+            if(await contratoAPI.UpdateContratoAsync(Convert.ToInt32(ContratoId), Contrato))
+            {
+                Snackbar.Add("Contrato atualizado com sucesso!", Severity.Success);
+                navigationManager.NavigateTo($"/Contratos/{Contrato.AgenciaId}");
+            }
+            else
+            {
+                Snackbar.Add("Erro ao atualizar contrato!", Severity.Error);
+            }
+        }
+    }
+}

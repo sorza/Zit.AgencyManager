@@ -137,7 +137,7 @@
         <MudGrid>
             <MudItem xs="12" sm="2">
                 <MudSelect Dense="true" T="CargoResponse" Label="Selecione um Cargo" @bind-Value="cargo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
-                    @foreach (var item in cargos)
+                    @foreach (var item in cargos!)
                     {
                         <MudSelectItem Value="@item">@item.Descricao</MudSelectItem>
                     }

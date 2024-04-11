@@ -4,7 +4,7 @@
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
 
-    <MudText Class="mt-6 mb-6" Typo="Typo.h4">Contratos</MudText>
+    <MudText Class="mt-6 mb-6" Typo="Typo.h4">Contratos da agência</MudText>
 
     <MudDataGrid Items="@contratos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
         <Columns>
@@ -27,14 +27,14 @@
                                    Color="@Color.Info"
                                    Href=@($"/EditarContrato/{contrato.Id}")
                                    StartIcon="@Icons.Material.Filled.Edit">
-                            Ficha Completa
+                            Editar
                         </MudButton>
 
                         <MudButton Size="@Size.Small"
                                    Variant="@Variant.Filled"
                                    Color="@Color.Error"
-                                   OnClick="() => Remover(contrato)"
-                                   StartIcon="@Icons.Material.Filled.Delete">
+                                   OnClick="() => Deletar(contrato.Id)"
+                                   StartIcon="@Icons.Material.Filled.Edit">
                             Remover
                         </MudButton>
                     </MudStack>
@@ -61,29 +61,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await CarregarColaboradores();
+        await CarregarContratos();
     }
 
-    private async Task CarregarColaboradores()
+    private async Task CarregarContratos()
     {
         contratos = await contratoAPI.GetContratosAsync();
 
         if (contratos is not null) contratos = contratos.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderByDescending(c => c.Ativo).ToList();
     }
 
-    private async Task Remover(ContratoAgenciaEmpresaResponse contrato)
-    {/*
-        if (contrato is not null)
+    private async Task Deletar(int id)
+    {       
+        if(await contratoAPI.DeleteContratoAsync(id))
         {
-            if (await contratoAPI.DeleteColaboradorAsync(contrato.Id))
-            {
-                Snackbar.Add("Contrato removido com sucesso!", Severity.Success);
-                await CarregarColaboradores();
-            }
-            else
-            {
-                Snackbar.Add("Houve um erro durante a exclusão do contrato, por favor tente mais tarde!", Severity.Error);
-            }
-        }*/
+            Snackbar.Add("Agência cadastrada com sucesso!", Severity.Success);            
+            await CarregarContratos();
+        }
+        else
+        {
+            Snackbar.Add("Houve um erro durante a deleção.", Severity.Error);
+        }
     }
 }

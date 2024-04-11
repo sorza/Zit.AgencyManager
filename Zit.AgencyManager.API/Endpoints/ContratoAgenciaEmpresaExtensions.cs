@@ -65,17 +65,26 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if (contrato is null) return Results.BadRequest();
 
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 contrato.Ativo = request.Ativo;
                 contrato.EmiteNota = request.EmiteNota;
-
-                if(request.DataDistrato != DateOnly.MinValue && request.DataDistrato != contrato.DataDistrato) contrato.DataDistrato = request.DataDistrato;
-                if(request.DataContrato != DateOnly.MinValue && request.DataContrato != contrato.DataContrato) contrato.DataContrato = request.DataContrato;
-                if(request.Comissao > 0 && request.Comissao <100) contrato.Comissao = request.Comissao;
-                if(!request.ModalidadeComissao.IsNullOrEmpty() && !request.ModalidadeComissao.Equals(contrato.ModalidadeComissao)) contrato.ModalidadeComissao = request.ModalidadeComissao;
-                if(request.AgenciaId > 0 && request.AgenciaId !=  contrato.AgenciaId) contrato.AgenciaId = request.AgenciaId;
-                if(request.EmpresaId > 0 && request.EmpresaId != contrato.EmpresaId) contrato.EmpresaId = request.EmpresaId;
-                if(!request.ModalidadeAcerto.IsNullOrEmpty() && !request.ModalidadeAcerto.Equals(contrato.ModalidadeAcerto)) contrato.ModalidadeAcerto = request.ModalidadeAcerto;
-                if(!request.FrequenciaAcerto.IsNullOrEmpty() && !request.FrequenciaAcerto.Equals(contrato.FrequenciaAcerto)) contrato.FrequenciaAcerto = request.FrequenciaAcerto;
+                contrato.DataDistrato = request.DataDistrato;
+                contrato.DataContrato = request.DataContrato;
+                contrato.Comissao = request.Comissao;
+                contrato.ModalidadeComissao = request.ModalidadeComissao;               
+                contrato.EmpresaId = request.EmpresaId;
+                contrato.ModalidadeAcerto = request.ModalidadeAcerto;
+                contrato.FrequenciaAcerto = request.FrequenciaAcerto;
                 
                 dal.Atualizar(contrato);
 
