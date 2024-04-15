@@ -8,11 +8,11 @@
 
 <PageTitle>Nova Empresa</PageTitle>
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
+<MudForm Model="@empresa" @ref="form">
 
-    <MudForm Model="@empresa" @ref="form">
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">    
         <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
-        <MudGrid>
+        <MudGrid Class="mt-1">
             <MudItem xs="12" sm="4">
                 <MudTextField Class="mt-2" T="string" Placeholder="Razão Social"
                               Variant="Variant.Outlined"
@@ -32,8 +32,23 @@
                               Label="Nome Fantasia" For="@(() => empresa.NomeFantasia)" />
             </MudItem>
         </MudGrid>
+        <MudImage Class="mt-2" src="@fileImage" />
+        <MudFileUpload T="IBrowserFile" Accept=".jpg" FilesChanged="UploadFile">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PhotoCamera"
+                           for="@context">
+                    Logo da Empresa
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+    </MudPaper>
+
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
         <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
-        <MudGrid>
+        <MudGrid Class="mt-1">
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-1" T="string" Placeholder="CEP"
                               Variant="Variant.Outlined"
@@ -78,46 +93,42 @@
                               Label="Complemento" For="@(() => empresa.Endereco!.Complemento)" />
             </MudItem>
         </MudGrid>
-        <MudImage Class="mt-4" src="@fileImage" />
-        <MudFileUpload T="IBrowserFile" Accept=".jpg" FilesChanged="UploadFile">
-            <ButtonTemplate>
-                <MudButton HtmlTag="label"
-                           Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.PhotoCamera"
-                           for="@context">
-                    Logo da Empresa
-                </MudButton>
-            </ButtonTemplate>
-        </MudFileUpload>
+        
+    </MudPaper>
+
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
         <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
-
-                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
-                    <MudSelectItem Value="@("Fixo")" />
-                    <MudSelectItem Value="@("Celular")" />
-                    <MudSelectItem Value="@("Email")" />
-                </MudSelect>
-
-                <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Descricao" />
-
-                <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Complemento" />
-
-                <MudButton Style="width: 100%"
-                           Class="mt-4 mb-4"
-                           Size="@Size.Large"
-                           Variant="@Variant.Filled"
-                           @onclick="AdicionarContato"
-                           Color="@Color.Success">
-                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
-                    Adicionar Contato
-                </MudButton>
-
+                <MudGrid>
+                    <MudItem xs="12" sm="12">
+                        <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                            <MudSelectItem Value="@("Fixo")" />
+                            <MudSelectItem Value="@("Celular")" />
+                            <MudSelectItem Value="@("Email")" />
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField T="string" Placeholder="Contato"
+                                      Variant="Variant.Outlined"
+                                      @bind-Value="Contato.Descricao" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField T="string" Placeholder="Descrição"
+                                      Variant="Variant.Outlined"
+                                      @bind-Value="Contato.Complemento" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudButton Style="width: 100%"
+                                   Size="@Size.Large"
+                                   Variant="@Variant.Filled"
+                                   @onclick="AdicionarContato"
+                                   Color="@Color.Success">
+                            <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
+                            Adicionar Contato
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
             </MudItem>
 
             <MudItem xs="12" sm="8">
@@ -148,9 +159,9 @@
                    Class="ml-auto mt-2 d-flex justify-end">
             <MudIcon Icon="@Icons.Material.Filled.Storefront" Class="mr-2" />
             Cadastrar Empresa
-        </MudButton>
-    </MudForm>
-</MudPaper>
+        </MudButton>    
+    </MudPaper>
+</MudForm>
 
 @code {
     private EmpresaRequest empresa = new();

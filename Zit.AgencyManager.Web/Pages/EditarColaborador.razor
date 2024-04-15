@@ -8,11 +8,12 @@
 
 <PageTitle>Editar Colaborador</PageTitle>
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+<MudForm Model="@colaborador" @ref="form">
+
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">   
    
-    <MudText Class="mt-6" Typo="Typo.h4">Detalhes do Colaborador</MudText>
-    <MudSwitch @bind-Value="colaborador.Ativo" ReadOnly Label="Ativo" Color="Color.Success" />
-    <MudForm Model="@colaborador" @ref="form">
+        <MudSwitch @bind-Value="colaborador.Ativo" ReadOnly Label="Ativo" Color="Color.Success" />
+    
         <MudText Class="mt-6" Typo="Typo.h6">Dados Pessoais</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
@@ -37,7 +38,9 @@
                 <MudDatePicker Label="Data de Nascimento" Editable="true" @bind-Date="dataNascimento" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" Placeholder="pt-BR Date" />
             </MudItem>
         </MudGrid>
-
+    </MudPaper>
+    
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
         <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
         <MudGrid>
             <MudItem xs="12" sm="2">
@@ -84,106 +87,117 @@
                               Label="Complemento" For="@(() => colaborador.Endereco.Complemento)" />
             </MudItem>
         </MudGrid>
+    </MudPaper>
 
-        <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
-        <MudGrid>
-            <MudItem xs="12" sm="4">
+    <MudGrid>
+        <MudItem xs="12" sm="9">
+             <MudPaper Class="px-8 pt-2 pb-4 ml-3 my-3 sombra" Justify="Justify.Center">
+                <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
+                <MudGrid>
+                    <MudItem xs="12" sm="4">
+                        <MudGrid>
+                            <MudItem xs="12" sm="12">
+                                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                                    <MudSelectItem Value="@("Fixo")" />
+                                    <MudSelectItem Value="@("Celular")" />
+                                    <MudSelectItem Value="@("Email")" />
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="12">
+                                <MudTextField T="string" Placeholder="Contato"
+                                              Variant="Variant.Outlined"
+                                              @bind-Value="Contato.Descricao" />
+                            </MudItem>
+                            <MudItem xs="12" sm="12">
+                                <MudTextField T="string" Placeholder="Descrição"
+                                              Variant="Variant.Outlined"
+                                              @bind-Value="Contato.Complemento" />
+                            </MudItem>
+                            <MudItem xs="12" sm="12">
+                                <MudButton Style="width: 100%"                                          
+                                           Size="@Size.Large"
+                                           Variant="@Variant.Filled"
+                                           @onclick="AdicionarContato"
+                                           Color="@Color.Success">
+                                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
+                                    Adicionar Contato
+                                </MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudItem>
 
-                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
-                    <MudSelectItem Value="@("Fixo")" />
-                    <MudSelectItem Value="@("Celular")" />
-                    <MudSelectItem Value="@("Email")" />
-                </MudSelect>
+                    <MudItem xs="12" sm="8">
+                        <MudDataGrid Items="@colaborador.Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-2">
+                            <Columns>
+                                <PropertyColumn Property="x => x.Tipo" />
+                                <PropertyColumn Property="x => x.Descricao" />
+                                <PropertyColumn Property="x => x.Complemento" />
+                                <TemplateColumn CellClass="d-flex justify-end">
+                                    <CellTemplate Context="cellContext">
+                                        @{
+                                            var contato = cellContext.Item;
+                                        }
+                                        <MudStack Row>
+                                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverContato(contato)">Remover</MudButton>
+                                        </MudStack>
+                                    </CellTemplate>
+                                </TemplateColumn>
+                            </Columns>
+                        </MudDataGrid>
+                    </MudItem>
+                </MudGrid>
+             </MudPaper>
+        </MudItem>
+            
+        <MudItem xs="12" sm="3">
+            <MudPaper Class="px-8 pt-4 pb-4 mr-3 my-3 sombra" Justify="Justify.Center">
+            <MudText Class="mt-2" Typo="Typo.h6">Dados Funcionais</MudText>
+            <MudGrid>
+                <MudItem xs="12" sm="12">
+                    <MudSelect Dense="true" T="CargoResponse" Label="Selecione um Cargo" @bind-Value="cargo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                        @foreach (var item in cargos!)
+                        {
+                            <MudSelectItem Value="@item">@item.Descricao</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudTextField Class="mt-1" T="string" Disabled="true" Placeholder="Usuário de Acesso"
+                                    Variant="Variant.Outlined"
+                                    @bind-Value="usuario"
+                                    RequiredError="Campo obrigatório." />
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudDatePicker Label="Data de Admissão" Editable="true" @bind-Date="dataAdmissao" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" />
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudDatePicker Label="Data de Demissão" Editable="true" @bind-Date="dataDemissao" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" />
+                </MudItem>               
 
-                <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Descricao" />
-
-                <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Complemento" />
-
-                <MudButton Style="width: 100%"
-                           Class="mt-4 mb-4"
-                           Size="@Size.Large"
-                           Variant="@Variant.Filled"
-                           @onclick="AdicionarContato"
-                           Color="@Color.Success">
-                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
-                    Adicionar Contato
-                </MudButton>
-
-            </MudItem>
-
-            <MudItem xs="12" sm="8">
-                <MudDataGrid Items="@colaborador.Contatos" Filterable="false" SortMode="@SortMode.None" Groupable="false" Class="mt-2">
-                    <Columns>
-                        <PropertyColumn Property="x => x.Tipo" />
-                        <PropertyColumn Property="x => x.Descricao" />
-                        <PropertyColumn Property="x => x.Complemento" />
-                        <TemplateColumn CellClass="d-flex justify-end">
-                            <CellTemplate Context="cellContext">
-                                @{
-                                    var contato = cellContext.Item;
-                                }
-                                <MudStack Row>
-                                    <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverContato(contato)">Remover</MudButton>
-                                </MudStack>
-                            </CellTemplate>
-                        </TemplateColumn>
-                    </Columns>
-                </MudDataGrid>
-            </MudItem>
-        </MudGrid>
-
-        <MudText Class="mt-4" Typo="Typo.h6">Dados Funcionais</MudText>
-        <MudGrid>
-            <MudItem xs="12" sm="2">
-                <MudSelect Dense="true" T="CargoResponse" Label="Selecione um Cargo" @bind-Value="cargo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
-                    @foreach (var item in cargos!)
-                    {
-                        <MudSelectItem Value="@item">@item.Descricao</MudSelectItem>
-                    }
-                </MudSelect>
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudTextField Class="mt-1" T="string" Disabled="true" Placeholder="Usuário de Acesso"
-                              Variant="Variant.Outlined"
-                              @bind-Value="usuario"
-                              RequiredError="Campo obrigatório." />
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudDatePicker Label="Data de Admissão" Editable="true" @bind-Date="dataAdmissao" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" />
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudDatePicker Label="Data de Demissão" Editable="true" @bind-Date="dataDemissao" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" />
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudButton Variant="Variant.Filled"
-                           Size="Size.Large"
-                           @onclick="Demitir"
-                           Color="Color.Error"
-                           Style="width: 100%; height:90%"
-                           Class="mt-1">
-                    <MudIcon Icon="@Icons.Material.Filled.Delete" Class="mr-2" />
-                    @btn_demitir
-                </MudButton>
-            </MudItem>           
-            <MudItem xs="12" sm="2">
-                <MudButton Variant="Variant.Filled"
-                           Size="Size.Large"
-                           @onclick="Atualizar"
-                           Color="Color.Success"
-                           Style="width: 100%; height:90%"
-                           Class="mt-1">
-                    <MudIcon Icon="@Icons.Material.Filled.Done" Class="mr-2" />
-                    Confirmar Mudanças
-                </MudButton>
-            </MudItem>
-
-        </MudGrid>
-    </MudForm>
-</MudPaper>
+            </MudGrid>
+        </MudPaper>
+        </MudItem>                 
+    </MudGrid>
+    <MudItem Class="d-flex justify-center">
+        <MudButton Variant="Variant.Filled"
+                   Size="Size.Large"
+                   @onclick="Demitir"
+                   Color="Color.Error"                  
+                   Class="ml-3">
+            <MudIcon Icon="@Icons.Material.Filled.Delete" Class="mr-2" />
+            @btn_demitir
+        </MudButton>
+    
+        <MudButton Variant="Variant.Filled"
+                   Size="Size.Large"
+                   @onclick="Atualizar"
+                   Color="Color.Primary"                  
+                   Class="ml-3">
+            <MudIcon Icon="@Icons.Material.Filled.Done" Class="mr-2" />
+            Confirmar
+        </MudButton>
+    </MudItem>
+</MudForm>
 
 @code {
     [Parameter]
@@ -205,7 +219,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        TitleService.SetTitle("Editar dados do Colaborador");
+        TitleService.SetTitle("Detalhes do colaborador");
         var response = await colaboradorAPI.GetColaboradorAsync(Convert.ToInt32(ColaboradorId));
 
         if (response is not null)

@@ -7,7 +7,7 @@
 <PageTitle>Cargos</PageTitle>
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
-
+    <MudText Class="mt-4" Typo="Typo.h6">Lista de cargos</MudText>
     <MudDataGrid Items="@cargos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
         <Columns>
             <PropertyColumn Property="x => x.Descricao" />
@@ -26,43 +26,46 @@
                 </CellTemplate>
             </TemplateColumn>
         </Columns>
-    </MudDataGrid>
+    </MudDataGrid>  
 
+</MudPaper>
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
     <MudForm Model="@cargo" @ref="form" Class="mt-8">
-    <MudText Class="mt-4" Typo="Typo.h6">Novo Cargo</MudText>
+        <MudText Class="mt-2" Typo="Typo.h6">Novo Cargo</MudText>
 
-    <MudGrid>
+        <MudGrid>
             <MudItem xs="12" sm="3">
                 <MudTextField Class="mt-2" T="string" Placeholder="Descrição"
-                              Variant="Variant.Outlined"                             
+                              Variant="Variant.Outlined"
                               @bind-Value="cargo.Descricao"
                               Label="Descricao" For="@(() => cargo.Descricao!)" />
             </MudItem>
             <MudItem xs="12" sm="5">
                 <MudTextField Class="mt-2" T="string" Placeholder="Atribuições"
-                              Variant="Variant.Outlined"                             
+                              Variant="Variant.Outlined"
                               @bind-Value="cargo.Atribuicoes"
                               Label="Atribuições" For="@(() => cargo.Atribuicoes!)" />
             </MudItem>
             <MudItem xs="12" sm="2">
                 <MudTextField Class="mt-2" T="decimal" Placeholder="Salário"
-                              Variant="Variant.Outlined"                             
-                              @bind-Value="cargo.Salario" 
+                              Variant="Variant.Outlined"
+                              @bind-Value="cargo.Salario"
                               Label="Salário" For="@(() => cargo.Salario!)" />
             </MudItem>
 
             <MudItem xs="12" sm="2" Class="mb-2">
-                <MudButton  Size="@Size.Large" 
-                            Variant="@Variant.Filled" 
-                            Color="@Color.Success" 
-                            Class="mt-2 mb-2" 
-                            Style="width:100%; height:100%"
+                <MudButton Size="@Size.Large"
+                           Variant="@Variant.Filled"
+                           Color="@Color.Success"
+                           Class="mt-2 mb-2"
+                           Style="width:100%; height:100%"
                            OnClick="Confirmar">
-                            @btn_Confirmar</MudButton>
+                    @btn_Confirmar
+                </MudButton>
             </MudItem>
-    </MudGrid>
-</MudForm>
-
+        </MudGrid>
+    </MudForm>
 </MudPaper>
 
 @code {

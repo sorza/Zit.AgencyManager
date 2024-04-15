@@ -7,71 +7,25 @@
 
 <PageTitle>Editar Agência</PageTitle>
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+<MudForm Model="@agencia" @ref="form">
 
-    <MudForm Model="@agencia" @ref="form">
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">    
         <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
-        <MudGrid>
+        <MudGrid Class="mt-1">
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="Nome da Agência"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Descricao"
-                              Label="Nome da agência" For="@(() => agencia.Descricao)" />
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Descricao"
+                                Label="Nome da agência" For="@(() => agencia.Descricao)" />
             </MudItem>
             <MudItem xs="12" sm="6">
                 <MudTextField Class="mt-2" T="string" Placeholder="CNPJ"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.CNPJ"
-                              Label="CNPJ" For="@(() => agencia.CNPJ)" />
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.CNPJ"
+                                Label="CNPJ" For="@(() => agencia.CNPJ)" />
             </MudItem>
         </MudGrid>
-        <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
-        <MudGrid>
-            <MudItem xs="12" sm="2">
-                <MudTextField Class="mt-1" T="string" Placeholder="CEP"
-                              Variant="Variant.Outlined"
-                              OnBlur="BuscarCep"
-                              @bind-Value="agencia.Endereco!.CEP"
-                              Label="CEP" For="@(() => agencia.Endereco!.CEP)" />
-            </MudItem>
-            <MudItem xs="12" sm="4">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.Logradouro"
-                              Label="Logradouro" For="@(() => agencia.Endereco!.Logradouro)" />
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudTextField Class="mt-1" T="string" Placeholder="Número"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.Numero"
-                              Label="Número" For="@(() => agencia.Endereco!.Numero)" />
-            </MudItem>
-            <MudItem xs="12" sm="4">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.Bairro"
-                              Label="Bairro" For="@(() => agencia.Endereco!.Bairro)" />
-            </MudItem>
-            <MudItem xs="12" sm="4">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.Localidade"
-                              Label="Cidade" For="@(() => agencia.Endereco!.Localidade)" />
-            </MudItem>
-            <MudItem xs="12" sm="2">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.UF"
-                              Label="UF" For="@(() => agencia.Endereco!.UF)" />
-            </MudItem>
-            <MudItem xs="12" sm="6">
-                <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
-                              Variant="Variant.Outlined"
-                              @bind-Value="agencia.Endereco!.Complemento"
-                              Label="Complemento" For="@(() => agencia.Endereco!.Complemento)" />
-            </MudItem>
-        </MudGrid>
-        <MudImage Class="mt-4" src="@fileImage" />
+        <MudImage Class="mt-2" src="@fileImage" />
         <MudFileUpload T="IBrowserFile" Accept=".jpg" FilesChanged="UploadFile">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
@@ -83,34 +37,90 @@
                 </MudButton>
             </ButtonTemplate>
         </MudFileUpload>
+    </MudPaper>
+
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
+        <MudText Class="mt-4" Typo="Typo.h6">Endereço</MudText>
+        <MudGrid Class="mt-1">
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-1" T="string" Placeholder="CEP"
+                                Variant="Variant.Outlined"
+                                OnBlur="BuscarCep"
+                                @bind-Value="agencia.Endereco!.CEP"
+                                Label="CEP" For="@(() => agencia.Endereco!.CEP)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.Logradouro"
+                                Label="Logradouro" For="@(() => agencia.Endereco!.Logradouro)" />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Class="mt-1" T="string" Placeholder="Número"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.Numero"
+                                Label="Número" For="@(() => agencia.Endereco!.Numero)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.Bairro"
+                                Label="Bairro" For="@(() => agencia.Endereco!.Bairro)" />
+            </MudItem>
+            <MudItem xs="12" sm="4">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Cidade"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.Localidade"
+                                Label="Cidade" For="@(() => agencia.Endereco!.Localidade)" />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="UF"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.UF"
+                                Label="UF" For="@(() => agencia.Endereco!.UF)" />
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudTextField Class="mt-1" T="string" Placeholder="Complemento"
+                                Variant="Variant.Outlined"
+                                @bind-Value="agencia.Endereco!.Complemento"
+                                Label="Complemento" For="@(() => agencia.Endereco!.Complemento)" />
+            </MudItem>
+        </MudGrid>        
+    </MudPaper>
+    
+    <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">   
         <MudText Class="mt-4" Typo="Typo.h6">Contatos</MudText>
         <MudGrid>
             <MudItem xs="12" sm="4">
-
-                <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
-                    <MudSelectItem Value="@("Fixo")" />
-                    <MudSelectItem Value="@("Celular")" />
-                    <MudSelectItem Value="@("Email")" />
-                </MudSelect>
-
-                <MudTextField Class="mt-4 mr-2" T="string" Placeholder="Contato"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Descricao" />
-
-                <MudTextField Class="mt-4 mr-3" T="string" Placeholder="Descrição"
-                              Variant="Variant.Outlined"
-                              @bind-Value="Contato.Complemento" />
-
-                <MudButton Style="width: 100%"
-                           Class="mt-4 mb-4"
-                           Size="@Size.Large"
-                           Variant="@Variant.Filled"
-                           @onclick="AdicionarContato"
-                           Color="@Color.Success">
-                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
-                    Adicionar Contato
-                </MudButton>
-
+                <MudGrid>
+                    <MudItem xs="12" sm="12">
+                        <MudSelect Dense="true" T="string" Label="Tipo" @bind-Value="Contato.Tipo" Variant="Variant.Filled" RequiredError="Campo obrigatório.">
+                            <MudSelectItem Value="@("Fixo")" />
+                            <MudSelectItem Value="@("Celular")" />
+                            <MudSelectItem Value="@("Email")" />
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField T="string" Placeholder="Contato"
+                                      Variant="Variant.Outlined"
+                                      @bind-Value="Contato.Descricao" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField T="string" Placeholder="Descrição"
+                                      Variant="Variant.Outlined"
+                                      @bind-Value="Contato.Complemento" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudButton Style="width: 100%"
+                                   Size="@Size.Large"
+                                   Variant="@Variant.Filled"
+                                   @onclick="AdicionarContato"
+                                   Color="@Color.Success">
+                            <MudIcon Icon="@Icons.Material.Filled.Contacts" Class="mr-2" />
+                            Adicionar Contato
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
             </MudItem>
 
             <MudItem xs="12" sm="8">
@@ -152,9 +162,9 @@
                 Deletar Agência
             </MudButton>
         </MudItem>
-
+    </MudPaper>
     </MudForm>
-</MudPaper>
+
 
 
 @code {

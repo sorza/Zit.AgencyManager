@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Zit.AgencyManager.Web",
   "resources": {
-    "hash": "sha256-9f50wJXgROXmmykwlZp5YCv29sxF6Bnalx40P89IQyk=",
+    "hash": "sha256-6Z0OhJNN9ZT3vY+MD+XnMSXXZUrl265X8nkLNFKlyn8=",
     "jsModuleNative": {
       "dotnet.native.8.0.4.yetsinjccq.js": "sha256-ju0+XWE0ihz554eKEj0HQ8Opa61xpbUIaX5/MNo8we4="
     },
@@ -226,11 +226,11 @@
       "netstandard.wasm": "sha256-vuFKmCGJbyv85DrzI6S1ZvCikuhIllH6hqbXIL+fUAA=",
       "System.Private.CoreLib.wasm": "sha256-SZkozEDkHEFN0VaDmhl2HOenGaqTOmHqEGkraz3Aejc=",
       "Zit.AgencyManager.Dominio.wasm": "sha256-tv/Ms/7gNA1nunATygYiP+DxNG5q0rrOV4pVE7Kx8TU=",
-      "Zit.AgencyManager.Web.wasm": "sha256-sz4/EIC0xux6Oqovzu5l0FB2oZbamb7xlBYPrh4sChc="
+      "Zit.AgencyManager.Web.wasm": "sha256-53wBF/Nvhao2UGEdVfwU+kljkrq+dgP3IePox52P49Y="
     },
     "pdb": {
       "Zit.AgencyManager.Dominio.pdb": "sha256-IoBsJWibunCw6sE6Abb0JHFI77ALHtI8SjKmnJpMEKU=",
-      "Zit.AgencyManager.Web.pdb": "sha256-KRnmpNVNBCmyQE28QGtSJ0I2GSwqS8q0KHldozTzbHA="
+      "Zit.AgencyManager.Web.pdb": "sha256-VBfgQQWL68S4bgiiozhIvog2+3fdzUkGWT2UZHSXr3I="
     }
   },
   "cacheBootResources": true,
