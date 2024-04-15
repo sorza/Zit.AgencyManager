@@ -4,10 +4,13 @@
 @inject UsuarioAPI usuarioAPI
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
+@inject TitleService TitleService
+
+<PageTitle>Editar Colaborador</PageTitle>
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
    
-    <MudText Class="mt-6" Typo="Typo.h4">Ficha Completa do Colaborador</MudText>
+    <MudText Class="mt-6" Typo="Typo.h4">Detalhes do Colaborador</MudText>
     <MudSwitch @bind-Value="colaborador.Ativo" ReadOnly Label="Ativo" Color="Color.Success" />
     <MudForm Model="@colaborador" @ref="form">
         <MudText Class="mt-6" Typo="Typo.h6">Dados Pessoais</MudText>
@@ -202,6 +205,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Editar dados do Colaborador");
         var response = await colaboradorAPI.GetColaboradorAsync(Convert.ToInt32(ColaboradorId));
 
         if (response is not null)

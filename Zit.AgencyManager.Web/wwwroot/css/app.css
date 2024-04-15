@@ -1,5 +1,6 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
 }
 
 h1:focus {
@@ -102,12 +103,11 @@ code {
     color: #c02d76;
 }
 
-div.mud-main-content.main-content {
-    background: linear-gradient(180deg, #96F 0%, #000 100%) !important;
+div.mud-main-content.main-content {   
     margin-top: 64px;
     height: 100vh;
 }
 
-header.mud-appbar.mud-appbar-fixed-top.mud-elevation-2.mud-theme-surface {
-    background-color: rgba(55,55,64,1);
+.sombra {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
 }

@@ -1,7 +1,12 @@
 ﻿@page "/Agenda"
 
-<h3>Agenda</h3>
+@inject TitleService TitleService
+
+<PageTitle>Contatos</PageTitle>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Agenda");
+    }
 }

@@ -1,12 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@inject TitleService TitleService
 
-<MudThemeProvider Theme="currentTheme"/>
+<MudThemeProvider/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Color="Color.Surface" Fixed="true" Elevation="2">
-        <MudImage Src="images/Logo.png"></MudImage>
+    <MudAppBar Color="Color.Surface" Fixed="true" Elevation="2">        
+        <MudImage Src="images/Logo.png" Class="mr-5"></MudImage>
+        
+        <MudDivider Vertical="true" Class="mr-5 ml-5" FlexItem="true" />
+        <MudText Typo="Typo.h6">@TitleService.CurrentTitle</MudText>
     </MudAppBar>
     <MudDrawer Open="true" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu></NavMenu>

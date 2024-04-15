@@ -1,16 +1,13 @@
 ﻿@page "/agencias"
 @inject AgenciaAPI agenciaAPI
+@inject TitleService TitleService
 
-<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">
-    <MudText Class="mb-4" Typo="Typo.h4">Minhas Agências</MudText>
-    <MudPagination Count="@totalPaginas" SelectedChanged="@PaginaMudou"></MudPagination>    
-</MudStack>
-
+<PageTitle>Agências</PageTitle>
 
 @if(agencias != null)
 {
     <MudGrid>
-        @foreach (var agencia in agenciasPorPagina)
+        @foreach (var agencia in agencias)
     {
         <MudItem xs="3">
             <CardAgencia Agencia="agencia" />
@@ -20,7 +17,7 @@
 }
 
 @code {
-   
+
     private int tamanho = 8;
     private int totalItens;
     private int totalPaginas;
@@ -29,24 +26,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        agencias = await agenciaAPI.GetAgenciasAsync();       
-
-        if(agencias is not null)
-        {
-            agencias = agencias.OrderByDescending(a => a.Id).ToList();
-
-            totalItens = agencias.Count();
-            totalPaginas = Convert.ToInt32(Math.Ceiling((totalItens * 1.0) / tamanho));
-            this.PaginaMudou(1);
-        }
-    }
-
-    private void PaginaMudou(int numPagina)
-    {
-        var indice = numPagina - 1;
-        agenciasPorPagina = agencias!
-            .Skip(tamanho * indice)
-            .Take(tamanho)
-            .ToList();
+        TitleService.SetTitle("Minhas agências");
+        agencias = await agenciaAPI.GetAgenciasAsync();          
     }
 }

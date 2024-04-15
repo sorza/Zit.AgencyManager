@@ -4,6 +4,10 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
+@inject TitleService TitleService
+
+<PageTitle>Editar Empresa</PageTitle>
+
 <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
 
     <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Empresas</MudText>
@@ -172,6 +176,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Editar dados da Empresa");
+
         var empresaResponse = await empresaAPI.GetEmpresaAsync(Convert.ToInt32(EmpresaId));
 
         Empresa.CNPJ = empresaResponse!.CNPJ;

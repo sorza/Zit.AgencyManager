@@ -7,7 +7,7 @@ namespace Zit.AgencyManager.Web.Response
         int Id,
         bool Ativo,
         Agencia Agencia,
-        Empresa Empresa,
+        EmpresaResponse Empresa,
         decimal Comissao,
         string ModalidadeComissao,
         string FrequenciaAcerto,

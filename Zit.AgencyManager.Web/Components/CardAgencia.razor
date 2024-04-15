@@ -1,4 +1,4 @@
-﻿<MudCard>
+﻿<MudCard Class="sombra">
     <MudCardMedia Image="@Imagem"></MudCardMedia>
     <MudCardHeader>
         <CardHeaderContent>
@@ -9,17 +9,17 @@
     <MudCardContent>
         <MudText Typo="Typo.body2">@Agencia!.Endereco.Logradouro, @Agencia.Endereco.Numero <br />  @Agencia.Endereco.Bairro <br /> @Agencia.Endereco.Complemento <br /> @Agencia.Endereco.Localidade / @Agencia.Endereco.Uf </MudText>
     </MudCardContent>
-    <MudCardActions>        
+    <MudCardActions>              
         <MudButton Color="Color.Primary"
-                   Variant="Variant.Outlined"
-                   Class="mr-2"
-                   Href=@($"/GerenciarAgencia/{Agencia!.Id}")>Gerenciar Agência</MudButton>
+                    Variant="Variant.Outlined"
+                    Class="mr-2"
+                    StartIcon="@Icons.Material.Filled.Engineering"
+                    Href=@($"/GerenciarAgencia/{Agencia!.Id}")>Gerenciar</MudButton>
 
         <MudButton Color="Color.Warning"
-                   Variant="Variant.Outlined"
-                   StartIcon="@Icons.Material.Filled.Edit"
-                   Href=@($"/EditarAgencia/{Agencia!.Id}")>Editar Dados</MudButton>                    
-        
+                    Variant="Variant.Outlined"
+                    StartIcon="@Icons.Material.Filled.Edit"
+                    Href=@($"/EditarAgencia/{Agencia!.Id}")>Editar Dados</MudButton>        
     </MudCardActions>    
 </MudCard>
 

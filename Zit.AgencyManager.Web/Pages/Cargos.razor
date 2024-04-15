@@ -2,9 +2,11 @@
 @inject CargoAPI cargoAPI;
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+@inject TitleService TitleService
 
-<MudText Class="mt-6 mb-6" Typo="Typo.h4">Cargos da Agência</MudText>
+<PageTitle>Cargos</PageTitle>
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
 
     <MudDataGrid Items="@cargos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
         <Columns>
@@ -18,7 +20,7 @@
                         var cargo = cellContext.Item;
                     }
                     <MudStack Row>                       
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" StartIcon="@Icons.Material.Filled.Save" OnClick="() => Editar(cargo)">Editar</MudButton>
+                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" StartIcon="@Icons.Material.Filled.Edit" OnClick="() => Editar(cargo)">Editar</MudButton>
                         <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" StartIcon="@Icons.Material.Filled.Delete" OnClick="() => Remover(cargo)">Remover</MudButton>
                     </MudStack>
                 </CellTemplate>
@@ -76,6 +78,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Cargos da Agência");
         await CarregarCargos();
     }
 

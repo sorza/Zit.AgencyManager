@@ -2,9 +2,11 @@
 @inject ContratoAPI contratoAPI
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
+@inject TitleService TitleService
 
-    <MudText Class="mt-6 mb-6" Typo="Typo.h4">Contratos da agência</MudText>
+<PageTitle>Contratos</PageTitle>
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-8 my-6" Justify="Justify.Center">
 
     <MudDataGrid Items="@contratos" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
         <Columns>
@@ -27,14 +29,14 @@
                                    Color="@Color.Info"
                                    Href=@($"/EditarContrato/{contrato.Id}")
                                    StartIcon="@Icons.Material.Filled.Edit">
-                            Editar
+                            Alterar Contrato
                         </MudButton>
 
                         <MudButton Size="@Size.Small"
                                    Variant="@Variant.Filled"
                                    Color="@Color.Error"
                                    OnClick="() => Deletar(contrato.Id)"
-                                   StartIcon="@Icons.Material.Filled.Edit">
+                                   StartIcon="@Icons.Material.Filled.Delete">
                             Remover
                         </MudButton>
                     </MudStack>
@@ -61,6 +63,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Contratos da Agência");
         await CarregarContratos();
     }
 

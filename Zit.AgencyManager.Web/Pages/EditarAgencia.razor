@@ -3,10 +3,11 @@
 @inject AgenciaAPI agenciaAPI
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
+@inject TitleService TitleService
+
+<PageTitle>Editar Agência</PageTitle>
 
 <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
-
-    <MudText Class="mt-4" Typo="Typo.h4">Edição de Agência</MudText>
 
     <MudForm Model="@agencia" @ref="form">
         <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
@@ -168,6 +169,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Editar dados da Agência");
+
         var agenciaResponse = await agenciaAPI.GetAgenciaPorIdAsync(Convert.ToInt32(AgenciaId));
 
         agencia.CNPJ = agenciaResponse!.CNPJ;

@@ -1,7 +1,17 @@
 ﻿@page "/"
+@inject TitleService TitleService
 
 <PageTitle>Bem Vindo!</PageTitle>
+
 
 <h1>Seja bem-vindo!</h1>
 
 Bem vindo ao Agency Manager, o gerenciador da sua agência!
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Página Inicial");
+    }
+}

@@ -1,7 +1,11 @@
 ﻿@page "/Caixa"
+@inject TitleService TitleService
 
-<h3>Meu Caixa</h3>
+<PageTitle>Meu Caixa</PageTitle>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Caixa do Operador");
+    }
 }

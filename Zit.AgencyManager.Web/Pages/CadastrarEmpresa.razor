@@ -4,9 +4,11 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+@inject TitleService TitleService
 
-    <MudText Class="mt-4" Typo="Typo.h4">Cadastro de Empresas</MudText>
+<PageTitle>Nova Empresa</PageTitle>
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
 
     <MudForm Model="@empresa" @ref="form">
         <MudText Class="mt-4" Typo="Typo.h6">Dados</MudText>
@@ -40,7 +42,7 @@
                               Label="CEP" For="@(() => empresa.Endereco!.CEP)" />
             </MudItem>
             <MudItem xs="12" sm="4">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Logradouro"
+                <MudTextField Class="mt-1" T="string" Placeholder="Logradouro"
                               Variant="Variant.Outlined"
                               @bind-Value="empresa.Endereco!.Logradouro"
                               Label="Logradouro" For="@(() => empresa.Endereco!.Logradouro)" />
@@ -52,7 +54,7 @@
                               Label="Número" For="@(() => empresa.Endereco!.Numero)" />
             </MudItem>
             <MudItem xs="12" sm="4">
-                <MudTextField Disabled="true" Class="mt-1" T="string" Placeholder="Bairro"
+                <MudTextField Class="mt-1" T="string" Placeholder="Bairro"
                               Variant="Variant.Outlined"
                               @bind-Value="empresa.Endereco!.Bairro"
                               Label="Bairro" For="@(() => empresa.Endereco!.Bairro)" />
@@ -158,6 +160,10 @@
 
     private Contato Contato = new Contato { Tipo = "Fixo" };
 
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Cadastro de Empresa");
+    }
     private async Task BuscarCep()
     {
         if (empresa.Endereco!.CEP.Length == 8 && Regex.IsMatch(empresa.Endereco.CEP, @"^\d{8}$"))

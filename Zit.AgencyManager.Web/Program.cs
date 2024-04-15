@@ -15,6 +15,8 @@ namespace Zit.AgencyManager.Web
 
             builder.Services.AddMudServices();
 
+            builder.Services.AddScoped<TitleService>();
+
             builder.Services.AddTransient<AgenciaAPI>();
             builder.Services.AddTransient<CargoAPI>();
             builder.Services.AddTransient<ColaboradorAPI>();

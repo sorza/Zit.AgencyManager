@@ -1,7 +1,12 @@
 ﻿@page "/Destinos"
 
-<h3>Destinos</h3>
+@inject TitleService TitleService
+
+<PageTitle>Trajetos</PageTitle>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Pesquisa de trajetos");
+    }
 }

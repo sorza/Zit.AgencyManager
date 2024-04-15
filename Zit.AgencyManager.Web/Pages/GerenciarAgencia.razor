@@ -1,4 +1,9 @@
 ﻿@page "/GerenciarAgencia/{AgenciaId}"
+
+@inject TitleService TitleService
+
+<PageTitle>Minha Agencia</PageTitle>
+
 <MudGrid>
     <MudItem xs="3">
         <MudCard>
@@ -55,4 +60,9 @@
 @code {
     [Parameter]
     public string? AgenciaId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Gerenciar Agência");
+    }
 }

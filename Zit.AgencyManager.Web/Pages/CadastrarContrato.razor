@@ -5,9 +5,11 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+@inject TitleService TitleService
 
-    <MudText Class="mt-6" Typo="Typo.h4">Novo Contrato</MudText>
+<PageTitle>Novo Contrato</PageTitle>
+
+<MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
     
     <MudForm Model="@Contrato" @ref="form">
         <MudItem xs="12" sm="12" Class="mt-6">
@@ -90,8 +92,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await empresaAPI.GetEmpresasAsync();
-        if (result is not null) empresas = result.ToList();
+        TitleService.SetTitle("Novo Contrato");
+        var response = await empresaAPI.GetEmpresasAsync();
+
+        if (response is not null) empresas = response;
+
     }
 
     private async Task Cadastrar()

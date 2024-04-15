@@ -1,16 +1,14 @@
 ﻿@page "/Empresas"
 @inject EmpresaAPI empresaAPI
 
-<MudStack Class="mt-4 mb-4" Row="true" Justify="Justify.SpaceBetween">
-    <MudText Class="mb-4" Typo="Typo.h4">Empresas Cadastradas</MudText>
-    <MudPagination Count="@totalPaginas" SelectedChanged="@PaginaMudou"></MudPagination>
-</MudStack>
+@inject TitleService TitleService
 
+<PageTitle>Empresas</PageTitle>
 
 @if (empresas != null)
 {
     <MudGrid>
-        @foreach (var empresa in empresasPorPagina)
+        @foreach (var empresa in empresas)
         {
             <MudItem xs="3">
                 <CardEmpresa Empresa="empresa" />
@@ -25,28 +23,11 @@
     private int totalItens;
     private int totalPaginas;
     private ICollection<EmpresaResponse>? empresas;
-    private ICollection<EmpresaResponse>? empresasPorPagina;
 
     protected override async Task OnInitializedAsync()
     {
-        empresas = await empresaAPI.GetEmpresasAsync();
+        TitleService.SetTitle("Empresas Cadastradas");
 
-        if (empresas is not null)
-        {
-            empresas = empresas.OrderByDescending(a => a.Id).ToList();
-
-            totalItens = empresas.Count();
-            totalPaginas = Convert.ToInt32(Math.Ceiling((totalItens * 1.0) / tamanho));
-            this.PaginaMudou(1);
-        }
-    }
-
-    private void PaginaMudou(int numPagina)
-    {
-        var indice = numPagina - 1;
-        empresasPorPagina = empresas!
-            .Skip(tamanho * indice)
-            .Take(tamanho)
-            .ToList();
+        empresas = await empresaAPI.GetEmpresasAsync();       
     }
 }

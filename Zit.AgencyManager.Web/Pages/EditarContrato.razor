@@ -6,6 +6,10 @@
 @inject NavigationManager navigationManager
 @inject ISnackbar Snackbar
 
+@inject TitleService TitleService
+
+<PageTitle>Editar Contrato</PageTitle>
+
 <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
 
     <MudText Class="mt-6" Typo="Typo.h4">Detalhes do Contrato</MudText>
@@ -115,6 +119,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        TitleService.SetTitle("Editar dados do Colaborador");
+
         var response = await contratoAPI.GetContratoAsync(Convert.ToInt32(ContratoId));
 
         if(response is not null)
