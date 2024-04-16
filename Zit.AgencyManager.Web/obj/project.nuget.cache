@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "Tr5CwJH4NjNFqnGrumHKUhsX9NoMBJTGM1HkO0+Jk73BH5od3Rjg6zOpum5iuFUuYpRHziWZE2GNSTvgiO29XQ==",
+  "dgSpecHash": "xkoM4tDBdGrW8m0h987Txl2qwhMB9HDgiqGX/3lCXrrm70DWdjlp2Rk8F1QDePY9kXGEVa7kA4WgoZPvPrFmqQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.3\\microsoft.aspnetcore.authorization.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.3\\microsoft.aspnetcore.components.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.3\\microsoft.aspnetcore.components.analyzers.8.0.3.nupkg.sha512",
+    "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.authorization\\8.0.0\\microsoft.aspnetcore.components.authorization.8.0.0.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\8.0.3\\microsoft.aspnetcore.components.forms.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.web\\8.0.3\\microsoft.aspnetcore.components.web.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly\\8.0.3\\microsoft.aspnetcore.components.webassembly.8.0.3.nupkg.sha512",
+    "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\8.0.0\\microsoft.aspnetcore.components.webassembly.authentication.8.0.0.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.devserver\\8.0.3\\microsoft.aspnetcore.components.webassembly.devserver.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.2\\microsoft.aspnetcore.cryptography.internal.8.0.2.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.2\\microsoft.aspnetcore.cryptography.keyderivation.8.0.2.nupkg.sha512",

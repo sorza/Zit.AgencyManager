@@ -1,7 +1,7 @@
-
-using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 using Zit.AgencyManager.API.Endpoints;
 using Zit.AgencyManager.Dados.Banco;
 using Zit.AgencyManager.Dominio.Modelos;
@@ -20,24 +20,13 @@ namespace Zit.AgencyManager.API
                         .UseLazyLoadingProxies();
             });
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("wasm",
-                    builder => builder.WithOrigins("https://localhost:7040")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
-            });
-
             builder.Services
                 .AddIdentityApiEndpoints<Usuario>()
-                .AddEntityFrameworkStores<AgencyManagerContext>();
+                .AddEntityFrameworkStores<AgencyManagerContext>();     
 
             builder.Services.AddAuthorization();
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            builder.Services.AddTransient<DAL<Usuario>>();
             builder.Services.AddTransient<DAL<Agencia>>();
             builder.Services.AddTransient<DAL<Cargo>>();
             builder.Services.AddTransient<DAL<Colaborador>>();
@@ -51,13 +40,27 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Cliente>>();
             builder.Services.AddTransient<DAL<Movimentacao>>();
             builder.Services.AddTransient<DAL<Endereco>>();
-            builder.Services.AddTransient<DAL<Usuario>>();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("wasm",
+                    builder => builder.WithOrigins("https://localhost:7040")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
             var app = builder.Build();
 
-            app.UseStaticFiles();
-
             app.UseCors("wasm");
+
+            app.UseStaticFiles();
+            app.UseAuthorization();
 
             app.AddEndpointsContatos();
             app.AddEndpointsCargos();
@@ -74,16 +77,20 @@ namespace Zit.AgencyManager.API
 
             app.MapGroup("auth").MapIdentityApi<Usuario>().WithTags("Autorização");
 
+            app.MapPost("auth/logout", async ([FromServices] SignInManager<Usuario> signInManager) =>
+            {
+                await signInManager.SignOutAsync();
+                return Results.Ok();
+            }).RequireAuthorization().WithTags("Autorização");
+           
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            }          
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
 
             app.Run();
         }

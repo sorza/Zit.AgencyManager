@@ -11,7 +11,9 @@ namespace Zit.AgencyManager.API.Endpoints
     {
         public static void AddEndpointsLocalidades(this WebApplication app)
         {
-            var grouBuilder = app.MapGroup("localidades").WithTags("Localidades");
+            var grouBuilder = app.MapGroup("localidades")
+                               .RequireAuthorization()
+                                .WithTags("Localidades");
 
             grouBuilder.MapGet("", ([FromServices] DAL<Localidade> dal) =>
             {

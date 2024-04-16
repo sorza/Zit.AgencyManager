@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
@@ -13,7 +12,8 @@ namespace Zit.AgencyManager.API.Endpoints
         public static void AddEndpointsColaboradores(this WebApplication app)
         {
             var groupBuilder = app.MapGroup("colaboradores")
-                .WithTags("Colaboradores");
+                                    .RequireAuthorization()
+                                    .WithTags("Colaboradores");
 
             groupBuilder.MapGet("", ([FromServices] DAL<Colaborador> dal) =>
             {

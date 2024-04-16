@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets\\FotosAgencia\\080420241037.ARARAS - RODOVIÁRIA.jpeg"
     },
     {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\100420241019.ARARAS - RODOVIÁRIA.jpeg",
+      "PackagePath": "staticwebassets\\FotosAgencia\\100420241019.ARARAS - RODOVIÁRIA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\110420241236.ARARAS - RODOVIÁRIA.jpeg",
+      "PackagePath": "staticwebassets\\FotosAgencia\\110420241236.ARARAS - RODOVIÁRIA.jpeg"
+    },
+    {
       "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg",
       "PackagePath": "staticwebassets\\FotosAgencia\\290320240919.ARARAS - RODOVIARIA.jpeg"
     },
@@ -31,6 +39,54 @@
     {
       "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\080420241026.RODEROTAS.jpeg",
       "PackagePath": "staticwebassets\\LogosEmpresas\\080420241026.RODEROTAS.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241115.REAL EXPRESSO.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241115.REAL EXPRESSO.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241126.EXPRESSO UNIÃO.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241126.EXPRESSO UNIÃO.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241139.NORDESTE.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241139.NORDESTE.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241144.EUCATUR.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241144.EUCATUR.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241158.PIRACICABANA.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241158.PIRACICABANA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\100420241159.PRINCESA.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\100420241159.PRINCESA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241003.GUANABARA.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241003.GUANABARA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241004.CATARINENSE.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241004.CATARINENSE.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241019.CATARINENSE.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241019.CATARINENSE.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241020.COMETA.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241020.COMETA.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241046.1001.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241046.1001.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.API\\wwwroot\\LogosEmpresas\\110420241216.GUANABARA.jpeg",
+      "PackagePath": "staticwebassets\\LogosEmpresas\\110420241216.GUANABARA.jpeg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Zit.AgencyManager.API.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -1124,3 +1124,13 @@ C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManage
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\compressed\g0zsxou9lv.gz
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\compressed\4jay1sb98b.gz
 C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\compressed\005qfnmh0q.gz
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.wasm
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\wwwroot\_framework\Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\wwwroot\_framework\Microsoft.AspNetCore.Components.Authorization.wasm.gz
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\wwwroot\_framework\Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm.gz
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.WebAssembly.Authentication.dll
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\webcil\Microsoft.AspNetCore.Components.Authorization.wasm
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\webcil\Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\compressed\eti48pefxh.gz
+C:\Users\Alexandre Z Durães\Documents\GitHub\Zit.AgencyManager\Zit.AgencyManager.Web\obj\Debug\net8.0\compressed\rw6ealego1.gz

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -15,7 +16,13 @@ namespace Zit.AgencyManager.Web
 
             builder.Services.AddMudServices();
 
-            builder.Services.AddScoped<TitleService>();
+            builder.Services.AddAuthorizationCore();
+
+            builder.Services.AddScoped<AuthenticationStateProvider, AuthAPI>();
+            builder.Services.AddScoped<AuthAPI>(sp => (AuthAPI) sp.GetRequiredService<AuthenticationStateProvider>());           
+
+            builder.Services.AddScoped<TitleService>();            
+            builder.Services.AddScoped<CookieHandler>();
 
             builder.Services.AddTransient<AgenciaAPI>();
             builder.Services.AddTransient<CargoAPI>();
@@ -27,7 +34,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-            });
+            }).AddHttpMessageHandler<CookieHandler>();
 
             await builder.Build().RunAsync();
         }

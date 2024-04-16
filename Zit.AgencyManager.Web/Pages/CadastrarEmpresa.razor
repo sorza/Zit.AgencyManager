@@ -151,16 +151,15 @@
                 </MudDataGrid>
             </MudItem>
         </MudGrid>
-
-        <MudButton Variant="Variant.Filled"
-                   Size="Size.Large"
-                   @onclick="Cadastrar"
-                   Color="Color.Primary"
-                   Class="ml-auto mt-2 d-flex justify-end">
-            <MudIcon Icon="@Icons.Material.Filled.Storefront" Class="mr-2" />
-            Cadastrar Empresa
-        </MudButton>    
     </MudPaper>
+    <MudButton Variant="Variant.Filled"
+               Size="Size.Large"
+               @onclick="Cadastrar"
+               Color="Color.Primary"
+               Class="ml-auto mt-2 mr-3 d-flex justify-end">
+        <MudIcon Icon="@Icons.Material.Filled.Storefront" Class="mr-2" />
+        Cadastrar Empresa
+    </MudButton>
 </MudForm>
 
 @code {

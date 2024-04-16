@@ -8,7 +8,9 @@ namespace Zit.AgencyManager.API.Endpoints
     {
         public static void AddEndpointsUsuario(this WebApplication app)
         {
-            var groupBuilder = app.MapGroup("usuarios").WithTags("Usuários");
+            var groupBuilder = app.MapGroup("usuarios")
+                                    .RequireAuthorization()
+                                    .WithTags("Usuários");
 
             groupBuilder.MapGet("{user}", ([FromServices]DAL<Usuario> dal, string user) =>
             {

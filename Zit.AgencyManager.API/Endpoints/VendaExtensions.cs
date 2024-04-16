@@ -10,7 +10,9 @@ namespace Zit.AgencyManager.API.Endpoints
     {
         public static void AddEndpointsVendas(this WebApplication app)
         {
-            var groupBuilder = app.MapGroup("vendas").WithTags("Vendas");
+            var groupBuilder = app.MapGroup("vendas")
+                                .RequireAuthorization()
+                                .WithTags("Vendas");
 
             groupBuilder.MapGet("", ([FromServices] DAL<Venda> dal) =>
             {

@@ -12,7 +12,8 @@ namespace Zit.AgencyManager.API.Endpoints
         public static void AddEndpointsCargos(this WebApplication app)
         {
             var groupBuilder = app.MapGroup("cargos")
-                .WithTags("Cargos");
+                                .RequireAuthorization()
+                                .WithTags("Cargos");
 
             groupBuilder.MapGet("", ([FromServices] DAL<Cargo> dal) =>
             {
