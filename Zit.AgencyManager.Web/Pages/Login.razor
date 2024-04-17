@@ -6,36 +6,48 @@
 <PageTitle>Entrar</PageTitle>
 @attribute [AllowAnonymous]
 
+<AuthorizeView>       
+    <Authorized>
+        @{
+            navigation.NavigateTo("/");
+        }
+    </Authorized>
+    <NotAuthorized>
 
-<MudPaper Class="px-8 pt-2 pb-4 mx-16 my-8" Justify="Justify.Center">
-    <AuthorizeView>
-        <Authorized>
-               @{
-                navigation.NavigateTo("/");
-            }
-        </Authorized>
-        <NotAuthorized>
-            <MudForm>
-                <MudTextField T="string" Label="Email" @bind-Value="email"
-                                Variant="Variant.Outlined" Class="my-4"
-                                Required="true" RequiredError="Email obrigatório!"
-                                OnlyValidateIfDirty="true" />
+    <MudGrid>
+        <MudItem xs="12" sm="3">
+                <MudPaper Class="px-8 pt-2 sombra" Justify="Justify.Center" Style="margin-top: -105px; height:110vh; margin-left: -50px;background-color: #2972BA ">
+                    <div style="display: flex; justify-content: center;">
+                        <MudImage Class="mt-4" src="images/logo.png" Style="width: 250px; height: 50px;" />
+                    </div>
 
-                <MudTextField T="string" Label="Senha" @bind-Value="senha"
-                                InputType="InputType.Password"
-                                Variant="Variant.Outlined" Class="my-4"
-                                Required="true" RequiredError="Senha obrigatória!"
-                                OnlyValidateIfDirty="true" />
+                    <MudText Typo="Typo.h4" Align="Align.Center" Class="mt-8"> </MudText>
 
-                <MudButton Variant="Variant.Filled" Color="Color.Primary"
-                            Class="my-6" @onclick="FazerLogin">
-                    Entrar
-                </MudButton>
-            </MudForm>
-        </NotAuthorized>
-    </AuthorizeView>
-</MudPaper>
+                    <MudContainer Style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+                        <MudPaper Width="400px" Elevation="1" Class="sombra my-8 pt-8 pb-6">
+                            <MudForm>                                
+                                <MudText Typo="Typo.h5" Align="Align.Center" Class="my-4">Login</MudText>
 
+                                <MudTextField Placeholder="Email" Variant="Variant.Outlined" Class="my-2 mx-6" @bind-Value="email" />
+                                <MudTextField Placeholder="Senha" Variant="Variant.Outlined" Class="my-2 mx-6" InputType="InputType.Password" @bind-Value="senha" />
+
+                                <MudButton Variant="Variant.Filled" Color="Color.Info" Class="my-4 mx-6" @onclick="FazerLogin">
+                                    Entrar
+                                </MudButton>
+                            </MudForm>
+                        </MudPaper>
+                    </MudContainer>
+                </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="9">
+            
+        </MudItem>
+    </MudGrid>
+
+
+            
+    </NotAuthorized>
+</AuthorizeView>
 
 
 @code {

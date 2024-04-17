@@ -1,45 +1,49 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
 @inject TitleService TitleService
+@inject NavigationManager NavManager
+
 
 <MudThemeProvider/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Color="Color.Surface" Fixed="true" Elevation="2">     
-        <MudGrid>
-            <MudItem>
-                <MudImage Src="images/Logo.png" Class="mr-5"></MudImage>                
-            </MudItem>
-            <MudDivider Vertical="true" Class="mr-5 ml-2" FlexItem="true" />
-            <MudItem>
-                <MudText Typo="Typo.h6">@TitleService.CurrentTitle</MudText>
-            </MudItem>
-        </MudGrid>
-        
-        <AuthorizeView>
-            <Authorized>
-                
-                <MudAvatar Color="Color.Default">
-                    <MudIcon Icon="@Icons.Material.Filled.Person"></MudIcon>
-                </MudAvatar>
-                <MudButton Class="ml-4" Href="logout"
-                            Variant="Variant.Outlined"
-                            Color="Color.Default">Logout</MudButton>
-                <MudDrawer Open="true" ClipMode="DrawerClipMode.Always" Elevation="2">
-                    <NavMenu></NavMenu>
-                </MudDrawer>
-            </Authorized>
-            <NotAuthorized>
-                <MudButton Class="ml-4" Href="login"
-                            Variant="Variant.Outlined"
-                            Color="Color.Default">Login</MudButton>
-            </NotAuthorized>
-        </AuthorizeView>
-      
-    </MudAppBar>
-   
+    @if (ShouldShowNavBar)
+    {
+        <MudAppBar Color="Color.Surface" Fixed="true" Elevation="2">
+            <MudGrid>
+                <MudItem>
+                    <MudImage Src="images/Logo.png" Class="mr-5"></MudImage>
+                </MudItem>
+                <MudDivider Vertical="true" Class="mr-5 ml-2" FlexItem="true" />
+                <MudItem>
+                    <MudText Typo="Typo.h6">@TitleService.CurrentTitle</MudText>
+                </MudItem>
+            </MudGrid>
+
+            <AuthorizeView>
+                <Authorized>
+
+                    <MudAvatar Color="Color.Default">
+                        <MudIcon Icon="@Icons.Material.Filled.Person"></MudIcon>
+                    </MudAvatar>
+                    <MudButton Class="ml-4" Href="logout"
+                               Variant="Variant.Outlined"
+                               Color="Color.Default">Logout</MudButton>
+                    <MudDrawer Open="true" ClipMode="DrawerClipMode.Always" Elevation="2">
+                        <NavMenu></NavMenu>
+                    </MudDrawer>
+                </Authorized>
+                <NotAuthorized>
+                    <MudButton Class="ml-4" Href="login"
+                               Variant="Variant.Outlined"
+                               Color="Color.Default">Login</MudButton>
+                </NotAuthorized>
+            </AuthorizeView>
+
+        </MudAppBar>
+    }   
     <MudMainContent class="main-content pa-10">
         @Body
     </MudMainContent>
@@ -51,5 +55,8 @@
     {
         Palette = ManagerPalette.CreatePalette
     };
+   
+    private bool ShouldShowNavBar => !NavManager.Uri.Contains("/login");
+    
 }
 
