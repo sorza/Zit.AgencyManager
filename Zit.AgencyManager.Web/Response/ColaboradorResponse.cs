@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Zit.AgencyManager.Dominio.Modelos;
+﻿using Zit.AgencyManager.Dominio.Modelos;
 
 namespace Zit.AgencyManager.Web.Response
 {

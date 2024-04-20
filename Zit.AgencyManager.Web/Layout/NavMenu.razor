@@ -1,20 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 
 <AuthorizeView>   
-    <MudNavMenu Class="mud-width-full mt-4">    
-        <Authorized>
+    <Authorized>
+        <MudNavMenu Class="mud-width-full mt-4"> 
+
             <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home">Página Inicial</MudNavLink>
+
             <MudNavGroup Title="Agências" Icon="@Icons.Material.Filled.Storefront" Expanded="true">
                 <MudNavLink Href="/Agencias">Minhas Agências</MudNavLink>
                 <MudNavLink Href="/CadastrarAgencia">Nova Agência</MudNavLink>
-                <MudNavLink Href="/Caixa">Meu Caixa</MudNavLink>
             </MudNavGroup>   
+
             <MudNavGroup Title="Empresas" Icon="@Icons.Material.Filled.BusAlert" Expanded="true">
                 <MudNavLink Href="/Empresas">Empresas</MudNavLink>
-                <MudNavLink Href="/CadastrarEmpresa">Cadastrar Empresa</MudNavLink>
+                <MudNavLink Href="/CadastrarEmpresa">Cadastrar Empresa</MudNavLink> 
+            </MudNavGroup>
+
+            <MudNavGroup Title="Operador" Icon="@Icons.Material.Filled.Person" Expanded="true">
+                <MudNavLink Href="/Caixa">Caixas</MudNavLink>
                 <MudNavLink Href="/Destinos">Trajetos</MudNavLink>
                 <MudNavLink Href="/Agenda">Agenda</MudNavLink>
-            </MudNavGroup>
-        </Authorized>
-    </MudNavMenu>
+            </MudNavGroup>>
+        </MudNavMenu>
+    </Authorized>
 </AuthorizeView>

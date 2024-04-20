@@ -20,6 +20,15 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
+            groupBuilder.MapGet("/usuario/{usuario}", ([FromServices] DAL<Colaborador> dal, string usuario) =>
+            {
+                var colaborador = dal.Listar().FirstOrDefault(c => c.Usuario.UserName == usuario);
+
+                if (colaborador is null) return Results.NotFound();
+
+                return Results.Ok(EntityToResponse(colaborador));
+            });
+
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Colaborador> dal, int id) =>
             {
                 var colaborador = dal.RecuperarPor(a => a.Id.Equals(id));

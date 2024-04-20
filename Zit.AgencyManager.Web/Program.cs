@@ -19,7 +19,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddAuthorizationCore();
 
             builder.Services.AddScoped<AuthenticationStateProvider, AuthAPI>();
-            builder.Services.AddScoped<AuthAPI>(sp => (AuthAPI) sp.GetRequiredService<AuthenticationStateProvider>());           
+            builder.Services.AddScoped(sp => (AuthAPI) sp.GetRequiredService<AuthenticationStateProvider>());
 
             builder.Services.AddScoped<TitleService>();            
             builder.Services.AddScoped<CookieHandler>();
@@ -30,6 +30,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<UsuarioAPI>();
             builder.Services.AddTransient<EmpresaAPI>();
             builder.Services.AddTransient<ContratoAPI>();
+            builder.Services.AddTransient<CaixaAPI>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);

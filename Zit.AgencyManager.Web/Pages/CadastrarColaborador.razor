@@ -224,7 +224,8 @@
                         colaborador.DataAdmissao = DateOnly.FromDateTime(dataAdmissao!.Value);
                         colaborador.CargoId = cargo!.Id;
                         colaborador.AgenciaId = Convert.ToInt32(AgenciaId);
-                        colaborador.UsuarioId = await usuarioAPI.GetUsuarioIdAsync(usuario);
+                        var usuarioResponse = await usuarioAPI.GetUsuarioAsync(usuario);
+                        colaborador.UsuarioId = usuarioResponse!.Id;
                         colaborador.Ativo = true;
 
                         if (await colaboradorAPI.AddColaboradorAsync(colaborador))

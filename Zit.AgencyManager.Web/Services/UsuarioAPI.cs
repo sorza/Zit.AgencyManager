@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using Zit.AgencyManager.Web.Request;
+using Zit.AgencyManager.Web.Response;
 
 namespace Zit.AgencyManager.Web.Services
 {
@@ -12,11 +13,10 @@ namespace Zit.AgencyManager.Web.Services
             _httpClient = factory.CreateClient("API");
         }
 
-        public async Task<int> GetUsuarioIdAsync(string username)
+        public async Task<UsuarioResponse?> GetUsuarioAsync(string username)
         {
-            return await _httpClient.GetFromJsonAsync<int>($"usuarios/{username}");            
+            return await _httpClient.GetFromJsonAsync<UsuarioResponse>($"usuarios/{username}");            
         }
-
         
         public async Task<bool> AddUsuarioAsync(UsuarioRequest request)
         {

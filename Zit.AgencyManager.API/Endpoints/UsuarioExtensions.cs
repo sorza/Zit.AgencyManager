@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
 using Zit.AgencyManager.Dominio.Modelos;
 
@@ -20,9 +21,12 @@ namespace Zit.AgencyManager.API.Endpoints
                 
                 if(usuario is null) return Results.NotFound();
 
-                return Results.Ok(usuario.Id);
-                
+                return Results.Ok(usuario);                
             });
+        }
+        private static UsuarioResponse EntityToResponse(Usuario usuario)
+        {
+            return new UsuarioResponse(usuario.Id, usuario.UserName!);
         }
     }
 }

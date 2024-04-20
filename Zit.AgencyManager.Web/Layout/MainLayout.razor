@@ -14,11 +14,11 @@
         <MudAppBar Color="Color.Surface" Fixed="true" Elevation="2">
             <MudGrid>
                 <MudItem>
-                    <MudImage Src="images/Logo.png" Class="mr-5"></MudImage>
+                    <MudImage Src="images/Logo.png" Style="width:180px; height:40px;" Class="mr-4 mt-3"></MudImage>
                 </MudItem>
                 <MudDivider Vertical="true" Class="mr-5 ml-2" FlexItem="true" />
                 <MudItem>
-                    <MudText Typo="Typo.h6">@TitleService.CurrentTitle</MudText>
+                    <MudText Class="mt-4" Typo="Typo.h6">@TitleService.CurrentTitle</MudText>
                 </MudItem>
             </MudGrid>
 
@@ -30,16 +30,11 @@
                     </MudAvatar>
                     <MudButton Class="ml-4" Href="logout"
                                Variant="Variant.Outlined"
-                               Color="Color.Default">Logout</MudButton>
+                               Color="Color.Inherit">Logout</MudButton>
                     <MudDrawer Open="true" ClipMode="DrawerClipMode.Always" Elevation="2">
                         <NavMenu></NavMenu>
                     </MudDrawer>
-                </Authorized>
-                <NotAuthorized>
-                    <MudButton Class="ml-4" Href="login"
-                               Variant="Variant.Outlined"
-                               Color="Color.Default">Login</MudButton>
-                </NotAuthorized>
+                </Authorized>                
             </AuthorizeView>
 
         </MudAppBar>

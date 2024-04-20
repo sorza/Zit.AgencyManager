@@ -34,6 +34,11 @@ namespace Zit.AgencyManager.Web.Services
         {
             return await _httpClient.GetFromJsonAsync<ColaboradorResponse>($"colaboradores/{id}");
         }
+        
+        public async Task<ColaboradorResponse?> GetColaboradorByUsernameAsync(string username)
+        {
+            return await _httpClient.GetFromJsonAsync<ColaboradorResponse>($"colaboradores/usuario/{username}");
+        }
 
         public async Task<bool> UpdateColaboradorAsync(int id, ColaboradorRequestEdit request)
         {
