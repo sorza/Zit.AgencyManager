@@ -6,7 +6,7 @@ namespace Zit.AgencyManager.Web.Response
     (
         int Id,
         Caixa Caixa,
-        Empresa Empresa,
+        EmpresaResponse Empresa,
         decimal Dinheiro,
         decimal Cartao
     );

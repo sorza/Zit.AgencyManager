@@ -1,0 +1,169 @@
+﻿@page "/Caixas"
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject AuthAPI auth
+@inject CaixaAPI caixaAPI
+@inject TitleService TitleService
+@inject ColaboradorAPI colaboradorAPI
+
+
+<PageTitle>Meus Caixas</PageTitle>
+
+<MudGrid>
+    <MudItem xs="12" sm="4">
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+            <h2>Caixa do Alexandre</h2>
+            <br/>
+            <p>Venda total do mês: R$ 20.980,82</p>
+            <p>Faltas: R$ 20,69</p>
+            <p>Sobras: R$ 60,21</p>
+            <p>Saldo: + R$ 40,48</p>
+
+            <p>Média de venda por dia R$ 1098,52</p>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" sm="8">
+        
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+            <MudGrid>
+                <MudItem xs="6" sm="3">
+                    <MudSelect Dense="true" T="int" Label="Selecione um mês" @bind-Value="mes" Variant="Variant.Filled">
+                        @foreach (var item in MesesDoAno!)
+                        {
+                            <MudSelectItem Value="@MesesDoAno.IndexOf(item)">@item</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="6" sm="2">
+                    <MudTextField Class="mt-2" T="int" Placeholder="Ano"
+                                  Variant="Variant.Outlined"
+                                  @bind-Value="ano"
+                                  Required
+                                  RequiredError="Campo Obrigatório"/>
+                </MudItem>
+                <MudItem xs="12" sm="2">
+                    <MudButton Size="@Size.Large"
+                               Class="mt-2 mb-4"
+                               Style="height:82%"
+                               Variant="@Variant.Filled"
+                               Color="@Color.Primary"
+                               OnClick="() => CarregarCaixas(mes+1,ano)"
+                               StartIcon="@Icons.Material.Filled.Search">
+                            Buscar
+                    </MudButton>
+                </MudItem>
+                <MudButton Size="@Size.Large"
+                           Class="mt-5 mb-4 mr-4 ml-auto d-flex justify-end"
+                           Variant="@Variant.Filled"
+                           Color="@Color.Success"
+                           StartIcon="@Icons.Material.Filled.Add">
+                    Abrir Caixa
+                </MudButton>
+            </MudGrid>
+           
+            <MudDataGrid Items="@CaixasResponse" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+                <Columns>
+                    <PropertyColumn Property="x => x.Data.ToShortDateString()" Title="Data do Caixa"/>
+
+                    <TemplateColumn Title="Status">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                                string status = caixa.Aberto ? "Aberto" : "Fechado";
+                            }
+                            <div>@status</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <PropertyColumn Property="x => x.TrocoInicial" Title="Troco Inicial" />
+                    <PropertyColumn Property="x => x.TrocoFinal" Title="Troco Final" />                    
+
+                    <TemplateColumn Title="Vendas">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                                decimal saldo = CalcularVendas(caixa);
+                            }
+                            <div>@saldo</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Saldo">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                                decimal saldo = CalculaSaldo(caixa);
+                            }
+                            <div>@saldo</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn CellClass="d-flex justify-end">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                            }
+                            <MudStack Row>
+                                <MudButton Size="@Size.Small" 
+                                            Variant="@Variant.Filled" 
+                                            Color="@Color.Info"
+                                            Href=@($"/Caixa/{caixa.Id}")
+                                            StartIcon="@Icons.Material.Filled.Search">
+                                        Visualizar
+                                </MudButton>                                    
+                            </MudStack>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+           
+        </MudPaper>
+    </MudItem>
+        
+ </MudGrid>
+
+
+@code {
+    private ICollection<CaixaResponse>? CaixasResponse = new List<CaixaResponse>();
+    private AuthenticationState? authState;
+    private ColaboradorResponse? colaborador;
+    private int mes;
+    private int ano;
+
+    private List<string>? MesesDoAno = new()
+    {
+        "Janeiro","Fevereiro","Março", "Abril", "Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"
+    };
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        TitleService.SetTitle("Caixas do Operador");
+
+        authState = await auth.GetAuthenticationStateAsync();
+
+        colaborador = await colaboradorAPI.GetColaboradorByUsernameAsync(authState.User.Identity!.Name!);
+
+        mes = DateTime.Today.Month-1;
+        ano = DateTime.Today.Year;
+
+        await CarregarCaixas(mes+1,ano);
+
+    }  
+
+    private async Task CarregarCaixas(int mes, int ano)
+    {
+        CaixasResponse = await caixaAPI.GetCaixasByColaboradorAsync(colaborador!.Id, mes, ano);
+    }
+
+    private decimal CalculaSaldo(CaixaResponse caixa)
+    {
+        return 0;
+    }
+
+    private decimal CalcularVendas(CaixaResponse caixa)
+    {
+        return 0;
+    }
+}

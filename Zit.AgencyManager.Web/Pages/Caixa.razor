@@ -1,169 +1,208 @@
-﻿@page "/Caixa"
+﻿@page "/Caixa/{IdCaixa}"
 @using Microsoft.AspNetCore.Components.Authorization
 
-@inject AuthAPI auth
-@inject CaixaAPI caixaAPI
+@inject VendaAPI vendaAPI
 @inject TitleService TitleService
-@inject ColaboradorAPI colaboradorAPI
+@inject ContratoAPI contratoAPI
+@inject CaixaAPI caixaAPI
+@inject EmpresaAPI empresaAPI
 
-
-<PageTitle>Meu Caixa</PageTitle>
+<PageTitle>Caixa do Operador</PageTitle>
 
 <MudGrid>
-    <MudItem xs="12" sm="4">
-        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
-            <h2>Caixa do Alexandre</h2>
-            <br/>
-            <p>Venda total do mês: R$ 20.980,82</p>
-            <p>Faltas: R$ 20,69</p>
-            <p>Sobras: R$ 60,21</p>
-            <p>Saldo: + R$ 40,48</p>
-
-            <p>Média de venda por dia R$ 1098,52</p>
-        </MudPaper>
-    </MudItem>
-
     <MudItem xs="12" sm="8">
-        
-        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
-            <MudGrid>
-                <MudItem xs="6" sm="3">
-                    <MudSelect Dense="true" T="int" Label="Selecione um mês" @bind-Value="mes" Variant="Variant.Filled">
-                        @foreach (var item in MesesDoAno!)
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">            
+            <MudText Class="mt-4" Typo="Typo.h6">Registrar venda</MudText>
+
+            <MudGrid Class="mt-2">
+                <MudItem xs="12" sm="4">
+                    <MudSelect  Dense="true" 
+                                T="EmpresaResponse" 
+                                Label="Informe uma empresa" 
+                                @bind-Value="empresa" 
+                                Variant="Variant.Filled" 
+                                RequiredError="Campo obrigatório." 
+                                ToStringFunc="@(e => e.NomeFantasia)">
+                        @foreach (var item in empresas)
                         {
-                            <MudSelectItem Value="@MesesDoAno.IndexOf(item)">@item</MudSelectItem>
+                            <MudSelectItem Value="@item">@item.NomeFantasia</MudSelectItem>
                         }
                     </MudSelect>
                 </MudItem>
-                <MudItem xs="6" sm="2">
-                    <MudTextField Class="mt-2" T="int" Placeholder="Ano"
-                                  Variant="Variant.Outlined"
-                                  @bind-Value="ano"
-                                  Required
-                                  RequiredError="Campo Obrigatório"/>
+                <MudItem xs="12" sm="3">
+                    <MudTextField Class="mt-2" T="decimal" Placeholder="Dinheiro"
+                                    Variant="Variant.Outlined"
+                                    Label="Dinheiro"
+                                    @bind-Value="venda.Dinheiro" />
                 </MudItem>
-                <MudItem xs="12" sm="2">
+                <MudItem xs="12" sm="3">
+                    <MudTextField Class="mt-2" T="decimal" Placeholder="Cartão"
+                                    Label="Cartão"
+                                    Variant="Variant.Outlined"
+                                    @bind-Value="venda.Cartao" />
+                </MudItem>
+                <MudItem xs="12" sm="2" Class="mb-4">
                     <MudButton Size="@Size.Large"
-                               Class="mt-2 mb-4"
-                               Style="height:82%"
-                               Variant="@Variant.Filled"
-                               Color="@Color.Primary"
-                               OnClick="() => CarregarCaixas(mes+1,ano)"
-                               StartIcon="@Icons.Material.Filled.Search">
-                            Buscar
+                                Class="mt-2 mb-4 mr-2 ml-auto d-flex"
+                                Variant="@Variant.Filled"
+                                Color="@Color.Success"
+                                Style="height:85%"
+                                OnClick="() => AdicionarVenda(venda)"
+                                StartIcon="@Icons.Material.Filled.Add">
+                        @btn_Confirmar
                     </MudButton>
                 </MudItem>
-                <MudButton Size="@Size.Large"
-                           Class="mt-5 mb-4 mr-4 ml-auto d-flex justify-end"
-                           Variant="@Variant.Filled"
-                           Color="@Color.Success"
-                           StartIcon="@Icons.Material.Filled.Add">
-                    Abrir Caixa
-                </MudButton>
-            </MudGrid>
-           
-            <MudDataGrid Items="@Caixas" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
-                <Columns>
-                    <PropertyColumn Property="x => x.Data.ToShortDateString()" Title="Data do Caixa"/>
+            </MudGrid>           
+        </MudPaper>
 
-                    <TemplateColumn Title="Status">
-                        <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                                string status = caixa.Aberto ? "Aberto" : "Fechado";
-                            }
-                            <div>@status</div>
-                        </CellTemplate>
-                    </TemplateColumn>
+        <MudDataGrid Items="@vendas" Filterable="false" SortMode="@SortMode.None" Class="mt-6 mx-3" Groupable="false">
+            <Columns>
+                <PropertyColumn Property="x => x.Empresa.NomeFantasia" Title="Empresa"/>
+                <PropertyColumn Property="x => x.Dinheiro" Title="Venda em Dinheiro" Format="C" />
+                <PropertyColumn Property="x => x.Cartao" Title="Venda em Cartão" Format="C" />
+                <PropertyColumn Property="x => (x.Dinheiro + x.Cartao)" Title="Venda Total" Format="C" />
 
-                    <PropertyColumn Property="x => x.TrocoInicial" Title="Troco Inicial" />
-                    <PropertyColumn Property="x => x.TrocoFinal" Title="Troco Final" />                    
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate Context="cellContext">
+                        @{
+                            var venda = cellContext.Item;
+                        }
+                        <MudStack Row>                            
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverVenda(venda)" StartIcon="@Icons.Material.Filled.Delete"></MudButton>
+                            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" OnClick="() => EditarVenda(venda)" StartIcon="@Icons.Material.Filled.Edit"></MudButton>
+                        </MudStack>
+                    </CellTemplate>                  
+                </TemplateColumn>
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
 
-                    <TemplateColumn Title="Vendas">
-                        <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                                decimal saldo = CalcularVendas(caixa);
-                            }
-                            <div>@saldo</div>
-                        </CellTemplate>
-                    </TemplateColumn>
+    <MudItem xs="12" sm="4">
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
 
-                    <TemplateColumn Title="Saldo">
-                        <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                                decimal saldo = CalculaSaldo(caixa);
-                            }
-                            <div>@saldo</div>
-                        </CellTemplate>
-                    </TemplateColumn>
-
-                    <TemplateColumn CellClass="d-flex justify-end">
-                        <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                            }
-                            <MudStack Row>
-                                <MudButton Size="@Size.Small" 
-                                            Variant="@Variant.Filled" 
-                                            Color="@Color.Info" 
-                                            StartIcon="@Icons.Material.Filled.Search" 
-                                                >
-                                        Visualizar
-                                </MudButton>                                    
-                            </MudStack>
-                        </CellTemplate>
-                    </TemplateColumn>
-                </Columns>
-            </MudDataGrid>
-           
         </MudPaper>
     </MudItem>
-        
- </MudGrid>
-
+</MudGrid>
 
 @code {
-    private ICollection<CaixaResponse>? Caixas = new List<CaixaResponse>();
-    private AuthenticationState? authState;
-    private ColaboradorResponse? colaborador;
-    private int mes;
-    private int ano;
+    [Parameter]
+    public string? IdCaixa { get; set; }
+    private CaixaResponse? caixa;
 
-    private List<string>? MesesDoAno = new()
-    {
-        "Janeiro","Fevereiro","Março", "Abril", "Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"
-    };
+    private ICollection<EmpresaResponse> empresas = new List<EmpresaResponse>();
+    private ICollection<VendaResponse> vendas = new List<VendaResponse>();
 
+    private EmpresaResponse? empresa;
+    private VendaRequest venda = new();
+    private int vendaEditar;
+
+    private string btn_Confirmar = "Adicionar";
 
     protected override async Task OnInitializedAsync()
     {
         TitleService.SetTitle("Caixa do Operador");
 
-        authState = await auth.GetAuthenticationStateAsync();
+        var response = await caixaAPI.GetCaixaAsync(Convert.ToInt32(IdCaixa));
 
-        colaborador = await colaboradorAPI.GetColaboradorByUsernameAsync(authState.User.Identity!.Name!);
+        if(response is not null)
+        {
+            caixa = response;
+            venda.CaixaId = caixa.Id;
 
-        mes = DateTime.Today.Month-1;
-        ano = DateTime.Today.Year;
-
-        await CarregarCaixas(mes+1,ano);
-
-    }  
-
-    private async Task CarregarCaixas(int mes, int ano)
-    {
-        Caixas = await caixaAPI.GetCaixasByColaboradorAsync(colaborador!.Id, mes, ano);
+            await CarregarVendas();
+            await CarregarEmpresas();
+        }               
     }
 
-    private decimal CalculaSaldo(CaixaResponse caixa)
+    private async Task CarregarVendas()
     {
-        return 0;
+        var result = await vendaAPI.GetVendasByCaixaAsync(caixa!.Id);
+        if (result is not null) vendas = result;
     }
 
-    private decimal CalcularVendas(CaixaResponse caixa)
+    private async Task AdicionarVenda(VendaRequest venda)
     {
-        return 0;
+        if (empresa is not null)
+        {
+            venda.EmpresaId = empresa!.Id;
+
+            if (btn_Confirmar.Equals("Adicionar"))
+            {
+                if (await vendaAPI.AddVendaAsync(venda))
+                {                   
+                    await CarregarVendas();
+                    await CarregarEmpresas();
+
+                    empresa = empresas.First();
+                    venda.Dinheiro = 0;
+                    venda.Cartao = 0;
+                }
+            }
+            else
+            {
+                if (await vendaAPI.UpdateVendaAsync(new(venda.EmpresaId, venda.Dinheiro, venda.Cartao), vendaEditar))
+                {                   
+                    await CarregarVendas();
+                    await CarregarEmpresas();
+
+                    venda.Dinheiro = 0;
+                    venda.Cartao = 0;
+
+                    btn_Confirmar = "Adicionar";
+                }
+            }
+        }
+    }
+
+    private async Task RemoverVenda(VendaResponse venda)
+    {
+        if (await vendaAPI.DeleteVendaAsync(venda.Id)) await CarregarVendas();
+        await CarregarEmpresas();
+    }
+
+    private async Task EditarVenda(VendaResponse vendaEdit)
+    {
+        empresas.Clear();
+
+        var response = await empresaAPI.GetEmpresaAsync(vendaEdit.Empresa.Id);
+        empresas.Add(response!);
+
+        empresa = empresas.First();
+
+        venda.EmpresaId = vendaEdit.Empresa.Id;
+        venda.Dinheiro = vendaEdit.Dinheiro;
+        venda.Cartao = vendaEdit.Cartao;
+
+        vendaEditar = vendaEdit.Id;
+
+        btn_Confirmar = "Editar";
+    }
+
+    private async Task CarregarEmpresas()
+    {
+        empresas.Clear();
+
+        var contratos = await contratoAPI.GetContratosByAgenciaAsync(caixa!.Colaborador.AgenciaId);
+
+        if (contratos is not null)
+        {  
+            List<EmpresaResponse> empresasVendas = new List<EmpresaResponse>();
+            foreach (var item in vendas)
+            {
+                empresasVendas.Add(item.Empresa);
+            }
+
+            foreach(var contrato in contratos)
+            {
+                bool adicionar = true;
+
+                foreach(var item in empresasVendas)
+                {
+                    if (contrato.Empresa.Id == item.Id) adicionar = false; 
+                }
+
+                if (adicionar) empresas.Add(contrato.Empresa);
+            }
+        }
     }
 }

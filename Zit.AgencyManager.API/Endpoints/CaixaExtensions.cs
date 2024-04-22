@@ -93,7 +93,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static CaixaResponse EntityToResponse(Caixa caixa)
         {
-            return new CaixaResponse(caixa.Colaborador, caixa.Data, caixa.TrocoInicial, caixa.TrocoFinal, caixa.Aberto);
+            return new CaixaResponse(caixa.Id, caixa.Colaborador, caixa.Data, caixa.TrocoInicial, caixa.TrocoFinal, caixa.Aberto);
         }
     }
 }

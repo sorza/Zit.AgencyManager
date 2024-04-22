@@ -14,9 +14,9 @@ namespace Zit.AgencyManager.API.Endpoints
                                 .RequireAuthorization()
                                 .WithTags("Vendas");
 
-            groupBuilder.MapGet("", ([FromServices] DAL<Venda> dal) =>
+            groupBuilder.MapGet("caixa/{id}", ([FromServices] DAL<Venda> dal, int id) =>
             {
-                return Results.Ok(EntityListToResponseList(dal.Listar()));
+                return Results.Ok(EntityListToResponseList(dal.Listar().Where(v => v.CaixaId == id)));
             });
 
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Venda> dal, int id) =>
@@ -79,7 +79,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static VendaResponse EntityToResponse(Venda venda)
         {
-            return new VendaResponse(venda.Id, venda.Caixa, venda.Empresa, venda.Dinheiro, venda.Cartao);
+            return new VendaResponse(venda.Id, venda.Caixa, new(venda.Empresa.Id, venda.Empresa.RazaoSocial, venda.Empresa.NomeFantasia, venda.Empresa.CNPJ, venda.Empresa.Endereco, venda.Empresa.Contatos, venda.Empresa.Logo), venda.Dinheiro, venda.Cartao);
         }
     }
 }

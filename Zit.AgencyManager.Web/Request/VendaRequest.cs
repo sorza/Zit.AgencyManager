@@ -2,15 +2,16 @@
 
 namespace Zit.AgencyManager.Web.Request
 {
-    public record VendaRequest
-    (
+    public record VendaRequest()
+    {
         [Required]
-        int CaixaId,
-        [Required]
-        int EmpresaId,
-        [Required]
-        decimal Dinheiro,
-        [Required]
-        decimal Cartao
-    );
+        public int CaixaId { get; set; }
+
+        [Required(ErrorMessage = "É obrigatório informar uma empresa")]
+        public int EmpresaId { get; set; }
+       
+        public decimal Dinheiro { get; set; }
+       
+        public decimal Cartao { get; set; }
+    }
 }

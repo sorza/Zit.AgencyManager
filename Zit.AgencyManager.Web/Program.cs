@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
+using System.Globalization;
 using Zit.AgencyManager.Web.Services;
 
 namespace Zit.AgencyManager.Web
@@ -13,6 +14,11 @@ namespace Zit.AgencyManager.Web
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
+
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("pt-BR");
 
             builder.Services.AddMudServices();
 
@@ -31,6 +37,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<EmpresaAPI>();
             builder.Services.AddTransient<ContratoAPI>();
             builder.Services.AddTransient<CaixaAPI>();
+            builder.Services.AddTransient<VendaAPI>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);

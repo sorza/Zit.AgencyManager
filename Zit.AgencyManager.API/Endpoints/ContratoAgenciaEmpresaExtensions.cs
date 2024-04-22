@@ -30,6 +30,11 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityToResponse(contrato));
             });
 
+            groupBuilder.MapGet("agencia/{id}", ([FromServices] DAL<ContratoAgenciaEmpresa> dal, int id) =>
+            {
+                return Results.Ok(EntityListToResponseList(dal.Listar().Where(c => c.AgenciaId == id && c.Ativo == true)));
+            });
+
             groupBuilder.MapPost("", ([FromServices] DAL<ContratoAgenciaEmpresa> dal, [FromBody] ContratoAgenciaEmpresaRequest request) => 
             {
                 var context = new ValidationContext(request);
