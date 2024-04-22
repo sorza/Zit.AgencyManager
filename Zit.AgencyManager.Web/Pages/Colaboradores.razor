@@ -15,7 +15,16 @@
             <PropertyColumn Property="x => x.CPF" Title="CPF" />
             <PropertyColumn Property="x => x.Cargo.Descricao" Title="Cargo" />
             <PropertyColumn Property="x => x.DataAdmissao" Title="Data Admissão" />
-            <PropertyColumn Property="x => x.Ativo"/>
+
+            <TemplateColumn Title="Status">
+                <CellTemplate Context="cellContext">
+                    @{
+                        var colaborador = cellContext.Item;
+                        string status = colaborador.Ativo ? "Ativo" : "Inativo";
+                    }
+                    <div>@status</div>
+                </CellTemplate>
+            </TemplateColumn>
             <PropertyColumn Property="x => x.Usuario.UserName" Title="Usuário de acesso" />
 
             <TemplateColumn CellClass="d-flex justify-end">
