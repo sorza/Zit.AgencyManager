@@ -7,7 +7,7 @@ namespace Zit.AgencyManager.Web.Layout
     {
         private ManagerPalette()
         {
-            Primary = new MudColor("#9966FF");
+            Primary = new MudColor("#2972BA");
             Secondary = new MudColor("#F6AD31");
             Tertiary = new MudColor("#8AE491");
         }

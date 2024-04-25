@@ -2,12 +2,12 @@
 
 namespace Zit.AgencyManager.Web.Response
 {
-    public record MovimentacaoResponse
-    (
-        int Id,
-        Caixa Caixa,
-        string Tipo,
-        decimal Valor,
-        string Descricao
-    );
+    public record MovimentacaoResponse()
+    { 
+        public int Id { get; set; }
+        public CaixaResponse Caixa { get; set; }
+        public string Tipo { get; set; }
+        public decimal Valor { get; set; }
+        public string Descricao { get; set; }
+    }
 }

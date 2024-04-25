@@ -2,13 +2,13 @@
 
 namespace Zit.AgencyManager.Web.Response
 {
-    public record CaixaResponse
-    (
-        int Id,
-        Colaborador Colaborador,
-        DateTime Data,
-        decimal TrocoInicial,
-        decimal TrocoFinal,
-        bool Aberto
-    );
+    public record CaixaResponse()
+    {
+        public int Id { get; set; }
+        public Colaborador Colaborador { get; set; } = new Colaborador();
+        public DateTime Data { get; set; }
+        public decimal TrocoInicial { get; set; }
+        public decimal TrocoFinal { get; set; }
+        public bool Aberto { get; set; }
+    }
 }

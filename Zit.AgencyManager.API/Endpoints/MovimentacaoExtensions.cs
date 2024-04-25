@@ -20,6 +20,11 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
+            groupBuilder.MapGet("caixa/{id}", ([FromServices] DAL<Movimentacao> dal, int id) =>
+            {
+                return Results.Ok(EntityListToResponseList(dal.Listar().Where(m => m.CaixaId == id)));
+            });
+
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Movimentacao> dal, int id) =>
             {
                 var movimentacao = dal.RecuperarPor(m=>m.Id == id);
@@ -75,7 +80,7 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static MovimentacaoResponse EntityToResponse(Movimentacao movimentacao)
         {
-            return new MovimentacaoResponse(movimentacao.Id, movimentacao.Caixa, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao);
+            return new MovimentacaoResponse(movimentacao.Id, movimentacao.Caixa, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao!);
         }
 
         private static IEnumerable<MovimentacaoResponse> EntityListToResponseList(IEnumerable<Movimentacao> movimentacoes)
