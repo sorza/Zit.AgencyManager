@@ -16,9 +16,6 @@ namespace Zit.AgencyManager.API.Request
         decimal Valor,
         [Required]
         string FormaPagamento,
-        [Required]
-        bool Pago,
-        [Required]
-        int ClienteId
+        string? Observacao
     );
 }

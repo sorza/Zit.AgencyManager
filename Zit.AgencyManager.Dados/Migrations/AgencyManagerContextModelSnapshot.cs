@@ -249,23 +249,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.ToTable("Cargos");
                 });
 
-            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(90)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clientes");
-                });
-
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Colaborador", b =>
                 {
                     b.Property<int>("Id")
@@ -334,9 +317,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int?>("AgenciaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ColaboradorId")
                         .HasColumnType("int");
 
@@ -358,8 +338,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgenciaId");
-
-                    b.HasIndex("ClienteId");
 
                     b.HasIndex("ColaboradorId");
 
@@ -437,6 +415,7 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("NomeFantasia")
+                        .IsRequired()
                         .HasColumnType("varchar(90)");
 
                     b.Property<string>("RazaoSocial")
@@ -647,9 +626,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.Property<int>("CaixaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DestinoId")
                         .HasColumnType("int");
 
@@ -660,11 +636,11 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(90)");
 
+                    b.Property<string>("Observacao")
+                        .HasColumnType("varchar(90)");
+
                     b.Property<int>("OrigemId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Pago")
-                        .HasColumnType("bit");
 
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(12,4)");
@@ -672,8 +648,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CaixaId");
-
-                    b.HasIndex("ClienteId");
 
                     b.HasIndex("DestinoId");
 
@@ -809,10 +783,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .WithMany("Contatos")
                         .HasForeignKey("AgenciaId");
 
-                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Cliente", null)
-                        .WithMany("Contatos")
-                        .HasForeignKey("ClienteId");
-
                     b.HasOne("Zit.AgencyManager.Dominio.Modelos.Colaborador", null)
                         .WithMany("Contatos")
                         .HasForeignKey("ColaboradorId");
@@ -890,12 +860,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Zit.AgencyManager.Dominio.Modelos.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Zit.AgencyManager.Dominio.Modelos.Localidade", "Destino")
                         .WithMany()
                         .HasForeignKey("DestinoId")
@@ -916,8 +880,6 @@ namespace Zit.AgencyManager.Dados.Migrations
 
                     b.Navigation("Caixa");
 
-                    b.Navigation("Cliente");
-
                     b.Navigation("Destino");
 
                     b.Navigation("Empresa");
@@ -926,11 +888,6 @@ namespace Zit.AgencyManager.Dados.Migrations
                 });
 
             modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Agencia", b =>
-                {
-                    b.Navigation("Contatos");
-                });
-
-            modelBuilder.Entity("Zit.AgencyManager.Dominio.Modelos.Cliente", b =>
                 {
                     b.Navigation("Contatos");
                 });

@@ -2,23 +2,25 @@
 
 namespace Zit.AgencyManager.Web.Request
 {
-    public record VendaVirtualRequest
-    (
+    public record VendaVirtualRequest()
+    {
         [Required]
-        int CaixaId,
+        public int CaixaId { get; set; }
+
         [Required]
-        int EmpresaId,
+        public int EmpresaId { get; set; }
+
         [Required]
-        int OrigemId,
+        public int OrigemId { get; set; }
+
         [Required]
-        int DestinoId,
+        public int DestinoId { get; set; }
+
         [Required]
-        decimal Valor,
+        public decimal Valor { get; set; }
+
         [Required]
-        string FormaPagamento,
-        [Required]
-        bool Pago,
-        [Required]
-        int ClienteId
-    );
+        public string FormaPagamento { get; set; } = string.Empty;
+        public string? Observacao { get; set; }
+    }
 }

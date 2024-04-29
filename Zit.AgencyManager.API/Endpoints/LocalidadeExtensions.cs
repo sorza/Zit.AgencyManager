@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -20,6 +21,11 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
+            grouBuilder.MapGet("busca/{local}", ([FromServices] DAL<Localidade> dal, string local) =>
+            {
+                return Results.Ok(EntityListToResponseList(dal.Listar().Where(l=> l.Cidade.Contains(local.ToUpper()))));
+            });
+
             grouBuilder.MapGet("{id}", ([FromServices] DAL<Localidade> dal, int id) =>
             {
                 var localidade = dal.RecuperarPor(l => l.Id == id);
@@ -30,11 +36,22 @@ namespace Zit.AgencyManager.API.Endpoints
             });
 
             grouBuilder.MapPost("", ([FromServices] DAL<Localidade> dal, [FromBody] LocalidadeRequest request) =>
-            {         
+            {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 Localidade localidade = new()
                 {
-                    Cidade = request.Cidade,
-                    UF = request.UF
+                    Cidade = request.Cidade.ToUpper(),
+                    UF = request.UF.ToUpper()
                 };
 
                 var localidades = dal.Listar();
@@ -47,13 +64,21 @@ namespace Zit.AgencyManager.API.Endpoints
             });
 
             grouBuilder.MapPut("{id}", ([FromServices] DAL<Localidade> dal, [FromBody] LocalidadeRequestEdit request, int id) =>
-            {              
+            {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 var localidade = dal.RecuperarPor(l=> l.Id == id);
 
                 if (localidade is null) return Results.BadRequest();
-
-                if(!request.Cidade.IsNullOrEmpty()) localidade.Cidade = request.Cidade;
-                if(!request.UF.IsNullOrEmpty()) localidade.UF = request.UF;
 
                 var localidades = dal.Listar();
 

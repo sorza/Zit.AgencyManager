@@ -10,7 +10,6 @@ namespace Zit.AgencyManager.Web.Request
         int DestinoId,
         decimal Valor,
         string FormaPagamento,
-        bool Pago,
-        int ClienteId
+        string? Observacao
      );
 }

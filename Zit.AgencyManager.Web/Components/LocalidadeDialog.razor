@@ -1,0 +1,40 @@
+﻿@inject LocalidadeAPI localidadeAPI
+
+<MudForm Model="novaLocalidade" ref="form">
+    <MudDialog>
+        <DialogContent>
+            <MudTextField Label="Cidade" 
+                          @bind-Value="novaLocalidade.Cidade" 
+                          For="@(() => novaLocalidade.Cidade)" />
+
+            <MudTextField Label="UF" @bind-Value="novaLocalidade.UF" For="@(() => novaLocalidade.UF)" />
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancelar">Cancelar</MudButton>
+            <MudButton OnClick="AdicionarLocalidade">Confirmar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>
+
+@code {
+    [CascadingParameter] MudDialogInstance? MudDialog { get; set; }
+
+    LocalidadeRequest novaLocalidade = new();
+    List<string> ufs = new List<string> { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" };
+
+    public async Task AdicionarLocalidade()
+    {
+        if(ufs.Contains(novaLocalidade.UF.ToUpper()))
+        {
+            if (await localidadeAPI.AddLocalidadeAsync(novaLocalidade))
+            {
+                MudDialog!.Close(DialogResult.Ok(novaLocalidade));
+            }
+        }        
+    }
+
+    public void Cancelar()
+    {
+        MudDialog!.Close(DialogResult.Ok(novaLocalidade));
+    }
+}

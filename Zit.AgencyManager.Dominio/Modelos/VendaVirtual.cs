@@ -19,9 +19,6 @@ namespace Zit.AgencyManager.Dominio.Modelos
         public virtual Localidade Destino { get; set; }
         public decimal Valor { get; set; }
         public string FormaPagamento { get; set; }
-        public bool Pago { get; set; }
-        public int ClienteId { get; set; }
-        public virtual Cliente Cliente { get; set; }
-
+        public string? Observacao { get; set; }
     }
 }

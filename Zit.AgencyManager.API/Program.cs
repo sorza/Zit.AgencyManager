@@ -37,7 +37,6 @@ namespace Zit.AgencyManager.API
             builder.Services.AddTransient<DAL<Venda>>();
             builder.Services.AddTransient<DAL<Localidade>>();
             builder.Services.AddTransient<DAL<VendaVirtual>>();
-            builder.Services.AddTransient<DAL<Cliente>>();
             builder.Services.AddTransient<DAL<Movimentacao>>();
             builder.Services.AddTransient<DAL<Endereco>>();
 
@@ -71,7 +70,6 @@ namespace Zit.AgencyManager.API
             app.AddEndpointsVendas();
             app.AddEndpointsLocalidades();
             app.AddEndpointsVendasVirtuais();
-            app.AddEndpointsClientes();
             app.AddEndpointsMovimentacoes();
             app.AddEndpointsUsuario();
 

@@ -9,8 +9,7 @@ namespace Zit.AgencyManager.API.Request
         int OrigemId,       
         int DestinoId,        
         decimal Valor,       
-        string FormaPagamento,        
-        bool Pago,        
-        int ClienteId
+        string FormaPagamento,
+        string Observacao
      );
 }

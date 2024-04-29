@@ -1,12 +1,16 @@
 ﻿@page "/Caixa/{IdCaixa}"
 @using Microsoft.AspNetCore.Components.Authorization
+@using Zit.AgencyManager.Web.Components
 
+@inject IDialogService dialogService
 @inject VendaAPI vendaAPI
 @inject TitleService TitleService
 @inject ContratoAPI contratoAPI
 @inject CaixaAPI caixaAPI
 @inject EmpresaAPI empresaAPI
 @inject MovimentacaoAPI movimentacaoAPI
+@inject LocalidadeAPI localidadeAPI
+@inject VendaVirtualAPI vendaVirtualAPI
 
 @inject ISnackbar Snackbar
 
@@ -16,13 +20,13 @@
     <MudItem xs="12" sm="9">
 
         <MudItem xs="12" sm="12">
-            <MudPaper Class="px-3 py-2 my-3" Justify="Justify.Center">
+            <MudPaper Class="px-3 py-2 my-3 sombra" Justify="Justify.Center">
                 <MudText Class="mt-2" Align="Align.Center" Typo="Typo.h6">Relatório de Vendas</MudText>
             </MudPaper>
         </MudItem>
 
-        <MudPaper Class="px-3 py-2 my-3 mb-8" Justify="Justify.Center">           
-                <MudGrid>                    
+        <MudPaper Class="px-3 py-2 my-3 mb-8 sombra" Justify="Justify.Center">
+            <MudGrid>                    
                     <MudItem xs="12" sm="4">
                         <MudSelect  Dense="true" 
                                     T="EmpresaResponse" 
@@ -87,12 +91,12 @@
         </MudPaper>
 
         <MudItem xs="12" sm="12" Class="mt-6">
-            <MudPaper Class="px-3 py-2 my-3" Justify="Justify.Center">
+            <MudPaper Class="px-3 py-2 my-3 sombra" Justify="Justify.Center">
                 <MudText Class="mt-2" Align="Align.Center" Typo="Typo.h6">Lançamentos de Caixa</MudText>
             </MudPaper>
         </MudItem>
 
-        <MudPaper Class="px-3 py-2 my-3 mb-8" Justify="Justify.Center">           
+        <MudPaper Class="px-3 py-2 my-3 mb-8 sombra" Justify="Justify.Center">
             <MudGrid>
                 <MudItem xs="12" sm="4">
                     <MudSelect Dense="true"
@@ -154,22 +158,117 @@
             </MudDataGrid>
 
         </MudPaper>
+
+        <MudItem xs="12" sm="12" Class="mt-6">
+            <MudPaper Class="px-3 py-2 my-3 sombra" Justify="Justify.Center">
+                <MudText Align="Align.Center" Typo="Typo.h6">Vendas Virtuais</MudText>
+            </MudPaper>
+        </MudItem>
+
+        <MudPaper Class="px-3 py-2 my-3 mb-8 sombra" Justify="Justify.Center">
+            <MudGrid>
+                <MudItem xs="12" sm="4">
+                    <MudAutocomplete T="EmpresaResponse"
+                                     @bind-Value="empresaVirtual"
+                                     Label="Empresa"
+                                     SearchFunc="PesquisaEmpresa"
+                                     ToStringFunc="FormatEmpresa" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudAutocomplete T="LocalidadeResponse" 
+                                    @bind-Value="origem" 
+                                    Label="Origem"
+                                    SearchFunc="PesquisaLocalidade" 
+                                    ToStringFunc="FormatLocalidade" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudAutocomplete T="LocalidadeResponse"
+                                     @bind-Value="destino"
+                                     Label="Destino"
+                                     SearchFunc="PesquisaLocalidade"
+                                     ToStringFunc="FormatLocalidade" />
+                </MudItem>
+
+                <MudItem xs="12" sm="3">
+                    <MudTextField Class="mt-2" T="decimal" Placeholder="Valor"
+                                  Variant="Variant.Outlined"
+                                  @bind-Value="vendaVirtual.Valor"
+                                  Label="Valor" For="@(() => vendaVirtual.Valor)" />
+                </MudItem>
+
+                <MudItem xs="12" sm="3">
+                    <MudSelect Dense="true"
+                               T="string"
+                               @bind-Value="vendaVirtual.FormaPagamento"
+                               Variant="Variant.Filled"
+                               Label="Tipo de lançamento" For="@(() => movimentacao.Tipo)">
+                        @foreach (var item in formaPagamento)
+                        {
+                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <MudItem xs="12" sm="4">
+                    <MudTextField Class="mt-2" T="string" Placeholder="Observação"
+                                  Variant="Variant.Outlined"
+                                  @bind-Value="vendaVirtual.Observacao"
+                                  Label="Observação" For="@(() => vendaVirtual.Observacao)" />
+                </MudItem>
+
+                <MudItem xs="12" sm="2" Class="mb-2">
+                    <MudButton Size="@Size.Large"
+                               Variant="@Variant.Filled"
+                               FullWidth
+                               Style="height:100%;"
+                               Class="mt-2"
+                               @onclick="AdicionarVendaVirtual"
+                               Color="@Color.Success">
+                        @btn_VendaVirtual
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+
+            <MudDataGrid Items="@vendasVirtuais" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+                <Columns>
+                    <PropertyColumn Property="x => x.Empresa.NomeFantasia" Title="Empresa" />
+                    <PropertyColumn Property="x => x.Origem.Cidade" Title="Origem"/>
+                    <PropertyColumn Property="x => x.Destino.Cidade" Title="Destino" />
+                    <PropertyColumn Property="x => x.Valor" Title="Valor" Format="C" />
+                    <PropertyColumn Property="x => x.FormaPagamento" Title="Pagamento" />
+                    <PropertyColumn Property="x => x.Observacao" Title="Observação" />
+
+                    <TemplateColumn CellClass="d-flex justify-end">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var venda_Virtual = cellContext.Item;
+                            }
+                            <MudStack Row>
+                                <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Error" OnClick="() => RemoverVendaVirtual(venda_Virtual)" StartIcon="@Icons.Material.Filled.Delete"></MudButton>
+                                <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Info" OnClick="() => EditarVendaVirtual(venda_Virtual)" StartIcon="@Icons.Material.Filled.Edit"></MudButton>
+                            </MudStack>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+
+        </MudPaper>
     </MudItem>
         
     <MudItem xs="12" sm="3">
-        <MudPaper Class="px-8 pt-1 pb-2 my-3" Justify="Justify.Center">
+        <MudPaper Class="px-8 pt-1 pb-2 my-3 sombra" Justify="Justify.Center">
             <MudText Class="mt-4" Align="Align.Center" Typo="Typo.h6">Resumo de Caixa</MudText>
             <MudText Class="mt-1" Align="Align.Center" Typo="Typo.h6">@caixa.Data.Date.ToShortDateString()</MudText>
         </MudPaper>
 
-        <MudPaper Class="px-8 pt-1 mt-1 pb-5" Justify="Justify.Center">
+        <MudPaper Class="px-8 pt-1 mt-1 pb-5 sombra" Justify="Justify.Center">
             <MudText Class="mt-4" Align="Align.Center" Typo="Typo.h6">Saldo: R$ 0,00</MudText>
         </MudPaper>
 
         <MudGrid Class="mt-1">
 
             <MudItem xs="12" sm="12">
-                <MudPaper Class="px-8 pt-1 pb-5" Justify="Justify.Center">
+                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
                     <MudText Class="mt-4" Typo="Typo.h6">Troco</MudText>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Inicial"
@@ -187,7 +286,7 @@
             </MudItem>
             
             <MudItem xs="12" sm="12">
-                 <MudPaper Class="px-8 pt-1 pb-5" Justify="Justify.Center">
+                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
                     <MudText Class="mt-4" Typo="Typo.h6">Vendas</MudText>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Dinheiro"
@@ -211,7 +310,7 @@
             </MudItem>
 
             <MudItem xs="12" sm="12">
-                 <MudPaper Class="px-8 pt-1 pb-5" Justify="Justify.Center">
+                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
                     <MudText Class="mt-4" Typo="Typo.h6">Tipo de Venda</MudText>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Presencial"
@@ -229,7 +328,7 @@
             </MudItem>
 
             <MudItem xs="12" sm="12">
-                <MudPaper Class="px-8 pt-1 pb-5" Justify="Justify.Center">
+                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
                     <MudText Class="mt-4" Typo="Typo.h6">Movimentações</MudText>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Entradas"
@@ -259,6 +358,7 @@
         </MudGrid>
        
     </MudItem>
+
 </MudGrid>
 
 @code {
@@ -267,21 +367,29 @@
 
     private CaixaResponse caixa = new();
     private EmpresaResponse? empresa;
+    private EmpresaResponse? empresaVirtual;
+    private LocalidadeResponse? origem;
+    private LocalidadeResponse? destino;
 
     private ICollection<EmpresaResponse> empresas = new List<EmpresaResponse>();
     private ICollection<VendaResponse> vendas = new List<VendaResponse>();
     private ICollection<MovimentacaoResponse> movimentacoes = new List<MovimentacaoResponse>();
+    private ICollection<VendaVirtualResponse> vendasVirtuais = new List<VendaVirtualResponse>();
 
     private List<string> tipoLancamento = new List<string>() {"RECOLHA","ALIMENTAÇÃO", "PAGAMENTOS","DESPESAS AGÊNCIA","DESPESAS EMPRESAS","OUTRAS SAÍDAS", "ENTRADA"};
+    private List<string> formaPagamento = new List<string>() { "PIX", "LINK", "BOLETO", "FATURADO"};
 
     private MovimentacaoRequest movimentacao = new();
     private VendaRequest venda = new();
+    private VendaVirtualRequest vendaVirtual = new();
 
     private int vendaEditar;
     private int movimentacaoEditar;
+    private int vendaVirtualEditar;
 
     private string btn_Venda = "Inserir";
     private string btn_Movimentacao = "Inserir";
+    private string btn_VendaVirtual = "Inserir";
 
     protected override async Task OnInitializedAsync()
     {
@@ -293,16 +401,16 @@
         {
             caixa = response;
             venda.CaixaId = caixa.Id;
+            vendaVirtual.CaixaId = caixa.Id;
 
             await CarregarVendas();
             await CarregarEmpresas();
             await CarregarMovimentacoes();
+            await CarregarVendasVirtuais();
 
             movimentacao.Tipo = tipoLancamento.First();
         }               
     }
-
-
 
     private async Task CarregarMovimentacoes()
     {
@@ -357,7 +465,7 @@
             }
         }
 
-        
+
     }
 
     private void EditarMovimentacao(MovimentacaoResponse movimentacaoResponse)
@@ -452,30 +560,166 @@
     {
         empresas.Clear();
 
-        var contratos = await contratoAPI.GetContratosByAgenciaAsync(caixa!.Colaborador.AgenciaId);
+        var empresasComContrato = await BuscarEmpresasComContrato();
 
-        if (contratos is not null)
-        {  
-            List<EmpresaResponse> empresasVendas = new List<EmpresaResponse>();
-            foreach (var item in vendas)
+        List<EmpresaResponse> empresasVendas = new List<EmpresaResponse>();
+        foreach (var item in vendas)
+        {
+            empresasVendas.Add(item.Empresa);
+        }
+
+        foreach(var empresaContrato in empresasComContrato)
+        {
+            bool adicionar = true;
+
+            foreach (var empresaVenda in empresasVendas)
             {
-                empresasVendas.Add(item.Empresa);
+                if (empresaContrato.Id == empresaVenda.Id) adicionar = false;
             }
 
-            foreach(var contrato in contratos)
+            if (adicionar) empresas.Add(empresaContrato);
+
+        }
+
+        if (empresas is not null) empresa = empresas.First();    
+
+    }
+
+    private async Task<ICollection<EmpresaResponse>> BuscarEmpresasComContrato()
+    {
+        var contratos = await contratoAPI.GetContratosByAgenciaAsync(caixa!.Colaborador.AgenciaId);
+        ICollection<EmpresaResponse> empresasResponse = new List<EmpresaResponse>();
+
+        if (contratos is not null)
+        {
+            foreach(var item in contratos)
             {
-                bool adicionar = true;
-
-                foreach(var item in empresasVendas)
-                {
-                    if (contrato.Empresa.Id == item.Id) adicionar = false; 
-                }
-
-                if (adicionar) empresas.Add(contrato.Empresa);
+                empresasResponse.Add(item.Empresa);
             }
         }
 
-        if (empresas is not null) empresa = empresas.First();
-        
+        return empresasResponse;
+    }
+
+    private async Task<IEnumerable<LocalidadeResponse>> PesquisaLocalidade(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
+            return new List<LocalidadeResponse>();
+
+        var response = await localidadeAPI.GetLocalidadesAsync(value);
+
+        if (!response.Any())
+        {
+            var dialog = dialogService.Show<LocalidadeDialog>("Adicionar Localidade");
+            var result = await dialog.Result;
+        }
+
+        return response!;
+    }
+
+    private async Task<IEnumerable<EmpresaResponse>> PesquisaEmpresa(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
+            return new List<EmpresaResponse>();
+
+        var empresasResponse = await BuscarEmpresasComContrato();
+
+        var results = empresasResponse
+            .Where(x => x.NomeFantasia.Contains(value.ToUpper()));
+
+        return results;
+    }
+
+    string FormatLocalidade(LocalidadeResponse localidade)
+    {
+        return $"{localidade.Cidade} - {localidade.UF}";
+    }
+
+    string FormatEmpresa(EmpresaResponse empresa)
+    {
+        return $"{empresa.NomeFantasia}";
+    }
+
+    public async Task CarregarVendasVirtuais()
+    {
+        var result = await vendaVirtualAPI.GetVendasAsync(caixa.Id);
+        if (result is not null) vendasVirtuais = result;
+    }
+
+    public async Task AdicionarVendaVirtual()
+    {        
+        if (empresaVirtual is not null 
+            && origem is not null 
+            && destino is not null 
+            && formaPagamento.Contains(vendaVirtual.FormaPagamento)
+            && vendaVirtual.Valor > 0)
+        {           
+            if (btn_VendaVirtual.Equals("Inserir"))
+            {
+                vendaVirtual.EmpresaId = empresaVirtual!.Id;
+                vendaVirtual.OrigemId = origem!.Id;
+                vendaVirtual.DestinoId = destino!.Id;
+
+                if (await vendaVirtualAPI.AddVendaVirtualAsync(vendaVirtual))
+                {
+                    empresaVirtual = null;
+                    origem = null;
+                    destino = null;
+                    vendaVirtual.Valor = 0;
+                    vendaVirtual.FormaPagamento = string.Empty;
+                    vendaVirtual.Observacao = string.Empty;
+
+                    await CarregarVendasVirtuais();
+                }
+                else
+                {
+                    Snackbar.Add("Não foi possível adicionar a venda virtual", Severity.Error);
+                }
+            }
+            else
+            {
+                if(await vendaVirtualAPI.UpdateVendaVirtualAsync(vendaVirtualEditar, new (caixa.Id, empresaVirtual.Id, origem.Id, destino.Id, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Observacao )))
+                {
+                    empresaVirtual = null;
+                    origem = null;
+                    destino = null;
+                    vendaVirtual.Valor = 0;
+                    vendaVirtual.FormaPagamento = string.Empty;
+                    vendaVirtual.Observacao = string.Empty;
+
+                    btn_VendaVirtual = "Inserir";
+
+                    await CarregarVendasVirtuais();
+                }
+                else
+                {
+                    Snackbar.Add("Não foi possível ediar a venda virtual", Severity.Error);
+                }
+            }
+
+        }       
+    }
+
+    public async Task RemoverVendaVirtual(VendaVirtualResponse venda_Virtual)
+    {
+        if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))
+        {
+            await CarregarVendasVirtuais();
+        }
+    }
+
+    public void EditarVendaVirtual(VendaVirtualResponse venda_Virtual)
+    {
+        vendaVirtualEditar = venda_Virtual.Id;
+
+        empresaVirtual = venda_Virtual.Empresa;
+        origem = venda_Virtual.Origem;
+        destino = venda_Virtual.Destino;
+
+        vendaVirtual.Valor = venda_Virtual.Valor;
+        vendaVirtual.FormaPagamento = venda_Virtual.FormaPagamento;
+        vendaVirtual.Observacao = venda_Virtual.Observacao;
+
+        btn_VendaVirtual = "Editar";
     }
 }

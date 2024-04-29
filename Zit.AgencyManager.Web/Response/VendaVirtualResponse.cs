@@ -6,12 +6,11 @@ namespace Zit.AgencyManager.Web.Response
     (
         int Id,
         Caixa Caixa,
-        Empresa Empresa,
-        Localidade Origem,
-        Localidade Destino,
+        EmpresaResponse Empresa,
+        LocalidadeResponse Origem,
+        LocalidadeResponse Destino,
         decimal Valor,
         string FormaPagamento,
-        bool Pago,
-        Cliente Cliente
+        string? Observacao
     );
 }

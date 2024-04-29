@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -20,6 +21,11 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
+            groupBuilder.MapGet("caixa/{caixaId}", ([FromServices] DAL<VendaVirtual> dal, int caixaId) =>
+            {
+                return Results.Ok(EntityListToResponseList(dal.Listar().Where(v=>v.CaixaId == caixaId)));
+            });
+
             groupBuilder.MapGet("{id}", ([FromServices] DAL<VendaVirtual> dal, int id) =>
             {
                 var venda = dal.RecuperarPor(v => v.Id == id);
@@ -30,7 +36,18 @@ namespace Zit.AgencyManager.API.Endpoints
             });
 
             groupBuilder.MapPost("", ([FromServices] DAL<VendaVirtual> dal, [FromBody] VendaVirtualRequest request) =>
-            {               
+            {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
                 VendaVirtual venda = new()
                 {
                     CaixaId = request.CaixaId,                    
@@ -39,8 +56,7 @@ namespace Zit.AgencyManager.API.Endpoints
                     DestinoId = request.DestinoId,
                     Valor = request.Valor,
                     FormaPagamento = request.FormaPagamento,
-                    Pago = request.Pago,
-                    ClienteId = request.ClienteId                    
+                    Observacao = request.Observacao
                 };
 
                 dal.Adicionar(venda);
@@ -54,14 +70,24 @@ namespace Zit.AgencyManager.API.Endpoints
 
                 if (venda is null) return Results.NotFound();
 
-                if(request.CaixaId > 0) venda.CaixaId = request.CaixaId;
-                if(request.EmpresaId > 0) venda.EmpresaId = request.EmpresaId;
-                if(request.OrigemId > 0) venda.OrigemId = request.OrigemId;
-                if(request.DestinoId > 0) venda.DestinoId = request.DestinoId;
-                if(request.Valor > 0) venda.Valor = request.Valor;
-                venda.Pago = request.Pago;
-                if(!request.FormaPagamento.IsNullOrEmpty()) venda.FormaPagamento = request.FormaPagamento;
-                if(request.ClienteId > 0) venda.ClienteId = request.ClienteId;
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
+                venda.CaixaId = request.CaixaId;
+                venda.EmpresaId = request.EmpresaId;
+                venda.OrigemId = request.OrigemId;
+                venda.DestinoId = request.DestinoId;
+                venda.Valor = request.Valor;               
+                venda.FormaPagamento = request.FormaPagamento;
+                venda.Observacao = request.Observacao;
 
                 dal.Atualizar(venda);
 
@@ -88,7 +114,20 @@ namespace Zit.AgencyManager.API.Endpoints
 
         private static VendaVirtualResponse EntityToResponse(VendaVirtual vendaVirtual)
         {
-            return new VendaVirtualResponse(vendaVirtual.Id, vendaVirtual.Caixa, vendaVirtual.Empresa, vendaVirtual.Origem, vendaVirtual.Destino, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Pago, vendaVirtual.Cliente);
+            return new VendaVirtualResponse(vendaVirtual.Id, 
+                                            vendaVirtual.Caixa, 
+                                            new(vendaVirtual.EmpresaId, 
+                                                vendaVirtual.Empresa.RazaoSocial, 
+                                                vendaVirtual.Empresa.NomeFantasia, 
+                                                vendaVirtual.Empresa.CNPJ,                                                 
+                                                vendaVirtual.Empresa.Endereco, 
+                                                vendaVirtual.Empresa.Contatos, 
+                                                vendaVirtual.Empresa.Logo), 
+                                            new(vendaVirtual.OrigemId, vendaVirtual.Origem.Cidade, vendaVirtual.Origem.UF),
+                                            new(vendaVirtual.DestinoId, vendaVirtual.Destino.Cidade, vendaVirtual.Destino.UF),
+                                            vendaVirtual.Valor, 
+                                            vendaVirtual.FormaPagamento,
+                                            vendaVirtual.Observacao!);
         }
     }
 }

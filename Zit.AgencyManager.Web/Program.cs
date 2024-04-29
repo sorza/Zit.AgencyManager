@@ -39,6 +39,8 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<CaixaAPI>();
             builder.Services.AddTransient<VendaAPI>();
             builder.Services.AddTransient<MovimentacaoAPI>();
+            builder.Services.AddTransient<LocalidadeAPI>();
+            builder.Services.AddTransient<VendaVirtualAPI>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);
