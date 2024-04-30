@@ -201,7 +201,7 @@
                                T="string"
                                @bind-Value="vendaVirtual.FormaPagamento"
                                Variant="Variant.Filled"
-                               Label="Tipo de lançamento" For="@(() => movimentacao.Tipo)">
+                               Label="Forma de Pagamento" For="@(() => movimentacao.Tipo)">
                         @foreach (var item in formaPagamento)
                         {
                             <MudSelectItem Value="@item">@item</MudSelectItem>
@@ -253,16 +253,27 @@
             </MudDataGrid>
 
         </MudPaper>
+
     </MudItem>
         
     <MudItem xs="12" sm="3">
+
         <MudPaper Class="px-8 pt-1 pb-2 my-3 sombra" Justify="Justify.Center">
             <MudText Class="mt-4" Align="Align.Center" Typo="Typo.h6">Resumo de Caixa</MudText>
             <MudText Class="mt-1" Align="Align.Center" Typo="Typo.h6">@caixa.Data.Date.ToShortDateString()</MudText>
         </MudPaper>
 
         <MudPaper Class="px-8 pt-1 mt-1 pb-5 sombra" Justify="Justify.Center">
-            <MudText Class="mt-4" Align="Align.Center" Typo="Typo.h6">Saldo: R$ 0,00</MudText>
+
+            @if(saldo >= 0)
+            {
+                <MudText Class="mt-4" Color="Color.Success" Align="Align.Center" Typo="Typo.h6">Saldo: @saldo.ToString("C")</MudText>
+            }
+            else
+            {
+                <MudText Class="mt-4" Color="Color.Error" Align="Align.Center" Typo="Typo.h6">Saldo: @saldo.ToString("C")</MudText>
+            }
+            
         </MudPaper>
 
         <MudGrid Class="mt-1">
@@ -274,11 +285,16 @@
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Inicial"
                                       Variant="Variant.Outlined"
                                       Label="Inicial"
+                                      Format="C"
+                                      @bind-Value="caixa.TrocoInicial"
                                       Disabled="true" />
                     </MudItem>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Final"
                                       Variant="Variant.Outlined"
+                                      @bind-Value="caixa.TrocoFinal"
+                                      OnBlur="CalcularSaldo"
+                                      Format="C"
                                       Label="Final" />
                     </MudItem>
                 </MudPaper>
@@ -292,21 +308,49 @@
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Dinheiro"
                                       Variant="Variant.Outlined"
                                       Label="Dinheiro"
+                                      Format="C"
+                                      @bind-Value="vendasEmDinheiro"
                                       Disabled="true" />
                     </MudItem>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Cartão"
                                       Variant="Variant.Outlined"
                                       Label="Cartão"
+                                      Format="C"
+                                      @bind-Value="vendasEmCartao"
                                       Disabled="true" />
                     </MudItem>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Total"
                                       Variant="Variant.Outlined"
                                       Label="Total"
+                                      Format="C"
+                                      @bind-Value="vendasTotais"
                                       Disabled="true" />
                     </MudItem>
                  </MudPaper>
+            </MudItem>            
+
+            <MudItem xs="12" sm="12">
+                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
+                    <MudText Class="mt-4" Typo="Typo.h6">Lançamentos em Caixa</MudText>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField Class="mt-2" T="decimal" Placeholder="Entradas"
+                                      Variant="Variant.Outlined"
+                                      Label="Entradas"
+                                      Format="C"
+                                      @bind-Value="totalEntradas"
+                                      Disabled="true" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12">
+                        <MudTextField Class="mt-2" T="decimal" Placeholder="Saídas"
+                                      Variant="Variant.Outlined"
+                                      Label="Saídas"
+                                      Format="C"
+                                      @bind-Value="totalSaidas"
+                                      Disabled="true" />
+                    </MudItem>
+                </MudPaper>
             </MudItem>
 
             <MudItem xs="12" sm="12">
@@ -316,30 +360,16 @@
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Presencial"
                                       Variant="Variant.Outlined"
                                       Label="Presencial"
+                                      Format="C"
+                                      @bind-Value="totalVendasPresenciais"
                                       Disabled="true" />
                     </MudItem>
                     <MudItem xs="12" sm="12">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Virtual"
                                       Variant="Variant.Outlined"
                                       Label="Virtual"
-                                      Disabled="true" />
-                    </MudItem>
-                </MudPaper>
-            </MudItem>
-
-            <MudItem xs="12" sm="12">
-                <MudPaper Class="px-8 pt-1 pb-5 sombra" Justify="Justify.Center">
-                    <MudText Class="mt-4" Typo="Typo.h6">Movimentações</MudText>
-                    <MudItem xs="12" sm="12">
-                        <MudTextField Class="mt-2" T="decimal" Placeholder="Entradas"
-                                      Variant="Variant.Outlined"
-                                      Label="Entradas"
-                                      Disabled="true" />
-                    </MudItem>
-                    <MudItem xs="12" sm="12">
-                        <MudTextField Class="mt-2" T="decimal" Placeholder="Saídas"
-                                      Variant="Variant.Outlined"
-                                      Label="Saídas"
+                                      Format="C"
+                                      @bind-Value="totalVendasVirtuais"
                                       Disabled="true" />
                     </MudItem>
                 </MudPaper>
@@ -391,6 +421,10 @@
     private string btn_Movimentacao = "Inserir";
     private string btn_VendaVirtual = "Inserir";
 
+    private decimal vendasEmDinheiro, vendasEmCartao, vendasTotais;
+    private decimal totalVendasPresenciais, totalVendasVirtuais;
+    private decimal totalSaidas, totalEntradas, saldo;
+
     protected override async Task OnInitializedAsync()
     {
         TitleService.SetTitle("Caixa do Operador");
@@ -408,6 +442,8 @@
             await CarregarMovimentacoes();
             await CarregarVendasVirtuais();
 
+            CalcularSaldo();
+
             movimentacao.Tipo = tipoLancamento.First();
         }               
     }
@@ -415,7 +451,16 @@
     private async Task CarregarMovimentacoes()
     {
         var result = await movimentacaoAPI.GetMovimentacoesByCaixaAsync(caixa!.Id);
-        if (result is not null) movimentacoes = result;
+        if (result is not null)
+        {
+            movimentacoes = result;
+
+            var entradas = movimentacoes.Where(m => m.Tipo.Equals("ENTRADA"));
+            totalEntradas = entradas.Sum(e => e.Valor);
+            totalSaidas = movimentacoes.Sum(m => m.Valor) - totalEntradas;
+
+            CalcularSaldo();
+        }       
     }
 
     private async Task RemoverMovimentacao(MovimentacaoResponse movimentacaoResponse)
@@ -553,7 +598,18 @@
     private async Task CarregarVendas()
     {
         var result = await vendaAPI.GetVendasByCaixaAsync(caixa!.Id);
-        if (result is not null) vendas = result;
+        if (result is not null)
+        {
+            vendas = result;
+
+            vendasEmDinheiro = vendas.Sum(v => v.Dinheiro);
+            vendasEmCartao = vendas.Sum(v => v.Cartao);
+            vendasTotais = vendasEmDinheiro + vendasEmCartao;
+
+            totalVendasPresenciais = vendasTotais - totalVendasVirtuais;
+
+            CalcularSaldo();
+        }       
     }
 
     private async Task CarregarEmpresas()
@@ -630,23 +686,31 @@
         return results;
     }
 
-    string FormatLocalidade(LocalidadeResponse localidade)
+    private string FormatLocalidade(LocalidadeResponse localidade)
     {
         return $"{localidade.Cidade} - {localidade.UF}";
     }
 
-    string FormatEmpresa(EmpresaResponse empresa)
+    private string FormatEmpresa(EmpresaResponse empresa)
     {
         return $"{empresa.NomeFantasia}";
     }
 
-    public async Task CarregarVendasVirtuais()
+    private async Task CarregarVendasVirtuais()
     {
         var result = await vendaVirtualAPI.GetVendasAsync(caixa.Id);
-        if (result is not null) vendasVirtuais = result;
+        if (result is not null)
+        {
+            vendasVirtuais = result;
+
+            totalVendasVirtuais = vendasVirtuais.Sum(v => v.Valor);
+            totalVendasPresenciais = vendasTotais - totalVendasVirtuais;
+
+            CalcularSaldo();
+        }       
     }
 
-    public async Task AdicionarVendaVirtual()
+    private async Task AdicionarVendaVirtual()
     {        
         if (empresaVirtual is not null 
             && origem is not null 
@@ -700,15 +764,7 @@
         }       
     }
 
-    public async Task RemoverVendaVirtual(VendaVirtualResponse venda_Virtual)
-    {
-        if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))
-        {
-            await CarregarVendasVirtuais();
-        }
-    }
-
-    public void EditarVendaVirtual(VendaVirtualResponse venda_Virtual)
+    private void EditarVendaVirtual(VendaVirtualResponse venda_Virtual)
     {
         vendaVirtualEditar = venda_Virtual.Id;
 
@@ -721,5 +777,18 @@
         vendaVirtual.Observacao = venda_Virtual.Observacao;
 
         btn_VendaVirtual = "Editar";
+    }
+
+    private async Task RemoverVendaVirtual(VendaVirtualResponse venda_Virtual)
+    {
+        if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))
+        {
+            await CarregarVendasVirtuais();
+        }
+    }
+
+    private void CalcularSaldo()
+    {
+        saldo = (caixa.TrocoFinal + totalSaidas + totalVendasVirtuais) - (vendasEmDinheiro + totalEntradas + caixa.TrocoInicial);
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Zit.AgencyManager.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40555c3284441743e2b04bd941b16337510e92dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4d3a969fa9320adf96e04dc939900dbdb22b36d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zit.AgencyManager.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zit.AgencyManager.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
