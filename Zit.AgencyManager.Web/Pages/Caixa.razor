@@ -43,7 +43,7 @@
                     </MudItem>
                     <MudItem xs="12" sm="3">
                         <MudTextField Class="mt-2" T="decimal" Placeholder="Dinheiro"
-                                        Variant="Variant.Outlined"
+                                        Variant="Variant.Outlined"                                        
                                         Label="Dinheiro" For="(()=> venda.Dinheiro)"
                                         @bind-Value="venda.Dinheiro" />
                     </MudItem>
@@ -289,14 +289,31 @@
                                       @bind-Value="caixa.TrocoInicial"
                                       Disabled="true" />
                     </MudItem>
-                    <MudItem xs="12" sm="12">
-                        <MudTextField Class="mt-2" T="decimal" Placeholder="Final"
-                                      Variant="Variant.Outlined"
-                                      @bind-Value="caixa.TrocoFinal"
-                                      OnBlur="CalcularSaldo"
-                                      Format="C"
-                                      Label="Final" />
-                    </MudItem>
+
+                    @if(caixa.Aberto)
+                    {
+                        <MudItem xs="12" sm="12">
+                            <MudTextField Class="mt-2" T="decimal" Placeholder="Final"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="caixa.TrocoFinal"
+                                          OnBlur="CalcularSaldo"
+                                          Format="C"
+                                          Label="Final" />
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <MudItem xs="12" sm="12">
+                            <MudTextField Disabled
+                                          Class="mt-2" T="decimal" Placeholder="Final"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="caixa.TrocoFinal"
+                                          OnBlur="CalcularSaldo"
+                                          Format="C"
+                                          Label="Final" />
+                        </MudItem>
+                    }
+                    
                 </MudPaper>
                 
             </MudItem>
@@ -379,9 +396,10 @@
                 <MudButton Size="@Size.Large"
                            Class=""
                            FullWidth
+                           OnClick="FecharCaixa"
                            Variant="@Variant.Filled"
-                           Color="@Color.Warning">
-                    Fechar Caixa
+                           Color="@Color.Error">
+                    @btn_Fechamento
                 </MudButton>
             </MudItem>
                 
@@ -420,6 +438,7 @@
     private string btn_Venda = "Inserir";
     private string btn_Movimentacao = "Inserir";
     private string btn_VendaVirtual = "Inserir";
+    private string btn_Fechamento = "Fechar Caixa";
 
     private decimal vendasEmDinheiro, vendasEmCartao, vendasTotais;
     private decimal totalVendasPresenciais, totalVendasVirtuais;
@@ -427,7 +446,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        TitleService.SetTitle("Caixa do Operador");
+        TitleService.SetTitle($"Caixa do Operador"); 
 
         var response = await caixaAPI.GetCaixaAsync(Convert.ToInt32(IdCaixa));
 
@@ -445,6 +464,8 @@
             CalcularSaldo();
 
             movimentacao.Tipo = tipoLancamento.First();
+
+            if (!caixa.Aberto) btn_Fechamento = "Revisão de Caixa";         
         }               
     }
 
@@ -465,134 +486,149 @@
 
     private async Task RemoverMovimentacao(MovimentacaoResponse movimentacaoResponse)
     {
-        if(await movimentacaoAPI.DeleteMovimentacaoAsync(movimentacaoResponse.Id))
+        if(caixa.Aberto)
         {
-            await CarregarMovimentacoes();
-        }
-        else
-        {
-            Snackbar.Add("Houve um erro ao remover a movimentação");
-        }
+            if (await movimentacaoAPI.DeleteMovimentacaoAsync(movimentacaoResponse.Id))
+            {
+                await CarregarMovimentacoes();
+            }
+            else
+            {
+                Snackbar.Add("Houve um erro ao remover a movimentação");
+            }
+        }        
     }
 
     private async Task AdicionarMovimentacao()
     {
-        movimentacao.CaixaId = caixa.Id;
-
-        if (btn_Movimentacao.Equals("Inserir"))
+        if (caixa.Aberto)
         {
-            if (await movimentacaoAPI.AddMovimentacaoAsync(movimentacao))
-            {
-                movimentacao.Descricao = string.Empty;
-                movimentacao.Valor = 0;
+            movimentacao.CaixaId = caixa.Id;
 
-                await CarregarMovimentacoes();
+            if (btn_Movimentacao.Equals("Inserir"))
+            {
+                if (await movimentacaoAPI.AddMovimentacaoAsync(movimentacao))
+                {
+                    movimentacao.Descricao = string.Empty;
+                    movimentacao.Valor = 0;
+
+                    await CarregarMovimentacoes();
+                }
+                else
+                {
+                    Snackbar.Add("Houve um erro ao adicionar o lançamento", Severity.Error);
+                }
             }
             else
             {
-                Snackbar.Add("Houve um erro ao adicionar o lançamento", Severity.Error);
+                if (await movimentacaoAPI.UpdateMovimentacaoAsync(new(movimentacao.CaixaId, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao), movimentacaoEditar))
+                {
+                    await CarregarMovimentacoes();
+
+                    movimentacao.Descricao = string.Empty;
+                    movimentacao.Valor = 0;
+
+                    btn_Movimentacao = "Inserir";
+                }
+                else
+                {
+                    Snackbar.Add("Houve um erro durante a edição do lançamento", Severity.Error);
+                }
             }
         }
-        else
-        {
-            if(await movimentacaoAPI.UpdateMovimentacaoAsync(new(movimentacao.CaixaId, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao), movimentacaoEditar))
-            {
-                await CarregarMovimentacoes();
-
-                movimentacao.Descricao = string.Empty;
-                movimentacao.Valor = 0;
-
-                btn_Movimentacao = "Inserir";
-            }
-            else
-            {
-                Snackbar.Add("Houve um erro durante a edição do lançamento", Severity.Error);
-            }
-        }
-
-
     }
 
     private void EditarMovimentacao(MovimentacaoResponse movimentacaoResponse)
     {
-        movimentacaoEditar = movimentacaoResponse.Id;
+        if(caixa.Aberto)
+        {
+            movimentacaoEditar = movimentacaoResponse.Id;
 
-        movimentacao.Descricao = movimentacaoResponse.Descricao;
-        movimentacao.Valor = movimentacaoResponse.Valor;
-        movimentacao.Tipo = movimentacaoResponse.Tipo;
+            movimentacao.Descricao = movimentacaoResponse.Descricao;
+            movimentacao.Valor = movimentacaoResponse.Valor;
+            movimentacao.Tipo = movimentacaoResponse.Tipo;
 
-        btn_Movimentacao = "Editar";
+            btn_Movimentacao = "Editar";
+        }
     }
 
     private async Task AdicionarVenda()
     {
-        if (empresa is not null)
+        if(caixa.Aberto)
         {
-            venda.EmpresaId = empresa!.Id;
-
-            if (btn_Venda.Equals("Inserir"))
+            if (empresa is not null)
             {
-                if (await vendaAPI.AddVendaAsync(venda))
-                {
-                    await CarregarVendas();
-                    await CarregarEmpresas();
+                venda.EmpresaId = empresa!.Id;
 
-                    empresa = empresas.First();
-                    venda.Dinheiro = 0;
-                    venda.Cartao = 0;
+                if (btn_Venda.Equals("Inserir"))
+                {
+                    if (await vendaAPI.AddVendaAsync(venda))
+                    {
+                        await CarregarVendas();
+                        await CarregarEmpresas();
+
+                        empresa = empresas.First();
+                        venda.Dinheiro = 0;
+                        venda.Cartao = 0;
+                    }
+                    else
+                    {
+                        Snackbar.Add("Houve um erro ao adicionar empresa", Severity.Error);
+                    }
                 }
                 else
                 {
-                    Snackbar.Add("Houve um erro ao adicionar empresa", Severity.Error);
-                }
-            }
-            else
-            {
-                if (await vendaAPI.UpdateVendaAsync(new(venda.EmpresaId, venda.Dinheiro, venda.Cartao), vendaEditar))
-                {
-                    await CarregarVendas();
-                    await CarregarEmpresas();
+                    if (await vendaAPI.UpdateVendaAsync(new(venda.EmpresaId, venda.Dinheiro, venda.Cartao), vendaEditar))
+                    {
+                        await CarregarVendas();
+                        await CarregarEmpresas();
 
-                    venda.Dinheiro = 0;
-                    venda.Cartao = 0;
+                        venda.Dinheiro = 0;
+                        venda.Cartao = 0;
 
-                    btn_Venda = "Inserir";
+                        btn_Venda = "Inserir";
+                    }
                 }
             }
         }
-
     }
 
     private async Task RemoverVenda(VendaResponse venda)
     {
-        if (await vendaAPI.DeleteVendaAsync(venda.Id))
+        if(caixa.Aberto)
         {
-            await CarregarVendas();           
-        }
-        else
-        {
-            Snackbar.Add("Houve um erro ao remover venda", Severity.Error);
-        }
+            if (await vendaAPI.DeleteVendaAsync(venda.Id))
+            {
+                await CarregarVendas();
+            }
+            else
+            {
+                Snackbar.Add("Houve um erro ao remover venda", Severity.Error);
+            }
 
-        await CarregarEmpresas();
+            await CarregarEmpresas();
+        }       
     }
 
     private async Task EditarVenda(VendaResponse vendaEdit)
     {
-        empresas.Clear();
+        if(caixa.Aberto)
+        {
+            empresas.Clear();
 
-        var response = await empresaAPI.GetEmpresaAsync(vendaEdit.Empresa.Id);
-        empresas.Add(response!);
+            var response = await empresaAPI.GetEmpresaAsync(vendaEdit.Empresa.Id);
+            empresas.Add(response!);
 
-        empresa = empresas.First();
+            empresa = empresas.First();
 
-        venda.EmpresaId = vendaEdit.Empresa.Id;
-        venda.Dinheiro = vendaEdit.Dinheiro;
-        venda.Cartao = vendaEdit.Cartao;
+            venda.EmpresaId = vendaEdit.Empresa.Id;
+            venda.Dinheiro = vendaEdit.Dinheiro;
+            venda.Cartao = vendaEdit.Cartao;
 
-        vendaEditar = vendaEdit.Id;
+            vendaEditar = vendaEdit.Id;
 
-        btn_Venda = "Editar";
+            btn_Venda = "Editar";
+        }        
     }
 
     private async Task CarregarVendas()
@@ -711,84 +747,101 @@
     }
 
     private async Task AdicionarVendaVirtual()
-    {        
-        if (empresaVirtual is not null 
-            && origem is not null 
-            && destino is not null 
-            && formaPagamento.Contains(vendaVirtual.FormaPagamento)
-            && vendaVirtual.Valor > 0)
-        {           
-            if (btn_VendaVirtual.Equals("Inserir"))
+    {   
+        if(caixa.Aberto)
+        {
+            if (empresaVirtual is not null
+                && origem is not null
+                && destino is not null
+                && formaPagamento.Contains(vendaVirtual.FormaPagamento)
+                && vendaVirtual.Valor > 0)
             {
-                vendaVirtual.EmpresaId = empresaVirtual!.Id;
-                vendaVirtual.OrigemId = origem!.Id;
-                vendaVirtual.DestinoId = destino!.Id;
-
-                if (await vendaVirtualAPI.AddVendaVirtualAsync(vendaVirtual))
+                if (btn_VendaVirtual.Equals("Inserir"))
                 {
-                    empresaVirtual = null;
-                    origem = null;
-                    destino = null;
-                    vendaVirtual.Valor = 0;
-                    vendaVirtual.FormaPagamento = string.Empty;
-                    vendaVirtual.Observacao = string.Empty;
+                    vendaVirtual.EmpresaId = empresaVirtual!.Id;
+                    vendaVirtual.OrigemId = origem!.Id;
+                    vendaVirtual.DestinoId = destino!.Id;
 
-                    await CarregarVendasVirtuais();
+                    if (await vendaVirtualAPI.AddVendaVirtualAsync(vendaVirtual))
+                    {
+                        empresaVirtual = null;
+                        origem = null;
+                        destino = null;
+                        vendaVirtual.Valor = 0;
+                        vendaVirtual.FormaPagamento = string.Empty;
+                        vendaVirtual.Observacao = string.Empty;
+
+                        await CarregarVendasVirtuais();
+                    }
+                    else
+                    {
+                        Snackbar.Add("Não foi possível adicionar a venda virtual", Severity.Error);
+                    }
                 }
                 else
                 {
-                    Snackbar.Add("Não foi possível adicionar a venda virtual", Severity.Error);
+                    if (await vendaVirtualAPI.UpdateVendaVirtualAsync(vendaVirtualEditar, new(caixa.Id, empresaVirtual.Id, origem.Id, destino.Id, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Observacao)))
+                    {
+                        empresaVirtual = null;
+                        origem = null;
+                        destino = null;
+                        vendaVirtual.Valor = 0;
+                        vendaVirtual.FormaPagamento = string.Empty;
+                        vendaVirtual.Observacao = string.Empty;
+
+                        btn_VendaVirtual = "Inserir";
+
+                        await CarregarVendasVirtuais();
+                    }
+                    else
+                    {
+                        Snackbar.Add("Não foi possível ediar a venda virtual", Severity.Error);
+                    }
                 }
             }
-            else
-            {
-                if(await vendaVirtualAPI.UpdateVendaVirtualAsync(vendaVirtualEditar, new (caixa.Id, empresaVirtual.Id, origem.Id, destino.Id, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Observacao )))
-                {
-                    empresaVirtual = null;
-                    origem = null;
-                    destino = null;
-                    vendaVirtual.Valor = 0;
-                    vendaVirtual.FormaPagamento = string.Empty;
-                    vendaVirtual.Observacao = string.Empty;
-
-                    btn_VendaVirtual = "Inserir";
-
-                    await CarregarVendasVirtuais();
-                }
-                else
-                {
-                    Snackbar.Add("Não foi possível ediar a venda virtual", Severity.Error);
-                }
-            }
-
-        }       
+        }
     }
 
     private void EditarVendaVirtual(VendaVirtualResponse venda_Virtual)
     {
-        vendaVirtualEditar = venda_Virtual.Id;
+        if(caixa.Aberto)
+        {
+            vendaVirtualEditar = venda_Virtual.Id;
 
-        empresaVirtual = venda_Virtual.Empresa;
-        origem = venda_Virtual.Origem;
-        destino = venda_Virtual.Destino;
+            empresaVirtual = venda_Virtual.Empresa;
+            origem = venda_Virtual.Origem;
+            destino = venda_Virtual.Destino;
 
-        vendaVirtual.Valor = venda_Virtual.Valor;
-        vendaVirtual.FormaPagamento = venda_Virtual.FormaPagamento;
-        vendaVirtual.Observacao = venda_Virtual.Observacao;
+            vendaVirtual.Valor = venda_Virtual.Valor;
+            vendaVirtual.FormaPagamento = venda_Virtual.FormaPagamento;
+            vendaVirtual.Observacao = venda_Virtual.Observacao;
 
-        btn_VendaVirtual = "Editar";
+            btn_VendaVirtual = "Editar";
+        }        
     }
 
     private async Task RemoverVendaVirtual(VendaVirtualResponse venda_Virtual)
     {
-        if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))
-        {
-            await CarregarVendasVirtuais();
-        }
+        if(caixa.Aberto)        
+            if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))            
+                await CarregarVendasVirtuais();
     }
 
     private void CalcularSaldo()
     {
         saldo = (caixa.TrocoFinal + totalSaidas + totalVendasVirtuais) - (vendasEmDinheiro + totalEntradas + caixa.TrocoInicial);
+    }
+
+    private async Task FecharCaixa()
+    {
+        if(caixa.Aberto)
+        {
+            caixa.Aberto = false;
+            
+            if (await caixaAPI.UpdateCaixaAsync(caixa.Id, new(caixa.TrocoInicial, caixa.TrocoFinal, caixa.Aberto)))
+            {
+                await OnInitializedAsync();
+            }
+        }
     }
 }

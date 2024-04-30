@@ -65,9 +65,8 @@ namespace Zit.AgencyManager.API.Endpoints
                 if (caixa is null) return Results.NotFound();
 
                 caixa.Aberto = request.Aberto;
-
-                if(request.TrocoFinal > 0) caixa.TrocoFinal = request.TrocoFinal;
-                if(request.TrocoInicial > 0) caixa.TrocoInicial = request.TrocoInicial;
+                caixa.TrocoFinal = request.TrocoFinal;
+                caixa.TrocoInicial = request.TrocoInicial;
 
                 dal.Atualizar(caixa);
 
