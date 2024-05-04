@@ -24,8 +24,8 @@
 
             <AuthorizeView>
                 <Authorized>
-
-                    <MudAvatar Color="Color.Default">
+                    <MudText Class="mr-3">@context.User.Identity!.Name</MudText>
+                    <MudAvatar Color="Color.Default">                        
                         <MudIcon Icon="@Icons.Material.Filled.Person"></MudIcon>
                     </MudAvatar>
                     <MudButton Class="ml-4" Href="logout"

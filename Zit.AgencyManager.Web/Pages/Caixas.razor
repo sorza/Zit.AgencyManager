@@ -5,6 +5,7 @@
 @inject CaixaAPI caixaAPI
 @inject TitleService TitleService
 @inject ColaboradorAPI colaboradorAPI
+@inject ISnackbar SnackBar
 
 
 <PageTitle>Meus Caixas</PageTitle>
@@ -175,10 +176,14 @@
 
     private async Task AbrirCaixa()
     {
-        if(await caixaAPI.AddCaixaAsync(new(colaborador!.Id)))
+        var result = await caixaAPI.AddCaixaAsync(new(colaborador!.Id));
+
+        if (!result.Equals("Ok"))
         {
-            await CarregarCaixas(mes, ano);
+            SnackBar.Add($"Erro: {result}", Severity.Error);
         }
+        
+        await CarregarCaixas(mes, ano);       
     }
 
     private decimal CalculaSaldo(CaixaResponse caixa)

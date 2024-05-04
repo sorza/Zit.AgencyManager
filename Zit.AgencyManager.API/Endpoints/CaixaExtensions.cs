@@ -52,22 +52,27 @@ namespace Zit.AgencyManager.API.Endpoints
                     return Results.BadRequest(errors);
                 }
 
-                var ultimoCaixa = dal.Listar().Where(c => c.ColaboradorId == request.ColaboradorId).Last();
-
-               
-                if (ultimoCaixa.Aberto == true) return Results.BadRequest("O usuário já possui um caixa aberto.");
-
+                var ultimoCaixa = dal.Listar().Where(c => c.ColaboradorId == request.ColaboradorId).LastOrDefault();
+                
                 Caixa caixa = new()
                 {
                     Aberto = true,
                     ColaboradorId = request.ColaboradorId,
-                    Data = DateTime.Now,
-                    TrocoInicial = ultimoCaixa.TrocoFinal
+                    Data = DateTime.Now
                 };
 
-                if (ultimoCaixa is null) caixa.TrocoInicial = 300;
+                if (ultimoCaixa is not null)
+                {
+                    if (ultimoCaixa.Aberto == true) return Results.BadRequest("O usuário já possui um caixa aberto.");
 
-                dal.Adicionar(caixa);                       
+                    caixa.TrocoInicial = ultimoCaixa.TrocoFinal;
+                }
+                else
+                {
+                    caixa.TrocoInicial = 300;
+                }   
+                
+                dal.Adicionar(caixa);
 
                 return Results.Ok();
 
