@@ -48,7 +48,7 @@
                                Style="height:82%"
                                Variant="@Variant.Filled"
                                Color="@Color.Primary"
-                               OnClick="() => CarregarCaixas(mes+1,ano)"
+                               OnClick="() => CarregarCaixas(mes,ano)"
                                StartIcon="@Icons.Material.Filled.Search">
                             Buscar
                     </MudButton>
@@ -57,6 +57,7 @@
                            Class="mt-5 mb-4 mr-4 ml-auto d-flex justify-end"
                            Variant="@Variant.Filled"
                            Color="@Color.Success"
+                           OnClick="AbrirCaixa"
                            StartIcon="@Icons.Material.Filled.Add">
                     Abrir Caixa
                 </MudButton>
@@ -104,15 +105,30 @@
                             @{
                                 var caixa = cellContext.Item;
                             }
-                            <MudStack Row>
-                                <MudButton Size="@Size.Small" 
-                                            Variant="@Variant.Filled" 
-                                            Color="@Color.Info"
-                                            Href=@($"/Caixa/{caixa.Id}")
-                                            StartIcon="@Icons.Material.Filled.Search">
+                            @if(caixa.Aberto)
+                            {
+                                <MudStack Row>
+                                    <MudButton Size="@Size.Small"
+                                               Variant="@Variant.Filled"
+                                               Color="@Color.Info"
+                                               Href=@($"/Caixa/{caixa.Id}")
+                                               StartIcon="@Icons.Material.Filled.Search">
                                         Visualizar
-                                </MudButton>                                    
-                            </MudStack>
+                                    </MudButton>
+                                </MudStack>
+                            }
+                            else
+                            {
+                                <MudStack Row>
+                                    <MudButton Size="@Size.Small"
+                                               Variant="@Variant.Filled"
+                                               Color="@Color.Warning"
+                                               Href=@($"/Caixa/{caixa.Id}")
+                                               StartIcon="@Icons.Material.Filled.Search">
+                                        Revisar
+                                    </MudButton>
+                                </MudStack>
+                            }
                         </CellTemplate>
                     </TemplateColumn>
                 </Columns>
@@ -148,13 +164,21 @@
         mes = DateTime.Today.Month-1;
         ano = DateTime.Today.Year;
 
-        await CarregarCaixas(mes+1,ano);
+        await CarregarCaixas(mes,ano);
 
     }  
 
     private async Task CarregarCaixas(int mes, int ano)
     {
-        CaixasResponse = await caixaAPI.GetCaixasByColaboradorAsync(colaborador!.Id, mes, ano);
+        CaixasResponse = await caixaAPI.GetCaixasByColaboradorAsync(colaborador!.Id, mes+1, ano);
+    }
+
+    private async Task AbrirCaixa()
+    {
+        if(await caixaAPI.AddCaixaAsync(new(colaborador!.Id)))
+        {
+            await CarregarCaixas(mes, ano);
+        }
     }
 
     private decimal CalculaSaldo(CaixaResponse caixa)

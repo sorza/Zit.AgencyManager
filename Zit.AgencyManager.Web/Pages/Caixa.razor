@@ -35,7 +35,7 @@
                                     Variant="Variant.Filled" 
                                     RequiredError="Campo obrigatório."                                     
                                     ToStringFunc="@(e => e.NomeFantasia)">
-                            @foreach (var item in empresas)
+                            @foreach (var item in Empresas)
                             {
                                 <MudSelectItem Value="@item">@item.NomeFantasia</MudSelectItem>
                             }
@@ -67,7 +67,7 @@
                     </MudItem>                    
                 </MudGrid>
 
-            <MudDataGrid Items="@vendas" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+            <MudDataGrid Items="@Vendas" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
                 <Columns>
                     <PropertyColumn Property="x => x.Empresa.NomeFantasia" Title="Empresa" />
                     <PropertyColumn Property="x => x.Dinheiro" Title="Venda em Dinheiro" Format="C" />
@@ -137,7 +137,7 @@
                 </MudItem>
             </MudGrid>          
 
-            <MudDataGrid Items="@movimentacoes" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+            <MudDataGrid Items="@Movimentacoes" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
                 <Columns>
                     <PropertyColumn Property="x => x.Tipo" Title="Lançamento" />
                     <PropertyColumn Property="x => x.Valor" Title="Valor" Format="C" />
@@ -229,7 +229,7 @@
                 </MudItem>
             </MudGrid>
 
-            <MudDataGrid Items="@vendasVirtuais" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+            <MudDataGrid Items="@VendasVirtuais" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
                 <Columns>
                     <PropertyColumn Property="x => x.Empresa.NomeFantasia" Title="Empresa" />
                     <PropertyColumn Property="x => x.Origem.Cidade" Title="Origem"/>
@@ -413,19 +413,20 @@
     [Parameter]
     public string? IdCaixa { get; set; }
 
-    private CaixaResponse caixa = new();
+    private CaixaResponse caixa = new();    
+
+    private ICollection<EmpresaResponse> Empresas = new List<EmpresaResponse>();
+    private ICollection<VendaResponse> Vendas = new List<VendaResponse>();
+    private ICollection<MovimentacaoResponse> Movimentacoes = new List<MovimentacaoResponse>();
+    private ICollection<VendaVirtualResponse> VendasVirtuais = new List<VendaVirtualResponse>();
+
+    private List<string> tipoLancamento = new List<string>() {"RECOLHA","ALIMENTAÇÃO", "PAGAMENTOS","DESPESAS AGÊNCIA","DESPESAS EMPRESAS","OUTRAS SAÍDAS", "ENTRADA"};
+    private List<string> formaPagamento = new List<string>() { "PIX", "LINK", "BOLETO", "FATURADO"};
+
     private EmpresaResponse? empresa;
     private EmpresaResponse? empresaVirtual;
     private LocalidadeResponse? origem;
     private LocalidadeResponse? destino;
-
-    private ICollection<EmpresaResponse> empresas = new List<EmpresaResponse>();
-    private ICollection<VendaResponse> vendas = new List<VendaResponse>();
-    private ICollection<MovimentacaoResponse> movimentacoes = new List<MovimentacaoResponse>();
-    private ICollection<VendaVirtualResponse> vendasVirtuais = new List<VendaVirtualResponse>();
-
-    private List<string> tipoLancamento = new List<string>() {"RECOLHA","ALIMENTAÇÃO", "PAGAMENTOS","DESPESAS AGÊNCIA","DESPESAS EMPRESAS","OUTRAS SAÍDAS", "ENTRADA"};
-    private List<string> formaPagamento = new List<string>() { "PIX", "LINK", "BOLETO", "FATURADO"};
 
     private MovimentacaoRequest movimentacao = new();
     private VendaRequest venda = new();
@@ -474,11 +475,11 @@
         var result = await movimentacaoAPI.GetMovimentacoesByCaixaAsync(caixa!.Id);
         if (result is not null)
         {
-            movimentacoes = result;
+            Movimentacoes = result;
 
-            var entradas = movimentacoes.Where(m => m.Tipo.Equals("ENTRADA"));
+            var entradas = Movimentacoes.Where(m => m.Tipo.Equals("ENTRADA"));
             totalEntradas = entradas.Sum(e => e.Valor);
-            totalSaidas = movimentacoes.Sum(m => m.Valor) - totalEntradas;
+            totalSaidas = Movimentacoes.Sum(m => m.Valor) - totalEntradas;
 
             CalcularSaldo();
         }       
@@ -567,7 +568,7 @@
                         await CarregarVendas();
                         await CarregarEmpresas();
 
-                        empresa = empresas.First();
+                        empresa = Empresas.First();
                         venda.Dinheiro = 0;
                         venda.Cartao = 0;
                     }
@@ -614,12 +615,12 @@
     {
         if(caixa.Aberto)
         {
-            empresas.Clear();
+            Empresas.Clear();
 
             var response = await empresaAPI.GetEmpresaAsync(vendaEdit.Empresa.Id);
-            empresas.Add(response!);
+            Empresas.Add(response!);
 
-            empresa = empresas.First();
+            empresa = Empresas.First();
 
             venda.EmpresaId = vendaEdit.Empresa.Id;
             venda.Dinheiro = vendaEdit.Dinheiro;
@@ -636,10 +637,10 @@
         var result = await vendaAPI.GetVendasByCaixaAsync(caixa!.Id);
         if (result is not null)
         {
-            vendas = result;
+            Vendas = result;
 
-            vendasEmDinheiro = vendas.Sum(v => v.Dinheiro);
-            vendasEmCartao = vendas.Sum(v => v.Cartao);
+            vendasEmDinheiro = Vendas.Sum(v => v.Dinheiro);
+            vendasEmCartao = Vendas.Sum(v => v.Cartao);
             vendasTotais = vendasEmDinheiro + vendasEmCartao;
 
             totalVendasPresenciais = vendasTotais - totalVendasVirtuais;
@@ -650,12 +651,12 @@
 
     private async Task CarregarEmpresas()
     {
-        empresas.Clear();
+        Empresas.Clear();
 
         var empresasComContrato = await BuscarEmpresasComContrato();
 
         List<EmpresaResponse> empresasVendas = new List<EmpresaResponse>();
-        foreach (var item in vendas)
+        foreach (var item in Vendas)
         {
             empresasVendas.Add(item.Empresa);
         }
@@ -669,11 +670,11 @@
                 if (empresaContrato.Id == empresaVenda.Id) adicionar = false;
             }
 
-            if (adicionar) empresas.Add(empresaContrato);
+            if (adicionar) Empresas.Add(empresaContrato);
 
         }
 
-        if (empresas is not null) empresa = empresas.First();    
+        if (Empresas is not null) empresa = Empresas.First();    
 
     }
 
@@ -737,9 +738,9 @@
         var result = await vendaVirtualAPI.GetVendasAsync(caixa.Id);
         if (result is not null)
         {
-            vendasVirtuais = result;
+            VendasVirtuais = result;
 
-            totalVendasVirtuais = vendasVirtuais.Sum(v => v.Valor);
+            totalVendasVirtuais = VendasVirtuais.Sum(v => v.Valor);
             totalVendasPresenciais = vendasTotais - totalVendasVirtuais;
 
             CalcularSaldo();

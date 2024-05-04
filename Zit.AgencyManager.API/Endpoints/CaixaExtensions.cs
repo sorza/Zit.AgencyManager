@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using Zit.AgencyManager.API.Request;
 using Zit.AgencyManager.API.Response;
 using Zit.AgencyManager.Dados.Banco;
@@ -40,19 +41,33 @@ namespace Zit.AgencyManager.API.Endpoints
 
             groupBuilder.MapPost("", ([FromServices] DAL<Caixa> dal, [FromBody] CaixaRequest request) =>
             {
+                var context = new ValidationContext(request);
+                var results = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(request, context, results, true);
+
+                if (!isValid)
+                {
+                    var errors = results.Select(x => x.ErrorMessage);
+                    return Results.BadRequest(errors);
+                }
+
+                var ultimoCaixa = dal.Listar().Where(c => c.ColaboradorId == request.ColaboradorId).Last();
+
+               
+                if (ultimoCaixa.Aberto == true) return Results.BadRequest("O usuário já possui um caixa aberto.");
+
                 Caixa caixa = new()
                 {
                     Aberto = true,
                     ColaboradorId = request.ColaboradorId,
                     Data = DateTime.Now,
-                    TrocoInicial = request.TrocoInicial
+                    TrocoInicial = ultimoCaixa.TrocoFinal
                 };
 
-                var caixaAberto = dal.RecuperarPor(c => c.ColaboradorId == request.ColaboradorId && c.Aberto);
+                if (ultimoCaixa is null) caixa.TrocoInicial = 300;
 
-                if (caixaAberto is not null) return Results.BadRequest("O usuário já possui um caixa aberto.");
-
-                dal.Adicionar(caixa);
+                dal.Adicionar(caixa);                       
 
                 return Results.Ok();
 

@@ -5,7 +5,6 @@ namespace Zit.AgencyManager.Web.Request
     public record CaixaRequest
     (
         [Required]
-        int ColaboradorId,
-        decimal TrocoInicial
+        int ColaboradorId
     );
 }
