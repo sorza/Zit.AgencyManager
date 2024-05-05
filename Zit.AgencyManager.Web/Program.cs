@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using System.Globalization;
 using Zit.AgencyManager.Web.Services;
+using Zit.AgencyManager.Web.Services.Implementation;
+using Zit.AgencyManager.Web.Services.Interfaces;
 
 namespace Zit.AgencyManager.Web
 {
@@ -41,6 +43,7 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<MovimentacaoAPI>();
             builder.Services.AddTransient<LocalidadeAPI>();
             builder.Services.AddTransient<VendaVirtualAPI>();
+            builder.Services.AddTransient<ICaixaService, CaixaService>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);

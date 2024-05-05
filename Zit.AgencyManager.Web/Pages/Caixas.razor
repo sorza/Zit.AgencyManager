@@ -1,32 +1,88 @@
 ﻿@page "/Caixas"
 @using Microsoft.AspNetCore.Components.Authorization
+@using Zit.AgencyManager.Web.Services.Interfaces
 
 @inject AuthAPI auth
-@inject CaixaAPI caixaAPI
 @inject TitleService TitleService
 @inject ColaboradorAPI colaboradorAPI
 @inject ISnackbar SnackBar
-
+@inject ICaixaService caixaService
 
 <PageTitle>Meus Caixas</PageTitle>
 
 <MudGrid>
-    <MudItem xs="12" sm="4">
-        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
-            <h2>Caixa do Alexandre</h2>
-            <br/>
-            <p>Venda total do mês: R$ 20.980,82</p>
-            <p>Faltas: R$ 20,69</p>
-            <p>Sobras: R$ 60,21</p>
-            <p>Saldo: + R$ 40,48</p>
 
-            <p>Média de venda por dia R$ 1098,52</p>
+    <MudItem xs="12" sm="3">        
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">                  
+            <MudGrid Class="mt-2">
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium; font-weight: bold;">Vendas Presenciais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Storefront" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>                            
+                            <MudText Style="font-size:medium">@resumoCaixas.Sum(x => x.Value[0]).ToString("C")</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium; font-weight: bold;">Vendas Virtuais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Whatsapp" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">@resumoCaixas.Sum(x => x.Value[1]).ToString("C")</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium;font-weight: bold;">Vendas Totais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">@resumoCaixas.Sum(x => x.Value[2]).ToString("C")</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium;font-weight: bold;">Saldo do Agente</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.AccountBalance" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">@resumoCaixas.Sum(x => x.Value[3]).ToString("C")</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>        
         </MudPaper>
     </MudItem>
 
-    <MudItem xs="12" sm="8">
+    <MudItem xs="12" sm="9">
         
-        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3" Justify="Justify.Center">
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
             <MudGrid>
                 <MudItem xs="6" sm="3">
                     <MudSelect Dense="true" T="int" Label="Selecione um mês" @bind-Value="mes" Variant="Variant.Filled">
@@ -78,34 +134,37 @@
                         </CellTemplate>
                     </TemplateColumn>
 
-                    <PropertyColumn Property="x => x.TrocoInicial" Title="Troco Inicial" />
-                    <PropertyColumn Property="x => x.TrocoFinal" Title="Troco Final" />                    
-
-                    <TemplateColumn Title="Vendas">
+                    <TemplateColumn Title="Presencial">
                         <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                                decimal saldo = CalcularVendas(caixa);
-                            }
-                            <div>@saldo</div>
+                            @{ var caixa = cellContext.Item; }
+                            <MudText>@resumoCaixas[caixa.Id][0].ToString("C")</MudText>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Virtual">
+                        <CellTemplate Context="cellContext">
+                            @{ var caixa = cellContext.Item; }
+                            <MudText>@resumoCaixas[caixa.Id][1].ToString("C")</MudText>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Total">
+                        <CellTemplate Context="cellContext">
+                            @{ var caixa = cellContext.Item; }
+                            <MudText>@resumoCaixas[caixa.Id][2].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
                     <TemplateColumn Title="Saldo">
                         <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                                decimal saldo = CalculaSaldo(caixa);
-                            }
-                            <div>@saldo</div>
+                            @{ var caixa = cellContext.Item; }
+                            <MudText>@resumoCaixas[caixa.Id][3].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
                     <TemplateColumn CellClass="d-flex justify-end">
                         <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                            }
+                            @{ var caixa = cellContext.Item; }
                             @if(caixa.Aberto)
                             {
                                 <MudStack Row>
@@ -134,7 +193,7 @@
                     </TemplateColumn>
                 </Columns>
             </MudDataGrid>
-           
+            
         </MudPaper>
     </MudItem>
         
@@ -145,6 +204,8 @@
     private ICollection<CaixaResponse>? CaixasResponse = new List<CaixaResponse>();
     private AuthenticationState? authState;
     private ColaboradorResponse? colaborador;
+
+    private Dictionary<int, decimal[] > resumoCaixas = new Dictionary<int, decimal[]>();
     private int mes;
     private int ano;
 
@@ -171,28 +232,33 @@
 
     private async Task CarregarCaixas(int mes, int ano)
     {
-        CaixasResponse = await caixaAPI.GetCaixasByColaboradorAsync(colaborador!.Id, mes+1, ano);
+        CaixasResponse = await caixaService.GetCaixasByOperadorAsync(colaborador!.Id, mes+1, ano);
+
+        if(CaixasResponse is not null)
+        {
+            resumoCaixas.Clear();
+
+            foreach (var caixa in CaixasResponse)
+            {              
+                var vendaVirtual = await caixaService.GetVendasVirtuaisAsync(caixa.Id);
+                var vendaPresencial = await caixaService.GetVendasPresenciaisAsync(caixa.Id);
+                var vendaTotal = await caixaService.GetTotalVendasAsync(caixa.Id);
+                var saldo = await caixaService.GetSaldoAsync(caixa.Id);
+
+                resumoCaixas.Add(caixa.Id, [vendaPresencial, vendaVirtual, vendaTotal, saldo]);
+            }
+        }        
     }
 
     private async Task AbrirCaixa()
     {
-        var result = await caixaAPI.AddCaixaAsync(new(colaborador!.Id));
+        var result = await caixaService.CreateCaixaAsync(new(colaborador!.Id));
 
         if (!result.Equals("Ok"))
         {
             SnackBar.Add($"Erro: {result}", Severity.Error);
         }
-        
+
         await CarregarCaixas(mes, ano);       
-    }
-
-    private decimal CalculaSaldo(CaixaResponse caixa)
-    {
-        return 0;
-    }
-
-    private decimal CalcularVendas(CaixaResponse caixa)
-    {
-        return 0;
-    }
+    }    
 }
