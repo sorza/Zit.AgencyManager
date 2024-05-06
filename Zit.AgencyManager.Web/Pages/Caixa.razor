@@ -2,21 +2,23 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Zit.AgencyManager.Web.Components
 
-@inject IDialogService dialogService
-@inject VendaAPI vendaAPI
+@inject NavigationManager navigationManager
 @inject TitleService TitleService
-@inject ContratoAPI contratoAPI
-@inject CaixaAPI caixaAPI
-@inject EmpresaAPI empresaAPI
-@inject MovimentacaoAPI movimentacaoAPI
-@inject LocalidadeAPI localidadeAPI
-@inject VendaVirtualAPI vendaVirtualAPI
-
 @inject ISnackbar Snackbar
+@inject IDialogService dialogService
+
+@inject ICaixaService caixaService
+@inject IVendaService vendaService
+@inject IMovimentacaoService movimentacaoService
+@inject IContratoService contratoService
+@inject IEmpresaService empresaService
+@inject ILocalidadeService localidadeService
+@inject IVendaVirtualService vendaVirtualService
 
 <PageTitle>Caixa do Operador</PageTitle>
 
-<MudGrid>       
+<MudGrid>      
+    
     <MudItem xs="12" sm="9">
 
         <MudItem xs="12" sm="12">
@@ -449,7 +451,7 @@
     {
         TitleService.SetTitle($"Caixa do Operador"); 
 
-        var response = await caixaAPI.GetCaixaAsync(Convert.ToInt32(IdCaixa));
+        var response = await caixaService.GetCaixaAsync(Convert.ToInt32(IdCaixa));
 
         if(response is not null)
         {
@@ -472,7 +474,7 @@
 
     private async Task CarregarMovimentacoes()
     {
-        var result = await movimentacaoAPI.GetMovimentacoesByCaixaAsync(caixa!.Id);
+        var result = await movimentacaoService.ListByCaixaAsync(caixa!.Id);
         if (result is not null)
         {
             Movimentacoes = result;
@@ -489,7 +491,7 @@
     {
         if(caixa.Aberto)
         {
-            if (await movimentacaoAPI.DeleteMovimentacaoAsync(movimentacaoResponse.Id))
+            if (await movimentacaoService.DeleteMovimentacaoAsync(movimentacaoResponse.Id))
             {
                 await CarregarMovimentacoes();
             }
@@ -508,7 +510,7 @@
 
             if (btn_Movimentacao.Equals("Inserir"))
             {
-                if (await movimentacaoAPI.AddMovimentacaoAsync(movimentacao))
+                if (await movimentacaoService.AddMovimentacaoAsync(movimentacao))
                 {
                     movimentacao.Descricao = string.Empty;
                     movimentacao.Valor = 0;
@@ -522,7 +524,7 @@
             }
             else
             {
-                if (await movimentacaoAPI.UpdateMovimentacaoAsync(new(movimentacao.CaixaId, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao), movimentacaoEditar))
+                if (await movimentacaoService.UpdateMovimentacaoAsync(new(movimentacao.CaixaId, movimentacao.Tipo, movimentacao.Valor, movimentacao.Descricao), movimentacaoEditar))
                 {
                     await CarregarMovimentacoes();
 
@@ -563,7 +565,7 @@
 
                 if (btn_Venda.Equals("Inserir"))
                 {
-                    if (await vendaAPI.AddVendaAsync(venda))
+                    if (await vendaService.AddVendaAsync(venda))
                     {
                         await CarregarVendas();
                         await CarregarEmpresas();
@@ -574,12 +576,12 @@
                     }
                     else
                     {
-                        Snackbar.Add("Houve um erro ao adicionar empresa", Severity.Error);
+                        Snackbar.Add("Houve um erro ao adicionar a venda", Severity.Error);
                     }
                 }
                 else
                 {
-                    if (await vendaAPI.UpdateVendaAsync(new(venda.EmpresaId, venda.Dinheiro, venda.Cartao), vendaEditar))
+                    if (await vendaService.UpdateVendaAsync(new(venda.EmpresaId, venda.Dinheiro, venda.Cartao), vendaEditar))
                     {
                         await CarregarVendas();
                         await CarregarEmpresas();
@@ -598,7 +600,7 @@
     {
         if(caixa.Aberto)
         {
-            if (await vendaAPI.DeleteVendaAsync(venda.Id))
+            if (await vendaService.DeleteVendaAsync(venda.Id))
             {
                 await CarregarVendas();
             }
@@ -617,7 +619,7 @@
         {
             Empresas.Clear();
 
-            var response = await empresaAPI.GetEmpresaAsync(vendaEdit.Empresa.Id);
+            var response = await empresaService.GetEmpresaAsync(vendaEdit.Empresa.Id);
             Empresas.Add(response!);
 
             empresa = Empresas.First();
@@ -634,7 +636,7 @@
 
     private async Task CarregarVendas()
     {
-        var result = await vendaAPI.GetVendasByCaixaAsync(caixa!.Id);
+        var result = await vendaService.GetVendasByCaixaAsync(caixa!.Id);
         if (result is not null)
         {
             Vendas = result;
@@ -680,7 +682,7 @@
 
     private async Task<ICollection<EmpresaResponse>> BuscarEmpresasComContrato()
     {
-        var contratos = await contratoAPI.GetContratosByAgenciaAsync(caixa!.Colaborador.AgenciaId);
+        var contratos = await contratoService.GetContratosByAgenciaAsync(caixa!.Colaborador.AgenciaId);
         ICollection<EmpresaResponse> empresasResponse = new List<EmpresaResponse>();
 
         if (contratos is not null)
@@ -699,7 +701,7 @@
         if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
             return new List<LocalidadeResponse>();
 
-        var response = await localidadeAPI.GetLocalidadesAsync(value);
+        var response = await localidadeService.GetLocalidadesAsync(value);
 
         if (!response.Any())
         {
@@ -735,7 +737,7 @@
 
     private async Task CarregarVendasVirtuais()
     {
-        var result = await vendaVirtualAPI.GetVendasAsync(caixa.Id);
+        var result = await vendaVirtualAPI.ListAsync(caixa.Id);
         if (result is not null)
         {
             VendasVirtuais = result;
@@ -763,7 +765,7 @@
                     vendaVirtual.OrigemId = origem!.Id;
                     vendaVirtual.DestinoId = destino!.Id;
 
-                    if (await vendaVirtualAPI.AddVendaVirtualAsync(vendaVirtual))
+                    if (await vendaVirtualService.AddVendaVirtualAsync(vendaVirtual))
                     {
                         empresaVirtual = null;
                         origem = null;
@@ -781,7 +783,7 @@
                 }
                 else
                 {
-                    if (await vendaVirtualAPI.UpdateVendaVirtualAsync(vendaVirtualEditar, new(caixa.Id, empresaVirtual.Id, origem.Id, destino.Id, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Observacao)))
+                    if (await vendaVirtualService.UpdateVendaVirtualAsync(new(caixa.Id, empresaVirtual.Id, origem.Id, destino.Id, vendaVirtual.Valor, vendaVirtual.FormaPagamento, vendaVirtual.Observacao), vendaVirtualEditar))
                     {
                         empresaVirtual = null;
                         origem = null;
@@ -824,7 +826,7 @@
     private async Task RemoverVendaVirtual(VendaVirtualResponse venda_Virtual)
     {
         if(caixa.Aberto)        
-            if (await vendaVirtualAPI.DeleteVendaVirtualAsync(venda_Virtual.Id))            
+            if (await vendaVirtualService.DeleteVendaVirtualAsync(venda_Virtual.Id))            
                 await CarregarVendasVirtuais();
     }
 
@@ -837,12 +839,9 @@
     {
         if(caixa.Aberto)
         {
-            caixa.Aberto = false;
-            
-            if (await caixaAPI.UpdateCaixaAsync(caixa.Id, new(caixa.TrocoInicial, caixa.TrocoFinal, caixa.Aberto)))
-            {
-                await OnInitializedAsync();
-            }
+            caixa.Aberto = false;            
+            await caixaService.UpdateCaixaAsync(caixa.Id, new(caixa.TrocoInicial, caixa.TrocoFinal, caixa.Aberto));
+            navigationManager.NavigateTo("/Caixas");
         }
     }
 }

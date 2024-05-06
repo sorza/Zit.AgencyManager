@@ -228,7 +228,7 @@
                         colaborador.UsuarioId = usuarioResponse!.Id;
                         colaborador.Ativo = true;
 
-                        if (await colaboradorAPI.AddColaboradorAsync(colaborador))
+                        if (await colaboradorAPI.AddAsync(colaborador))
                         {
                             Snackbar.Add("Colaborador cadastrado com sucesso!", Severity.Success);
                             navigationManager.NavigateTo($"/colaboradores/{AgenciaId}");

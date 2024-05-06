@@ -1,4 +1,4 @@
-﻿@inject LocalidadeAPI localidadeAPI
+﻿@inject ILocalidadeService localidadeService
 
 <MudForm Model="novaLocalidade" ref="form">
     <MudDialog>
@@ -26,7 +26,7 @@
     {
         if(ufs.Contains(novaLocalidade.UF.ToUpper()))
         {
-            if (await localidadeAPI.AddLocalidadeAsync(novaLocalidade))
+            if (await localidadeService.AddLocalidadeAsync(novaLocalidade))
             {
                 MudDialog!.Close(DialogResult.Ok(novaLocalidade));
             }

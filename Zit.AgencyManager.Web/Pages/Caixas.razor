@@ -3,15 +3,15 @@
 @using Zit.AgencyManager.Web.Services.Interfaces
 
 @inject AuthAPI auth
-@inject TitleService TitleService
-@inject ColaboradorAPI colaboradorAPI
-@inject ISnackbar SnackBar
+@inject TitleService titleService
+@inject ISnackbar snackBar
 @inject ICaixaService caixaService
+@inject IColaboradorService colaboradorService
 
 <PageTitle>Meus Caixas</PageTitle>
 
 <MudGrid>
-
+    
     <MudItem xs="12" sm="3">        
         <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">                  
             <MudGrid Class="mt-2">
@@ -201,7 +201,7 @@
 
 
 @code {
-    private ICollection<CaixaResponse>? CaixasResponse = new List<CaixaResponse>();
+    private IEnumerable<CaixaResponse>? CaixasResponse = new List<CaixaResponse>();
     private AuthenticationState? authState;
     private ColaboradorResponse? colaborador;
 
@@ -214,14 +214,13 @@
         "Janeiro","Fevereiro","Março", "Abril", "Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro", "Dezembro"
     };
 
-
     protected override async Task OnInitializedAsync()
     {
-        TitleService.SetTitle("Caixas do Operador");
+        titleService.SetTitle("Caixas do Operador");
 
         authState = await auth.GetAuthenticationStateAsync();
 
-        colaborador = await colaboradorAPI.GetColaboradorByUsernameAsync(authState.User.Identity!.Name!);
+        colaborador = await colaboradorService.GetColaboradorByUsernameAsync(authState.User.Identity!.Name!);
 
         mes = DateTime.Today.Month-1;
         ano = DateTime.Today.Year;
@@ -252,11 +251,11 @@
 
     private async Task AbrirCaixa()
     {
-        var result = await caixaService.CreateCaixaAsync(new(colaborador!.Id));
+        var result = await caixaService.AddCaixaAsync(new(colaborador!.Id));
 
         if (!result.Equals("Ok"))
         {
-            SnackBar.Add($"Erro: {result}", Severity.Error);
+            snackBar.Add($"Erro: {result}", Severity.Error);
         }
 
         await CarregarCaixas(mes, ano);       

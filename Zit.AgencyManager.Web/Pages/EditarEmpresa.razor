@@ -187,7 +187,7 @@
     {
         TitleService.SetTitle("Editar dados da Empresa");
 
-        var empresaResponse = await empresaAPI.GetEmpresaAsync(Convert.ToInt32(EmpresaId));
+        var empresaResponse = await empresaAPI.GetByIdAsync(Convert.ToInt32(EmpresaId));
 
         Empresa.CNPJ = empresaResponse!.CNPJ;
         Empresa.RazaoSocial = empresaResponse!.RazaoSocial;

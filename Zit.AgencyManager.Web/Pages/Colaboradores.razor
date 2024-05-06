@@ -78,7 +78,7 @@
 
     private async Task CarregarColaboradores()
     {
-        colaboradores = await colaboradorAPI.GetColaboradoresAsync();
+        colaboradores = await colaboradorAPI.ListAsync();
 
         if (colaboradores is not null) colaboradores = colaboradores.Where(c => c.Agencia.Id == Convert.ToInt32(AgenciaId)).OrderByDescending(c => c.Ativo).ToList();
     }
@@ -87,7 +87,7 @@
     {
         if(colaborador is not null)
         {
-            if (await colaboradorAPI.DeleteColaboradorAsync(colaborador.Id))
+            if (await colaboradorAPI.DeleteAsync(colaborador.Id))
             {
                 Snackbar.Add("Colaborador removido com sucesso!", Severity.Success);
                 await CarregarColaboradores();

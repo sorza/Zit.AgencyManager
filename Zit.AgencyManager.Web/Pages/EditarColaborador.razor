@@ -220,7 +220,7 @@
     protected override async Task OnInitializedAsync()
     {
         TitleService.SetTitle("Detalhes do colaborador");
-        var response = await colaboradorAPI.GetColaboradorAsync(Convert.ToInt32(ColaboradorId));
+        var response = await colaboradorAPI.GetAsync(Convert.ToInt32(ColaboradorId));
 
         if (response is not null)
         {
@@ -301,7 +301,7 @@
                     }
                 }
 
-                if (await colaboradorAPI.UpdateColaboradorAsync(Convert.ToInt32(ColaboradorId), colaborador))
+                if (await colaboradorAPI.UpdateAsync(Convert.ToInt32(ColaboradorId), colaborador))
                 {
                     Snackbar.Add("Colaborador atualizado com sucesso!", Severity.Success);
                     navigationManager.NavigateTo($"/colaboradores/{colaborador.AgenciaId}");

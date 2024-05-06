@@ -43,7 +43,14 @@ namespace Zit.AgencyManager.Web
             builder.Services.AddTransient<MovimentacaoAPI>();
             builder.Services.AddTransient<LocalidadeAPI>();
             builder.Services.AddTransient<VendaVirtualAPI>();
+
             builder.Services.AddTransient<ICaixaService, CaixaService>();
+            builder.Services.AddTransient<IColaboradorService, ColaboradorService>();
+            builder.Services.AddTransient<IVendaService, VendaService>();
+            builder.Services.AddTransient<IMovimentacaoService, MovimentacaoService>();
+            builder.Services.AddTransient<IContratoService, ContratoService>();
+            builder.Services.AddTransient<ILocalidadeService, LocalidadeService>();
+            builder.Services.AddTransient<IVendaVirtualService, VendaVirtualService>();
 
             builder.Services.AddHttpClient("API", client => {
                 client.BaseAddress = new Uri(builder.Configuration["APIServer:Url"]!);

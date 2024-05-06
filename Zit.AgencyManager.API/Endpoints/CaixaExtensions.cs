@@ -20,13 +20,10 @@ namespace Zit.AgencyManager.API.Endpoints
                 return Results.Ok(EntityListToResponseList(dal.Listar()));
             });
 
-            groupBuilder.MapGet("colaborador/{id}/{mes}-{ano}", ([FromServices] DAL<Caixa> dal, int id, int mes, int ano) =>
+            groupBuilder.MapGet("colaborador/{id}", ([FromServices] DAL<Caixa> dal, int id) =>
             {
                 return Results.Ok(EntityListToResponseList(dal.Listar()
-                                                .Where(c => c.ColaboradorId == id 
-                                                            && c.Data.Month == mes 
-                                                            && c.Data.Year == ano))
-                                                .OrderByDescending(d => d.Data));
+                                                .Where(c => c.ColaboradorId == id)));
             });
 
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Caixa> dal, int id) =>
