@@ -146,6 +146,7 @@
             else
             {
                 dataDistrato = Contrato.DataDistrato!.Value.ToDateTime(TimeOnly.MinValue);
+                btnDistratar = "Desfazer Distrato";
             }
 
             empresas = await empresaAPI.GetEmpresasAsync();
