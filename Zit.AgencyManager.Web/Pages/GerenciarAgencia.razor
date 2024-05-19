@@ -7,6 +7,24 @@
 <MudGrid>
     <MudItem xs="3">
         <MudCard>
+            <MudCardMedia Image="images/cardCaixas.png"></MudCardMedia>
+
+            <MudCardActions>
+                <MudButton Color="Color.Primary"
+                           Variant="Variant.Outlined"
+                           Class="mr-2"
+                           Style="width: 100%"
+                           Href=@($"/ConferirCaixas/{AgenciaId}")>
+                    <MudIcon Icon="@Icons.Material.Filled.Search" Class="mr-2" />
+                    Conferir Caixas
+                </MudButton>
+
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="3">
+        <MudCard>
             <MudCardMedia Image="images/cardContrato.png"></MudCardMedia>
             
             <MudCardActions>

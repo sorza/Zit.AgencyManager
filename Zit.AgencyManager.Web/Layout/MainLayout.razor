@@ -3,7 +3,6 @@
 @inject TitleService TitleService
 @inject NavigationManager NavManager
 
-
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -46,10 +45,6 @@
 </MudLayout>
 
 @code {
-    private MudTheme currentTheme = new MudTheme()
-    {
-        Palette = ManagerPalette.CreatePalette
-    };
    
     private bool ShouldShowNavBar => !NavManager.Uri.Contains("/login");
     

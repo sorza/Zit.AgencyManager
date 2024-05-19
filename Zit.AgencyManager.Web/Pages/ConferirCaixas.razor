@@ -1,0 +1,15 @@
+﻿@page "/ConferirCaixas/{AgenciaId}"
+
+@inject TitleService TitleService
+
+<PageTitle>Conferir Caixas</PageTitle>
+
+@code {
+    [Parameter]
+    public string? AgenciaId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TitleService.SetTitle("Conferir Caixas");
+    }
+}

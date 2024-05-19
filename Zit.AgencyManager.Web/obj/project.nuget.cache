@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eWC4O9CP7hMVaT92afkA+WQr3JqjjaASPu1S0nfcFgBV6uM35lLWcMI5uzdTSmBmetbSCEI1mITsJzYtDLZfpA==",
+  "dgSpecHash": "ZL1OqLmNZzIiNi+A6D6EjcqzV6FNoLmYzkqysMN0coIKEjgxSZ3R08MCwyRE+9jbvUvXFfzRiHJxu12sF0fR8g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alexandre Z Durães\\Documents\\GitHub\\Zit.AgencyManager\\Zit.AgencyManager.Web\\Zit.AgencyManager.Web.csproj",
   "expectedPackageFiles": [
@@ -47,7 +47,7 @@
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.jsinterop\\8.0.3\\microsoft.jsinterop.8.0.3.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.jsinterop.webassembly\\8.0.3\\microsoft.jsinterop.webassembly.8.0.3.nupkg.sha512",
-    "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.3\\microsoft.net.illink.tasks.8.0.3.nupkg.sha512",
+    "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.5\\microsoft.net.illink.tasks.8.0.5.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\8.0.5\\microsoft.net.sdk.webassembly.pack.8.0.5.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\mudblazor\\6.19.1\\mudblazor.6.19.1.nupkg.sha512",
     "C:\\Users\\Alexandre Z Durães\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
