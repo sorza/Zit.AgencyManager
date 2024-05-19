@@ -83,9 +83,9 @@ namespace Zit.AgencyManager.API.Endpoints
                     return Results.BadRequest(errors);
                 }
 
-                contrato.Ativo = request.Ativo;
+                contrato.Ativo = request.Ativo;               
+                if (contrato.Ativo) contrato.DataDistrato = null; else contrato.DataDistrato = request.DataDistrato;
                 contrato.EmiteNota = request.EmiteNota;
-                contrato.DataDistrato = request.DataDistrato;
                 contrato.DataContrato = request.DataContrato;
                 contrato.Comissao = request.Comissao;
                 contrato.ModalidadeComissao = request.ModalidadeComissao;               

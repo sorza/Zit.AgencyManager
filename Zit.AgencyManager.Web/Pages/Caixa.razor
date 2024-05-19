@@ -737,7 +737,7 @@
 
     private async Task CarregarVendasVirtuais()
     {
-        var result = await vendaVirtualAPI.ListAsync(caixa.Id);
+        var result = await vendaVirtualService.ListByCaixaAsync(caixa.Id);
         if (result is not null)
         {
             VendasVirtuais = result;

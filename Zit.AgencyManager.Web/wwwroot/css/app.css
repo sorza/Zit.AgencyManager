@@ -111,3 +111,7 @@ div.mud-main-content.main-content {
 .sombra {
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
 }
+
+.nav-bar {
+    background-color: #2b79e0 !important;
+}
