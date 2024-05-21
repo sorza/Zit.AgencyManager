@@ -26,6 +26,15 @@ namespace Zit.AgencyManager.API.Endpoints
                                                 .Where(c => c.ColaboradorId == id)));
             });
 
+            groupBuilder.MapGet("{agenciaId}/{dia}-{mes}-{ano}",([FromServices] DAL<Caixa> dal, int agenciaId, int dia, int mes, int ano) =>
+            {
+                DateTime data = new(ano, mes, dia);
+
+                return Results.Ok(EntityListToResponseList(dal.Listar()
+                                                .Where(c => c.Colaborador.AgenciaId == agenciaId && 
+                                                                        c.Data.Date == data.Date)));
+            });
+
             groupBuilder.MapGet("{id}", ([FromServices] DAL<Caixa> dal, int id) =>
             {                
                 var caixa = dal.RecuperarPor(c => c.Id == id);

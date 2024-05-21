@@ -1,15 +1,165 @@
 ﻿@page "/ConferirCaixas/{AgenciaId}"
 
 @inject TitleService TitleService
+@inject ICaixaService caixaService
 
 <PageTitle>Conferir Caixas</PageTitle>
+
+<MudGrid>
+
+    <MudItem xs="12" sm="3">
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">  
+            <MudGrid Class="mt-2">
+                <MudItem xs="12" sm="12">
+                    <MudDatePicker Label="Data dos caixas" Editable="true" @bind-Date="dataCaixas" Mask="@(new DateMask("dd/MM/yyyy"))" DateFormat="dd/MM/yyyy" />
+                </MudItem>
+                 <MudItem xs="12" sm="12">
+                    <MudButton 
+                               Variant="@Variant.Filled"
+                               Color="@Color.Primary"
+                               OnClick="() => CarregarCaixas(dataCaixas)"
+                               FullWidth
+                               StartIcon="@Icons.Material.Filled.Search">             
+                               Carregar
+                    </MudButton>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium; font-weight: bold;">Vendas Presenciais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Storefront" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium; font-weight: bold;">Vendas Virtuais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Whatsapp" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Style="font-size:medium;font-weight: bold;">Vendas Totais</MudText>
+                            </CardHeaderContent>
+                            <CardHeaderActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Default" />
+                            </CardHeaderActions>
+                        </MudCardHeader>
+                        <MudCardContent>
+                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                
+            </MudGrid>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" sm="9">
+        <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
+            <MudDataGrid Items="@Caixas" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
+                <Columns>
+                    <PropertyColumn Property="x => x.Data.ToShortDateString()" Title="Data do Caixa" />
+                    <PropertyColumn Property="x => x.Colaborador.Nome" Title="Colaborador" />
+
+                    <TemplateColumn Title="Presencial">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                               
+                            }
+                            <div>R$ 0,00</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Virtual">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+
+                            }
+                            <div>R$ 0,00</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Total">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+
+                            }
+                            <div>R$ 0,00</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn Title="Saldo">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+
+                            }
+                            <div>R$ 0,00</div>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn CellClass="d-flex justify-end">
+                        <CellTemplate Context="cellContext">
+                            @{
+                                var caixa = cellContext.Item;
+                            }                           
+                            <MudStack Row>
+                                <MudButton Size="@Size.Small"
+                                            Variant="@Variant.Filled"
+                                            Color="@Color.Warning"
+                                            Href=@($"/Caixa/{caixa.Id}")
+                                            StartIcon="@Icons.Material.Filled.Search">
+                                    Conferir
+                                </MudButton>
+                            </MudStack>                            
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+        </MudPaper>
+    </MudItem>
+
+</MudGrid>
 
 @code {
     [Parameter]
     public string? AgenciaId { get; set; }
 
-    protected override void OnInitialized()
+    DateTime? dataCaixas = DateTime.Today.Date;
+    private IEnumerable<CaixaResponse> Caixas = new List<CaixaResponse>();
+
+    protected override async Task OnInitializedAsync()
     {
         TitleService.SetTitle("Conferir Caixas");
+
+        await CarregarCaixas(DateTime.Today);
+    }
+
+    private async Task CarregarCaixas(DateTime? data)
+    {
+        var response = await caixaService.GetCaixasByAgenciaAsync(Convert.ToInt32(AgenciaId), data);
+        if (response is not null) Caixas = response;
     }
 }
