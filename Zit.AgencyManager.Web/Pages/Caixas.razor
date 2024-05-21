@@ -14,7 +14,32 @@
     
     <MudItem xs="12" sm="3">        
         <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">                  
-            <MudGrid Class="mt-2">
+            <MudGrid Class="mt-2">                
+                <MudItem xs="12" sm="7">
+                    <MudSelect Dense="true" T="int" Label="Mês" @bind-Value="mes" Variant="Variant.Filled">
+                        @foreach (var item in MesesDoAno!)
+                        {
+                            <MudSelectItem Value="@MesesDoAno.IndexOf(item)">@item</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="5">
+                    <MudTextField Class="mt-2" T="int" Placeholder="Ano"
+                                  Variant="Variant.Outlined"
+                                  @bind-Value="ano"
+                                  Required
+                                  RequiredError="Campo Obrigatório" />
+                </MudItem>
+                <MudItem xs="12" sm="12">
+                    <MudButton FullWidth                            
+                               Variant="@Variant.Filled"
+                               Color="@Color.Primary"
+                               OnClick="() => CarregarCaixas(mes,ano)"
+                               StartIcon="@Icons.Material.Filled.Search">
+                        Carregar
+                    </MudButton>
+                </MudItem>
+                
                 <MudItem xs="12" sm="12">
                     <MudCard>
                         <MudCardHeader>
@@ -75,50 +100,15 @@
                             <MudText Style="font-size:medium">@resumoCaixas.Sum(x => x.Value[3]).ToString("C")</MudText>
                         </MudCardContent>
                     </MudCard>
-                </MudItem>
-            </MudGrid>        
+                </MudItem>               
+            </MudGrid>     
+            
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" sm="9">
         
         <MudPaper Class="px-8 pt-2 pb-4 mx-3 my-3 sombra" Justify="Justify.Center">
-            <MudGrid Class="mt-2">
-                <MudItem xs="6" sm="3">
-                    <MudSelect Dense="true" T="int" Label="Selecione um mês" @bind-Value="mes" Variant="Variant.Filled">
-                        @foreach (var item in MesesDoAno!)
-                        {
-                            <MudSelectItem Value="@MesesDoAno.IndexOf(item)">@item</MudSelectItem>
-                        }
-                    </MudSelect>
-                </MudItem>
-                <MudItem xs="6" sm="2">
-                    <MudTextField Class="mt-2" T="int" Placeholder="Ano"
-                                  Variant="Variant.Outlined"
-                                  @bind-Value="ano"
-                                  Required
-                                  RequiredError="Campo Obrigatório"/>
-                </MudItem>
-                <MudItem xs="12" sm="2">
-                    <MudButton Size="@Size.Large"
-                               Class="mt-2 mb-4"
-                               Style="height:82%"
-                               Variant="@Variant.Filled"
-                               Color="@Color.Primary"
-                               OnClick="() => CarregarCaixas(mes,ano)"
-                               StartIcon="@Icons.Material.Filled.Search">
-                            Buscar
-                    </MudButton>
-                </MudItem>
-                <MudButton Size="@Size.Large"
-                           Class="mt-5 mb-4 mr-4 ml-auto d-flex justify-end"
-                           Variant="@Variant.Filled"
-                           Color="@Color.Success"
-                           OnClick="AbrirCaixa"
-                           StartIcon="@Icons.Material.Filled.Add">
-                    Abrir Caixa
-                </MudButton>
-            </MudGrid>
            
             <MudDataGrid Items="@CaixasResponse" Filterable="false" SortMode="@SortMode.None" Class="mt-6" Groupable="false">
                 <Columns>
@@ -172,8 +162,8 @@
                                                Variant="@Variant.Filled"
                                                Color="@Color.Info"
                                                Href=@($"/Caixa/{caixa.Id}")
-                                               StartIcon="@Icons.Material.Filled.Search">
-                                        Visualizar
+                                               StartIcon="@Icons.Material.Filled.Edit">
+                                        Editar
                                     </MudButton>
                                 </MudStack>
                             }
@@ -194,7 +184,19 @@
                 </Columns>
             </MudDataGrid>
             
+            <MudItem Class="d-flex justify-center mt-4">
+                <MudButton 
+                           Variant="@Variant.Filled"
+                           Color="@Color.Success"
+                           OnClick="AbrirCaixa"
+                           StartIcon="@Icons.Material.Filled.Add">
+                    Novo Caixa
+                </MudButton>
+            </MudItem>
+
         </MudPaper>
+
+        
     </MudItem>
         
  </MudGrid>
