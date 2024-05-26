@@ -34,7 +34,7 @@
                             </CardHeaderActions>
                         </MudCardHeader>
                         <MudCardContent>
-                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                            <MudText Style="font-size:medium">@caixasDoDia.Sum(x => x.Value[0]).ToString("C")</MudText>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
@@ -49,7 +49,7 @@
                             </CardHeaderActions>
                         </MudCardHeader>
                         <MudCardContent>
-                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                            <MudText Style="font-size:medium">@caixasDoDia.Sum(x => x.Value[1]).ToString("C")</MudText>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
@@ -64,7 +64,7 @@
                             </CardHeaderActions>
                         </MudCardHeader>
                         <MudCardContent>
-                            <MudText Style="font-size:medium">R$ 0,00</MudText>
+                            <MudText Style="font-size:medium">@caixasDoDia.Sum(x => x.Value[2]).ToString("C")</MudText>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
@@ -81,12 +81,11 @@
                     <PropertyColumn Property="x => x.Colaborador.Nome" Title="Colaborador" />
 
                     <TemplateColumn Title="Presencial">
-                        <CellTemplate Context="cellContext">
-                            @{
-                                var caixa = cellContext.Item;
-                               
-                            }
-                            <div>R$ 0,00</div>
+                        <CellTemplate Context="cellContext">                            
+                             @{ 
+                                 var caixa = cellContext.Item;
+                             }                            
+                            <MudText>@caixasDoDia[caixa.Id][0].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
@@ -94,9 +93,8 @@
                         <CellTemplate Context="cellContext">
                             @{
                                 var caixa = cellContext.Item;
-
                             }
-                            <div>R$ 0,00</div>
+                            <MudText>@caixasDoDia[caixa.Id][1].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
@@ -104,9 +102,8 @@
                         <CellTemplate Context="cellContext">
                             @{
                                 var caixa = cellContext.Item;
-
                             }
-                            <div>R$ 0,00</div>
+                            <MudText>@caixasDoDia[caixa.Id][2].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
@@ -114,9 +111,8 @@
                         <CellTemplate Context="cellContext">
                             @{
                                 var caixa = cellContext.Item;
-
                             }
-                            <div>R$ 0,00</div>
+                            <MudText>@caixasDoDia[caixa.Id][3].ToString("C")</MudText>
                         </CellTemplate>
                     </TemplateColumn>
 
@@ -150,6 +146,8 @@
     DateTime? dataCaixas = DateTime.Today.Date;
     private IEnumerable<CaixaResponse> Caixas = new List<CaixaResponse>();
 
+    private Dictionary<int, decimal[]> caixasDoDia = new Dictionary<int, decimal[]>();
+
     protected override async Task OnInitializedAsync()
     {
         TitleService.SetTitle("Conferir Caixas");
@@ -159,7 +157,22 @@
 
     private async Task CarregarCaixas(DateTime? data)
     {
-        var response = await caixaService.GetCaixasByAgenciaAsync(Convert.ToInt32(AgenciaId), data);
-        if (response is not null) Caixas = response;
+        var response = await caixaService.GetCaixasByAgenciaAsync(Convert.ToInt32(AgenciaId), data);      
+
+        if (response is not null)
+        {
+            Caixas = response;
+            caixasDoDia.Clear();
+
+            foreach (var caixa in Caixas)
+            {
+                var vendaVirtual = await caixaService.GetVendasVirtuaisAsync(caixa.Id);
+                var vendaPresencial = await caixaService.GetVendasPresenciaisAsync(caixa.Id);
+                var vendaTotal = await caixaService.GetTotalVendasAsync(caixa.Id);
+                var saldo = await caixaService.GetSaldoAsync(caixa.Id);
+
+                caixasDoDia.Add(caixa.Id, [vendaPresencial, vendaVirtual, vendaTotal, saldo]);
+            }
+        }
     }
 }
